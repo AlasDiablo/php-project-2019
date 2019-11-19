@@ -50,7 +50,7 @@ foreach ($item as $key => $value) {
 print  '------------------------------------------<br>';
 
 $item_by_id = Item::select('*')->where('id', '=', $_GET['id']);
-foreach ($item as $key => $value) {
+foreach ($item_by_id as $key => $value) {
     print $key . ': <br>';
     print '  id: ' . $value['id'] . '<br>' .
         ' liste_id: ' . $value['liste_id'] . '<br>' .
