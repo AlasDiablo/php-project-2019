@@ -1,0 +1,11 @@
+# idea ide
+.idea
+
+# database configuration
+src/conf/conf.ini
+
+# composer lock
+composer.lock
+
+# composer dependencies
+vendor
