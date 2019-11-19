@@ -49,7 +49,7 @@ foreach ($item as $key => $value) {
 
 print  '------------------------------------------<br>';
 
-$item_by_id = Item::select('*')->where('id', '=', $_GET['id']);
+$item_by_id = Item::where('id', '=', $_GET['id'])->get();
 foreach ($item_by_id as $key => $value) {
     print $key . ': <br>';
     print '  id: ' . $value['id'] . '<br>' .
