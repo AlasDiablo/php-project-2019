@@ -32,7 +32,24 @@ foreach ($list as $key => $value) {
     print  '<br>';
 }
 
+print  '------------------------------------------<br>';
+
 $item = Item::all();
+foreach ($item as $key => $value) {
+    print $key . ': <br>';
+    print '  id: ' . $value['id'] . '<br>' .
+        ' liste_id: ' . $value['liste_id'] . '<br>' .
+        ' nom: ' . $value['nom'] . '<br>' .
+        ' descr: ' . $value['descr'] . '<br>' .
+        ' img: ' . $value['img'] . '<br>' .
+        ' url: ' . $value['url'] . '<br>' .
+        ' tarif: ' . $value['tarif'] . '<br>';
+    print  '<br>';
+}
+
+print  '------------------------------------------<br>';
+
+$item_by_id = Item::select('*')->where('id', '=', $_GET['id']);
 foreach ($item as $key => $value) {
     print $key . ': <br>';
     print '  id: ' . $value['id'] . '<br>' .
