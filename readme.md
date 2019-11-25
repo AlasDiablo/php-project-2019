@@ -2,7 +2,7 @@
 
 ## C'est quoi ?
 
-MyWishList.app et un projet universitaire comosé de :
+MyWishList.app est un projet universitaire composé de :
 + **Pierre Marcolet** *(AlasDiablo)*
 + **Lucas Burté** *(lucasburte)*
 + **Aurélien Rethiers** *(Aurel-11)*
@@ -10,11 +10,11 @@ MyWishList.app et un projet universitaire comosé de :
 
 ## Comment l'installer
 
-1) Clonez le repo git dans un serveur apache avec `PHP-7.0.0` ou supérieur.
+1) Clonez le depôt git dans un serveur apache avec `PHP-7.0.0` ou supérieur.
 
-2) Après ceci faire la commande `composer install` si vous ne l'avez pas, referrez vous a [getcomposer.org](https://getcomposer.org/).
+2) Après ceci faire la commande `composer install`, si vous ne l'avez pas, référez vous à [getcomposer.org](https://getcomposer.org/).
 
-3) Et pour finir l'installation créez un fichier `conf.ini` dans `src/conf/` avec ces données dedans:
+3) Et pour finir l'installation créez un fichier `conf.ini` dans `src/conf/` et y insérez les données suivantes:
     ```ini
     driver=VosDriver
     username=VotreUsername
