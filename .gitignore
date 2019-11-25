@@ -9,3 +9,5 @@ composer.lock
 
 # composer dependencies
 vendor
+
+.DS_Store
