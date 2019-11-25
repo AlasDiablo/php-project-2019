@@ -1,0 +1,19 @@
+@startuml
+
+title Diagramme de sequence - Affiché une liste
+
+participant Index.php as index
+participant ControleurListe as CListe
+participant ModelListe as MListe
+participant VueListe as VListe
+
+-> index: GET "URL"
+index -> CListe: envoie es info demandé par le client
+CListe -> MListe: recupaire les info demandé
+CListe <-- MListe: donnée les donnée demandé
+CListe -> VListe: envoie les donnée traité pour affichage
+CListe <-- VListe: donnée mis en page dans une chaîne de carateré corespondant a de l'html
+index <-- CListe: donnée la page a affiché
+<-- index: envoie la page au client
+
+@enduml
