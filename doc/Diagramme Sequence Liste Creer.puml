@@ -8,10 +8,10 @@ participant ModelListe as MListe
 participant VueListe as VListe
 
 -> index: GET "URL"
-index -> CListe: envoie les infos demandées et donner per le client par le client
-CListe -> MListe: recupère et créer les infos demandées et donner
+index -> CListe: envoie les infos demandées et données par le client 
+CListe -> MListe: recupère et créer les infos
 CListe <-- MListe: envoie les données demandées
-CListe -> VListe: envoie les données traitéess pour affichage
+CListe -> VListe: envoie les données traitées pour affichage
 CListe <-- VListe: données mises en page dans une chaîne de caractère correspondant à l'HTML
 index <-- CListe: donner la page a afficher
 <-- index: envoie la page au client
