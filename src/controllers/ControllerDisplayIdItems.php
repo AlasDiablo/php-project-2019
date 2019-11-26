@@ -2,6 +2,9 @@
 
 namespace mywishlist\controllers;
 
+use mywishlist\models\Item;
+use mywishlist\views\ViewsDisplayIdItems;
+
 class ControllerDisplayIdItems
 {
 
