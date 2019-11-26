@@ -18,10 +18,25 @@ $db->addConnection([
 $db->setAsGlobal();
 $db->bootEloquent();
 
-use \mywishlist\models\Liste as Liste;
-use \mywishlist\models\Item as Item;
+use \Slim\Slim as Slim;
 
-$list = Liste::all();
+$app = new Slim();
+
+$app->get('/list/display/all', function () {
+
+});
+
+$app->get('/item/display/all', function () {
+
+});
+
+$app->get('/item/display/:id', function ($id) {
+
+});
+
+// code a mettre dans des controlleur
+
+/*$list = Liste::all();
 foreach ($list as $key => $value) {
     print $key . ': <br>';
     print '  no: ' . $value['no'] . '<br>' .
@@ -60,4 +75,4 @@ foreach ($item_by_id as $key => $value) {
         ' url: ' . $value['url'] . '<br>' .
         ' tarif: ' . $value['tarif'] . '<br>';
     print  '<br>';
-}
+}*/
