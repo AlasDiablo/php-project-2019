@@ -4,7 +4,7 @@ namespace mywishlist\views;
 
 class ViewsDisplayAllItems
 {
-    static function displayAllitems($list){
+    public static function displayAllitems($list){
         foreach ($list as $key => $value) {
             print $key . ': <br>';
             print '  no: ' . $value['no'] . '<br>' .
