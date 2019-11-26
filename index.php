@@ -19,6 +19,10 @@ $db->setAsGlobal();
 $db->bootEloquent();
 
 use \Slim\Slim as Slim;
+use \mywishlist\controllers\ControllerDisplayIdItems as ControllerDisplayIdItems;
+use \mywishlist\controllers\ControllerDisplayAllItems as ControllerDisplayAllItems;
+use \mywishlist\controllers\ControllerDisplayAllLists as ControllerDisplayAllLists;
+
 
 $app = new Slim();
 
@@ -27,14 +31,21 @@ $app->get('/list/display/all', function () {
 });
 
 $app->get('/item/display/all', function () {
-
+    ControllerDisplayAllItems::displayAllItems();
 });
 
 $app->get('/item/display/:id', function ($id) {
-
+    ControllerDisplayIdItems::getIdItems($id);
 });
 
+$app->run();
+
 // code a mettre dans des controlleur
+
+/*
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [QSA,L]
+ */
 
 /*$list = Liste::all();
 foreach ($list as $key => $value) {
