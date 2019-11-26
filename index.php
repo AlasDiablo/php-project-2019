@@ -24,10 +24,11 @@ use \mywishlist\controllers\ControllerDisplayAllItems as ControllerDisplayAllIte
 use \mywishlist\controllers\ControllerDisplayAllLists as ControllerDisplayAllLists;
 
 
+
 $app = new Slim();
 
 $app->get('/list/display/all', function () {
-
+    ControllerDisplayAllLists::displayAllLists();
 });
 
 $app->get('/item/display/all', function () {
