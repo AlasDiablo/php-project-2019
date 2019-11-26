@@ -38,6 +38,20 @@ $app->get('/item/display/:id', function ($id) {
     ControllerDisplayIdItems::getIdItems($id);
 });
 
+$app->get('/', function() {
+    echo "<!DOCTYPE html>" .
+    "<html lang=\"en\">" .
+    "<head>" .
+        "<meta charset=\"UTF-8\">" .
+        "<title>Title</title>" .
+    "</head>" .
+    "<body>" .
+        "<p><a href=\"index.php/item/display/all\">display all items</a></p>" .
+        "<p><a href=\"index.php/list/display/all\">display all liste</a></p>" .
+    "</body>" .
+"</html>";
+});
+
 $app->run();
 
 // code a mettre dans des controlleur
@@ -87,3 +101,6 @@ foreach ($item_by_id as $key => $value) {
         ' tarif: ' . $value['tarif'] . '<br>';
     print  '<br>';
 }*/
+?>
+
+
