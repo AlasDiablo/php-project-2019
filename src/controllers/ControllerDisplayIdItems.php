@@ -3,7 +3,7 @@
 namespace mywishlist\controllers;
 
 use mywishlist\models\Item;
-use mywishlist\view\ViewsDisplayIdItems;
+use mywishlist\views\ViewsDisplayIdItems;
 
 class ControllerDisplayIdItems
 {
