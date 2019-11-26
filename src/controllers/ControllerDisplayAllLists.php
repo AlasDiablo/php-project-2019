@@ -9,6 +9,6 @@ class ControllerDisplayAllLists
 {
     public static function displayAllLists(){
         $list = Liste::all();
-        ViewsDisplayAllLists.displayAllLists();
+        ViewsDisplayAllLists::displayAllLists($list);
     }
 }
