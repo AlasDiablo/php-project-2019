@@ -40,7 +40,7 @@ END;
 END;
     }
 
-    private function render($type)
+    public function render($type)
     {
         $content = "";
         switch ($type) {
