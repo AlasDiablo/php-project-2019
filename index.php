@@ -18,6 +18,7 @@ $db->addConnection([
 $db->setAsGlobal();
 $db->bootEloquent();
 
+use mywishlist\views\RenderHandler;
 use \Slim\Slim as Slim;
 use \mywishlist\controllers\ControllerDisplayIdItems as ControllerDisplayIdItems;
 use \mywishlist\controllers\ControllerDisplayAllItems as ControllerDisplayAllItems;
@@ -40,17 +41,8 @@ $app->get('/item/display/:id', function ($id) {
 });
 
 $app->get('/', function() {
-    echo "<!DOCTYPE html>" .
-    "<html lang=\"en\">" .
-    "<head>" .
-        "<meta charset=\"UTF-8\">" .
-        "<title>Title</title>" .
-    "</head>" .
-    "<body>" .
-        "<p><a href=\"index.php/item/display/all\">display all items</a></p>" .
-        "<p><a href=\"index.php/list/display/all\">display all liste</a></p>" .
-    "</body>" .
-"</html>";
+    $render = new RenderHandler(RenderHandler::ROOT);
+    $render->render();
 });
 
 $app->run();
