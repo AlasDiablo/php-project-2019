@@ -14,4 +14,9 @@ class ControllerUser
         $render = new ViewUserRegister(Registries::REGISTER);
         echo $render->render();
     }
+
+    public static function regsiter_post()
+    {
+
+    }
 }
