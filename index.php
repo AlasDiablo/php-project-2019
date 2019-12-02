@@ -7,6 +7,7 @@ require_once './vendor/autoload.php';
 use \mywishlist\controllers\ControllerDisplayIdItems;
 use \mywishlist\controllers\ControllerDisplayAllItems;
 use \mywishlist\controllers\ControllerDisplayAllLists;
+use \mywishlist\controllers\ControllerUser;
 use \Illuminate\Database\Capsule\Manager as DB;
 use \Slim\Slim as Slim;
 use \mywishlist\views\RenderHandler;
@@ -44,8 +45,8 @@ $router->get(Registries::ROOT_PATH, function() {
     $render->render();
 })->name(Registries::ROOT);
 
-$router->get(Registries::REGSITER_PATH, function () {
-    
+$router->get(Registries::REGISTER_PATH, function () {
+    ControllerUser::register();
 })->name(Registries::REGISTER);
 
 

@@ -10,7 +10,7 @@ class Registries
 
     // chemien et nom de l'incription
     const REGISTER = 'REGISTER';
-    const REGSITER_PATH = '/user/regsiter';
+    const REGISTER_PATH = '/user/register';
 
     // chemien et nom de login
     const LOGIN = 'LOGIN';

@@ -4,10 +4,14 @@
 namespace mywishlist\controllers;
 
 
+use mywishlist\utils\Registries;
+use mywishlist\views\ViewUserRegister;
+
 class ControllerUser
 {
-    public function register()
+    public static function register()
     {
-
+        $render = new ViewUserRegister(Registries::REGISTER);
+        echo $render->render();
     }
 }
