@@ -27,9 +27,9 @@ class RenderHandler
 
         $html = <<<END
 <!DOCTYPE html>
-    <html lang=\"en\">
+<html lang="fr">
     <head>
-        <meta charset=\"UTF-8\">
+        <meta charset="UTF-8">
         <title>Title</title>
     </head>
     <body>
