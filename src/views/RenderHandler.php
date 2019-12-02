@@ -4,11 +4,10 @@
 namespace mywishlist\views;
 
 
+use mywishlist\utils\Registries;
+
 class RenderHandler
 {
-
-    const ROOT = "ROOT";
-
     private $code;
 
     function __construct($code)
@@ -21,7 +20,7 @@ class RenderHandler
         $content = "";
         switch ($this->code)
         {
-            case "ROOT":
+            case Registries::ROOT:
                 $content = $this->getMenu();
         }
 
