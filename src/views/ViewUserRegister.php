@@ -43,7 +43,7 @@ END;
     private function register()
     {
         return <<<END
-<form action="./register" method="post">
+<form action="register/post" method="post">
     <p>Votre email : <input type="email" name="email" /></p>
     <p>Votre mot de passe : <input type="password" name="password" /></p>
     <p><input type="submit" value="OK"></p>
