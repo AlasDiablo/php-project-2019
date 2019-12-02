@@ -15,7 +15,7 @@ class ControllerUser
         echo $render->render();
     }
 
-    public static function regsiter_post()
+    public static function register_post()
     {
 
     }

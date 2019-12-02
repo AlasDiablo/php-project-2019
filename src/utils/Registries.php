@@ -17,4 +17,7 @@ class Registries
     // chemien et nom de login
     const LOGIN = 'LOGIN';
     const LOGIN_PATH = '/user/login';
+
+    const PRINT_ALL_LIST = "PRINT_ALL_LIST";
+    const PRINT_ALL_LIST_PATH = "/list/display/all";
 }

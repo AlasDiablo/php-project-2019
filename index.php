@@ -7,6 +7,7 @@ require_once './vendor/autoload.php';
 use \mywishlist\controllers\ControllerDisplayIdItems;
 use \mywishlist\controllers\ControllerDisplayAllItems;
 use \mywishlist\controllers\ControllerDisplayAllLists;
+use \mywishlist\controllers\ControllerParticipation;
 use \mywishlist\controllers\ControllerUser;
 use \Illuminate\Database\Capsule\Manager as DB;
 use \Slim\Slim as Slim;
@@ -49,6 +50,9 @@ $router->get(Registries::REGISTER_PATH, function () {
     ControllerUser::register();
 })->name(Registries::REGISTER);
 
+$router->get(Registries::PRINT_ALL_LIST_PATH, function () {
+    ControllerParticipation::affichageListe();
+})->name(Registries::PRINT_ALL_LIST);
 
 // > route qui peuve changé
 $router->get('/list/display/all', function () {
