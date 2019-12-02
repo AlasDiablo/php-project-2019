@@ -5,7 +5,7 @@ namespace mywishlist\controllers;
 use mywishlist\utils\Registries;
 use mywishlist\views\ViewParticipation;
 
-class ControllerUser
+class ControllerParticipation
 {
     public function affichageListe()
     {

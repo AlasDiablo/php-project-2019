@@ -14,7 +14,7 @@ class ViewParticipation
     private function drawListeSouhaits()
     {
         $str = "<section>";
-        foreach ($tab as $key => $value) {
+        foreach ($this->tab as $key => $value) {
             $str +=
 <<<END
 <p>$key : $value</p>
