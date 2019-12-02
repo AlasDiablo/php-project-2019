@@ -1,9 +1,9 @@
 <?php
 
-// Import de la class qui a pour but de chargé tous les import du projet
+// Import de la class qui a pour but de charger tous les imports du projet
 require_once './vendor/autoload.php';
 
-// Liste des tous les import
+// Liste des tous les imports
 use \mywishlist\controllers\ControllerDisplayIdItems;
 use \mywishlist\controllers\ControllerDisplayAllItems;
 use \mywishlist\controllers\ControllerDisplayAllLists;
@@ -12,13 +12,13 @@ use \Slim\Slim as Slim;
 use \mywishlist\views\RenderHandler;
 use \mywishlist\utils\Registries;
 
-// information de connection a la base de donnée
+// Informations de connexion a la base de données
 $ini_file = parse_ini_file('src/conf/conf.ini');
 
-// instance a la base de donnée
+// instance de la base de données
 $db = new DB();
 
-// ajour des information pour se connecté a la base de donnée
+// ajout des informations pour se connecter à la base de données
 $db->addConnection([
     'driver'    => $ini_file['driver'],
     'host'      => $ini_file['host'],
@@ -35,7 +35,7 @@ $db->setAsGlobal();
 $db->bootEloquent();
 
 
-// intance de slim qui a pour but de faire le rootage de des url
+// intance de slim qui a pour but de créer le rootage des urls
 $app = new Slim();
 
 // route de la racine
@@ -56,7 +56,7 @@ $app->get('/item/display/:id', function ($id) {
     ControllerDisplayIdItems::getIdItems($id);
 });
 
-// demarage du routage des url
+// démarrage du routage des urls
 $app->run();
 
 
