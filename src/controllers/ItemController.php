@@ -5,16 +5,17 @@ namespace mywishlist\controllers;
 
 
 use mywishlist\models\Item;
-use mywishlist\views\ViewsDisplayAllItems;
-use mywishlist\views\ViewsDisplayIdItems;
+use mywishlist\utils\Registries;
+use mywishlist\views\RenderHandler;
 
 class ItemController
 {
 
-    private static function displayAllItems()
+    public static function displayAllItems()
     {
         $item = Item::all();
-        ViewsDisplayAllItems::displayAllItems($item);
+        $r = new RenderHandler(Registries::ITEMALL, $item);
+        $r->render();
     }
 
     public static function getIdItems($id) {

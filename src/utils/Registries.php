@@ -27,5 +27,6 @@ class Registries
     const PARTICIPATION = 'PARTICIPATION';
     const USER = 'USER';
     const LISTALL = 'LISTALL';
+    const ITEMALL = 'ITEMALL';
 
 }

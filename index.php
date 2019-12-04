@@ -4,6 +4,7 @@
 require_once './vendor/autoload.php';
 
 // Liste des tous les imports
+use mywishlist\controllers\ItemController;
 use \mywishlist\controllers\ListController;
 use \mywishlist\controllers\ControllerParticipation;
 use \mywishlist\controllers\UserController;
@@ -51,10 +52,7 @@ $router->get('/list/display/all', function () {
     ListController::displayAllLists();
 });
 $router->get('/item/display/all', function () {
-    ControllerDisplayAllItems::displayAllItems();
-});
-$router->get('/item/display/:id', function ($id) {
-    ControllerDisplayIdItems::getIdItems($id);
+    ItemController::displayAllItems();
 });
 
 

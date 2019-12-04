@@ -30,6 +30,7 @@ class RenderHandler
                 $obj = new UserView();
                 $content = $obj->render($this->code, $this->object);
                 break;
+            case Registries::ITEMALL:
             case Registries::ITEM:
                 $obj = new ItemView();
                 $content = $obj->render($this->code, $this->object);

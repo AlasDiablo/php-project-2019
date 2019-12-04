@@ -4,24 +4,33 @@
 namespace mywishlist\views;
 
 
+use mywishlist\utils\Registries;
+
 class ItemView implements IView
 {
 
-    public function render($code, $data_set): string
+    public function render($code, $data_set): array
     {
-        // TODO: Implement render() method.
+        if ($code == Registries::ITEMALL) {
+            return array(
+                'css' => '',
+                'html' => $this->displayAllitems($data_set)
+            );
+        }
     }
 
     private function displayAllitems($list){
+        $str = '';
         foreach ($list as $key => $value) {
-            print $key . ': <br>';
-            print '  no: ' . $value['no'] . '<br>' .
+            $str .= $key . ': <br>';
+            $str .= '  no: ' . $value['no'] . '<br>' .
                 ' user_id: ' . $value['titre'] . '<br>' .
                 ' description: ' . $value['description'] . '<br>' .
                 ' expiration: ' . $value['expiration'] . '<br>' .
                 ' token: ' . $value['token'] . '<br>';
-            print  '<br>';
+            $str .=  '<br>';
         }
+        return $str;
     }
 
     private function getIdItems($item_by_id) {
