@@ -44,29 +44,22 @@ class RenderHandler
                 break;
         }
 
+        $donnee_html = $content['html'];
+        $donnee_css = $content['css'];
 
         $html = <<<END
 <!DOCTYPE html>
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
+        $donnee_css
         <title>Title</title>
     </head>
     <body>
-        $content
+    $donnee_html
     </body> 
 </html>
 END;
         echo $html;
-    }
-
-
-    private function getMenu()
-    {
-        $html = <<<END
-<p><a href="index.php/item/display/all">display all items</a></p>
-<p><a href="index.php/list/display/all">display all liste</a></p>
-END;
-        return $html;
     }
 }

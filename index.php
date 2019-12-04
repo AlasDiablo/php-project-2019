@@ -40,33 +40,15 @@ $db->bootEloquent();
 // intance de slim qui a pour but de créer le rootage des urls
 $router = new Slim();
 
+
+
 // route de la racine
 $router->get(Registries::ROOT_PATH, function() {
     $render = new RenderHandler(Registries::ROOT);
     $render->render();
 })->name(Registries::ROOT);
 
-$router->get(Registries::REGISTER_PATH, function () {
-    UserController::register();
-})->name(Registries::REGISTER);
 
-$router->get(Registries::PRINT_ALL_LIST_PATH, function () {
-    ControllerParticipation::affichageListe();
-})->name(Registries::PRINT_ALL_LIST);
-
-// > route qui peuve changé
-$router->get('/list/display/all', function () {
-    ControllerDisplayAllLists::displayAllLists();
-});
-
-$router->get('/item/display/all', function () {
-    ControllerDisplayAllItems::displayAllItems();
-});
-
-$router->get('/item/display/:id', function ($id) {
-    ControllerDisplayIdItems::getIdItems($id);
-});
-// fin > route qui peuve changé
 
 
 
