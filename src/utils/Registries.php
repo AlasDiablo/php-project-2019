@@ -25,5 +25,6 @@ class Registries
     const LIST = 'LIST';
     const MESSAGE = 'MESSAGE';
     const PARTICIPATION = 'PARTICIPATION';
+    const USER = 'USER';
 
 }

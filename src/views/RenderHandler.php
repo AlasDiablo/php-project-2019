@@ -23,6 +23,10 @@ class RenderHandler
         switch ($this->code)
         {
             case Registries::ROOT:
+                $obj = new RootView();
+                $content = $obj->render($this->code, $this->object);
+                break;
+            case Registries::USER:
                 $obj = new UserView();
                 $content = $obj->render($this->code, $this->object);
                 break;
@@ -56,7 +60,7 @@ class RenderHandler
         <title>Title</title>
     </head>
     <body>
-    $donnee_html
+        $donnee_html
     </body> 
 </html>
 END;

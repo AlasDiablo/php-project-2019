@@ -44,7 +44,7 @@ $router = new Slim();
 
 // route de la racine
 $router->get(Registries::ROOT_PATH, function() {
-    $render = new RenderHandler(Registries::ROOT);
+    $render = new RenderHandler(Registries::ROOT, null);
     $render->render();
 })->name(Registries::ROOT);
 
