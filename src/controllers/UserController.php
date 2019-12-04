@@ -7,7 +7,7 @@ namespace mywishlist\controllers;
 use mywishlist\utils\Registries;
 use mywishlist\views\ViewUserRegister;
 
-class ControllerUser
+class UserController
 {
     public static function register()
     {

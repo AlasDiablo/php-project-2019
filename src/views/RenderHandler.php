@@ -9,10 +9,12 @@ use mywishlist\utils\Registries;
 class RenderHandler
 {
     private $code;
+    private $object;
 
-    function __construct($code)
+    function __construct($code, $object)
     {
         $this->code = $code;
+        $this->object = $object;
     }
 
     public function render()
@@ -21,7 +23,25 @@ class RenderHandler
         switch ($this->code)
         {
             case Registries::ROOT:
-                $content = $this->getMenu();
+                $obj = new UserView();
+                $content = $obj->render($this->code, $this->object);
+                break;
+            case Registries::ITEM:
+                $obj = new ItemView();
+                $content = $obj->render($this->code, $this->object);
+                break;
+            case Registries::LIST:
+                $obj = new ListView();
+                $content = $obj->render($this->code, $this->object);
+                break;
+            case Registries::MESSAGE:
+                $obj = new MessageView();
+                $content = $obj->render($this->code, $this->object);
+                break;
+            case Registries::PARTICIPATION:
+                $obj = new ParticipationView();
+                $content = $obj->render($this->code, $this->object);
+                break;
         }
 
 

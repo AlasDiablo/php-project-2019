@@ -1,16 +1,18 @@
 <?php
 
+
 namespace mywishlist\controllers;
 
-use mywishlist\utils\Registries;
-use mywishlist\views\ViewParticipation;
 
-class ControllerParticipation
+use mywishlist\models\Liste;
+use mywishlist\views\ParticipationView;
+
+class Participation
 {
     public static function affichageListe()
     {
         $list = Liste::all();
-        $render = new ViewParticipation($list);
+        $render = new ParticipationView($list);
         echo $render->render(1);
     }
 }

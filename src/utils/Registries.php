@@ -20,4 +20,10 @@ class Registries
 
     const PRINT_ALL_LIST = "PRINT_ALL_LIST";
     const PRINT_ALL_LIST_PATH = "/list/display/all";
+
+    const ITEM = 'ITEM';
+    const LIST = 'LIST';
+    const MESSAGE = 'MESSAGE';
+    const PARTICIPATION = 'PARTICIPATION';
+
 }
