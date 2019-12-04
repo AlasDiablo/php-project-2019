@@ -7,7 +7,7 @@ use mywishlist\views\ViewParticipation;
 
 class ControllerParticipation
 {
-    public function affichageListe()
+    public static function affichageListe()
     {
         $list = Liste::all();
         $render = new ViewParticipation($list);
