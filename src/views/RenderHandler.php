@@ -34,6 +34,7 @@ class RenderHandler
                 $obj = new ItemView();
                 $content = $obj->render($this->code, $this->object);
                 break;
+            case Registries::LISTALL:
             case Registries::LIST:
                 $obj = new ListView();
                 $content = $obj->render($this->code, $this->object);

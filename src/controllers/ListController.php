@@ -5,14 +5,18 @@ namespace mywishlist\controllers;
 
 
 use mywishlist\models\Liste;
+use mywishlist\utils\Registries;
 use mywishlist\views\ParticipationView;
-use mywishlist\views\ViewsDisplayAllLists;
+use mywishlist\views\ListView;
+use mywishlist\views\RenderHandler;
 
 class ListController
 {
 
     public static function displayAllLists(){
+
         $list = Liste::all();
-        ViewsDisplayAllLists::displayAllLists($list);
+        $r = new RenderHandler(Registries::LISTALL, $list);
+        $r->render();
     }
 }

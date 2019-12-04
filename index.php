@@ -4,9 +4,7 @@
 require_once './vendor/autoload.php';
 
 // Liste des tous les imports
-use \mywishlist\controllers\ControllerDisplayIdItems;
-use \mywishlist\controllers\ControllerDisplayAllItems;
-use \mywishlist\controllers\ControllerDisplayAllLists;
+use \mywishlist\controllers\ListController;
 use \mywishlist\controllers\ControllerParticipation;
 use \mywishlist\controllers\UserController;
 use \Illuminate\Database\Capsule\Manager as DB;
@@ -49,7 +47,15 @@ $router->get(Registries::ROOT_PATH, function() {
 })->name(Registries::ROOT);
 
 
-
+$router->get('/list/display/all', function () {
+    ListController::displayAllLists();
+});
+$router->get('/item/display/all', function () {
+    ControllerDisplayAllItems::displayAllItems();
+});
+$router->get('/item/display/:id', function ($id) {
+    ControllerDisplayIdItems::getIdItems($id);
+});
 
 
 // démarrage du routage des urls
