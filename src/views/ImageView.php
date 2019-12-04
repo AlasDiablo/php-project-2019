@@ -4,7 +4,7 @@
 namespace mywishlist\views;
 
 
-class MessageView implements IView
+class ImageView implements IView
 {
 
     public function render($code, $data_set): array
