@@ -11,15 +11,15 @@ use mywishlist\utils\Registries;
 
 class ParticipationController
 {
-    public static function displayAllLists(){
-
+    public static function displayAllLists()
+    {
         $list = Liste::all();
         $r = new RenderHandler(Registries::LISTALL, $list);
         $r->render();
     }
 
-    public static function displayList($id){
-
+    public static function displayList($id)
+    {
         $list = Liste::select('no', 'user_id', 'titre', 'description', 'expiration', 'token')->where('no', 'like', $id)->get();
         $r = new RenderHandler(Registries::LISTONLY, $list);
         $r->render();
@@ -32,10 +32,10 @@ class ParticipationController
         $r->render();
     }
 
-    public static function displayItem($id){
-
-        $list = Liste::select('id', 'liste_id', 'nom', 'descr', 'img', 'url', 'tarif')->where('id', 'like', $id)->get();
-        $r = new RenderHandler(Registries::ITEMONLY, $list);
+    public static function displayItem($id)
+    {
+        $item = Item::select('id', 'liste_id', 'nom', 'descr', 'img', 'url', 'tarif')->where('id', 'like', $id)->get();
+        $r = new RenderHandler(Registries::ITEMONLY, $item);
         $r->render();
     }
 }
