@@ -18,16 +18,16 @@ class Registries
     const LOGIN = 'LOGIN';
     const LOGIN_PATH = '/user/login';
 
-    const PRINT_ALL_LIST = "PRINT_ALL_LIST";
-    const PRINT_ALL_LIST_PATH = "/list/display/all";
-
     const ITEM = 'ITEM';
     const LIST = 'LIST';
     const MESSAGE = 'MESSAGE';
     const PARTICIPATION = 'PARTICIPATION';
     const USER = 'USER';
+    const REGISTER_POST_FAILED = 'REGISTER_POST_FAILED';
+
     const LISTALL = 'LISTALL';
     const ITEMALL = 'ITEMALL';
-    const REGISTER_POST_FAILED = 'REGISTER_POST_FAILED';
+    const LISTONLY = 'LISTONLY';
+    const ITEMONLY = 'ITEMONLY';
 
 }

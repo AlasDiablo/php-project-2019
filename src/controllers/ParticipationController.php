@@ -18,10 +18,24 @@ class ParticipationController
         $r->render();
     }
 
+    public static function displayList($id){
+
+        $list = Liste::select('no', 'user_id', 'titre', 'description', 'expiration', 'token')->where('no', 'like', $id)->get();
+        $r = new RenderHandler(Registries::LISTONLY, $list);
+        $r->render();
+    }
+
     public static function displayAllItems()
     {
         $item = Item::all();
         $r = new RenderHandler(Registries::ITEMALL, $item);
+        $r->render();
+    }
+
+    public static function displayItem($id){
+
+        $list = Liste::select('id', 'liste_id', 'nom', 'descr', 'img', 'url', 'tarif')->where('id', 'like', $id)->get();
+        $r = new RenderHandler(Registries::ITEMONLY, $list);
         $r->render();
     }
 }

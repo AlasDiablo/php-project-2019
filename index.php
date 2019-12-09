@@ -52,6 +52,12 @@ $router->get('/list/display/all', function () {
 $router->get('/item/display/all', function () {
     ParticipationController::displayAllItems();
 });
+$router->get('/list/display/:id', function ($id) {
+    ParticipationController::displayList($id);
+});
+$router->get('/item/display/:id', function ($id) {
+    ParticipationController::displayList($id);
+});
 
 $router->get(Registries::REGISTER_PATH, function () {
     UserController::register();

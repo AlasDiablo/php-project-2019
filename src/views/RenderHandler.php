@@ -50,6 +50,8 @@ class RenderHandler
                 break;
             case Registries::LISTALL:
             case Registries::ITEMALL:
+            case Registries::LISTONLY:
+            case Registries::ITEMONLY:
             case Registries::PARTICIPATION:
                 $obj = new ParticipationView();
                 $content = $obj->render($this->code, $this->object);
