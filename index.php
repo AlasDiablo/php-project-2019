@@ -63,7 +63,7 @@ $router->get(Registries::REGISTER_PATH, function () {
     UserController::register();
 })->name(Registries::REGISTER);
 
-$router->get(Registries::REGISTER_POST_PATH, function () {
+$router->post(Registries::REGISTER_POST_PATH, function () {
     UserController::register_post();
 })->name(Registries::REGISTER_POST);
 
