@@ -7,7 +7,7 @@ namespace mywishlist\views;
 class ParticipationView implements IView
 {
 
-    public function render($code, $data_set): string
+    public function render($code, $data_set): array
     {
         // TODO: Implement render() method.
     }
