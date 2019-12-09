@@ -13,10 +13,4 @@ use mywishlist\views\RenderHandler;
 class ListController
 {
 
-    public static function displayAllLists(){
-
-        $list = Liste::all();
-        $r = new RenderHandler(Registries::LISTALL, $list);
-        $r->render();
-    }
 }
