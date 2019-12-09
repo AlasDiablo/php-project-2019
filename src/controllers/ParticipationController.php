@@ -9,7 +9,7 @@ use mywishlist\models\Item;
 use mywishlist\views\RenderHandler;
 use mywishlist\utils\Registries;
 
-class Participation
+class ParticipationController
 {
     public static function displayAllLists(){
 
