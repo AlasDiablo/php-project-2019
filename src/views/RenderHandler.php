@@ -57,8 +57,18 @@ class RenderHandler
         }
 
         $donnee_html = $content['html'];
-        $donnee_css = $content['css'];
-        $titre = $content['title'];
+
+        if (isset($content['css'])) {
+            $donnee_css = $content['css'];
+        } else {
+            $donnee_css = '';
+        }
+
+        if (isset($content['title'])) {
+            $titre = ' - ' . $content['title'];
+        } else {
+            $titre = '';
+        }
 
         $html = <<<END
 <!DOCTYPE html>
@@ -66,7 +76,7 @@ class RenderHandler
     <head>
         <meta charset="UTF-8">
         $donnee_css
-        <title>MyWishList - $titre</title>
+        <title>MyWishList$titre</title>
     </head>
     <body>
         $donnee_html
