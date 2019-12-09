@@ -52,11 +52,20 @@ $router->get('/list/display/all', function () {
 $router->get('/item/display/all', function () {
     ParticipationController::displayAllItems();
 });
+$router->get('/list/display/:id', function ($id) {
+    ParticipationController::displayList($id);
+});
+$router->get('/item/display/:id', function ($id) {
+    ParticipationController::displayItem($id);
+});
 
 $router->get(Registries::REGISTER_PATH, function () {
     UserController::register();
 })->name(Registries::REGISTER);
 
+$router->post(Registries::REGISTER_POST_PATH, function () {
+    UserController::register_post();
+})->name(Registries::REGISTER_POST);
 
 // démarrage du routage des urls
 $router->run();

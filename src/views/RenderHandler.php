@@ -13,10 +13,10 @@ class RenderHandler
 
     /**
      * RenderHandler constructor.
-     * @param $code code corespondant a l'action / page a affiché
-     * @param $object objet corespondant a un objet qui doit etre affiché dans la view(c'est juste une class qui contient des donnée)
+     * @param string $code code corespondant a l'action / page a affiché
+     * @param object $object objet corespondant a un objet qui doit etre affiché dans la view(c'est juste une class qui contient des donnée)
      */
-    function __construct($code, $object)
+    function __construct(string $code, $object)
     {
         $this->code = $code;
         $this->object = $object;
@@ -50,6 +50,8 @@ class RenderHandler
                 break;
             case Registries::LISTALL:
             case Registries::ITEMALL:
+            case Registries::LISTONLY:
+            case Registries::ITEMONLY:
             case Registries::PARTICIPATION:
                 $obj = new ParticipationView();
                 $content = $obj->render($this->code, $this->object);

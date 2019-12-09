@@ -9,7 +9,7 @@ use mywishlist\utils\Registries;
 class UserView implements IView
 {
 
-    public function render($code, $data_set): array
+    public function render(string $code, $data_set): array
     {
         switch ($code)
         {
@@ -23,12 +23,17 @@ class UserView implements IView
     private function registerFrom(): array
     {
         $html = <<<END
-<form id="register" method="post" action="">
-    <input type="text" name="username">
-    <input type="email" name="email">
-    <input type="email" name="email-confirm">
-    <input type="password" name="password">
-    <input type="password" name="password-confirm">
+<form id="register" method="post" action="post">
+    <label>Nom d'utilisateur</label>
+    <input type="text" name="username" required>
+    <label>Email</label>
+    <input type="email" name="email" required>
+    <label>Confirmé l'email</label>
+    <input type="email" name="email-confirm" required>
+    <label>Mot de passe</label>
+    <input type="password" name="password" required>
+    <label>Cofirmé le mot de passe</label>
+    <input type="password" name="password-confirm" required>
     <button type="submit" name="submit" value="doRegister">Créer mon compte</button>
 </form>
 END;
