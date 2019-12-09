@@ -13,19 +13,22 @@ class ParticipationView implements IView
             case Registries::LISTALL:
                 return array(
                     'css' => '',
-                    'html' => $this->displayAllLists($data_set)
+                    'html' => $this->displayAllLists($data_set),
+                    'title' => "All lists"
                 );
                 break;
             case Registries::ITEMALL:
                 return array(
                     'css' => '',
-                    'html' => $this->displayAllItems($data_set)
+                    'html' => $this->displayAllItems($data_set),
+                    'title' => "All items"
                 );
                 break;
             default:
                 return array(
                     'css' => '',
-                    'html' => "<p>404</p>"
+                    'html' => "<p>404</p>",
+                    'title' => "error"
                 );
                 break;
         }
