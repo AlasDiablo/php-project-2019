@@ -28,5 +28,6 @@ class Registries
     const USER = 'USER';
     const LISTALL = 'LISTALL';
     const ITEMALL = 'ITEMALL';
+    const REGISTER_POST_FAILED = 'REGISTER_POST_FAILED';
 
 }
