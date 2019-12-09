@@ -36,12 +36,10 @@ class RenderHandler
                 $obj = new UserView();
                 $content = $obj->render($this->code, $this->object);
                 break;
-            case Registries::ITEMALL:
             case Registries::ITEM:
                 $obj = new ItemView();
                 $content = $obj->render($this->code, $this->object);
                 break;
-            case Registries::LISTALL:
             case Registries::LIST:
                 $obj = new ListView();
                 $content = $obj->render($this->code, $this->object);
@@ -50,6 +48,8 @@ class RenderHandler
                 $obj = new MessageView();
                 $content = $obj->render($this->code, $this->object);
                 break;
+            case Registries::LISTALL:
+            case Registries::ITEMALL:
             case Registries::PARTICIPATION:
                 $obj = new ParticipationView();
                 $content = $obj->render($this->code, $this->object);
