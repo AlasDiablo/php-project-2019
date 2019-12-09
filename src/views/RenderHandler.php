@@ -11,6 +11,11 @@ class RenderHandler
     private $code;
     private $object;
 
+    /**
+     * RenderHandler constructor.
+     * @param $code code corespondant a l'action / page a affiché
+     * @param $object objet corespondant a un objet qui doit etre affiché dans la view(c'est juste une class qui contient des donnée)
+     */
     function __construct($code, $object)
     {
         $this->code = $code;
@@ -52,6 +57,7 @@ class RenderHandler
 
         $donnee_html = $content['html'];
         $donnee_css = $content['css'];
+        $titre = $content['title'];
 
         $html = <<<END
 <!DOCTYPE html>
@@ -59,7 +65,7 @@ class RenderHandler
     <head>
         <meta charset="UTF-8">
         $donnee_css
-        <title>Title</title>
+        <title>MyWishList - $titre</title>
     </head>
     <body>
         $donnee_html
