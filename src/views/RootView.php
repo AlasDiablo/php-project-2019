@@ -15,7 +15,8 @@ class RootView implements IView
 End;
         return array(
            'css' => '',
-           'html' => $html
+           'html' => $html,
+           'title' => 'Acceuil'
         );
     }
 }
