@@ -56,7 +56,7 @@ $router->get('/list/display/:id', function ($id) {
     ParticipationController::displayList($id);
 });
 $router->get('/item/display/:id', function ($id) {
-    ParticipationController::displayList($id);
+    ParticipationController::displayItem($id);
 });
 
 $router->get(Registries::REGISTER_PATH, function () {
