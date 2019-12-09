@@ -4,9 +4,7 @@
 require_once './vendor/autoload.php';
 
 // Liste des tous les imports
-use mywishlist\controllers\ItemController;
-use \mywishlist\controllers\ListController;
-use \mywishlist\controllers\ControllerParticipation;
+use mywishlist\controllers\ParticipationController;
 use \mywishlist\controllers\UserController;
 use \Illuminate\Database\Capsule\Manager as DB;
 use \Slim\Slim as Slim;
@@ -49,11 +47,15 @@ $router->get(Registries::ROOT_PATH, function() {
 
 
 $router->get('/list/display/all', function () {
-    ListController::displayAllLists();
+    ParticipationController::displayAllLists();
 });
 $router->get('/item/display/all', function () {
-    ItemController::displayAllItems();
+    ParticipationController::displayAllItems();
 });
+
+$router->get(Registries::REGISTER_PATH, function () {
+    UserController::register();
+})->name(Registries::REGISTER);
 
 
 // démarrage du routage des urls
