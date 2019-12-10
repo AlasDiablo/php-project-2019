@@ -12,5 +12,8 @@ use mywishlist\views\RenderHandler;
 
 class ListController
 {
-
+    public static function formCreateList(){
+        $r = new RenderHandler(Registries::FORMCREATELIST,null);
+        $r->render();
+    }
 }
