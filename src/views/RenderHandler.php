@@ -32,6 +32,10 @@ class RenderHandler
                 $content = $obj->render($this->code, $this->object);
                 break;
             case Registries::REGISTER_POST:
+            case Registries::REGISTER_POST_USER_OR_EMAIL_EXSITE:
+            case Registries::REGISTER_POST_PASSWORD_FAILED:
+            case Registries::REGISTER_POST_EMAIL_FAILED:
+            case Registries::REGISTER_POST_FAILED:
             case Registries::REGISTER:
             case Registries::USER:
                 $obj = new UserView();

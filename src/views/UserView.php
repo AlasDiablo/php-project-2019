@@ -19,6 +19,18 @@ class UserView implements IView
             case Registries::REGISTER_POST:
                 return array('html' => 'you are register');
                 break;
+            case Registries::REGISTER_POST_FAILED:
+                return array('html' => 'Probléme dans la recuperation des donnée saisi');
+                break;
+            case Registries::REGISTER_POST_EMAIL_FAILED:
+                return array('html' => 'L\'email donnée est invalide');
+                break;
+            case Registries::REGISTER_POST_PASSWORD_FAILED:
+                return array('html' => 'Le mot de passe donnée est invalide');
+                break;
+            case Registries::REGISTER_POST_USER_OR_EMAIL_EXSITE:
+                return array('html' => 'l\'email et/ou l\'utilisateur exsite deja');
+                break;
         }
     }
 
