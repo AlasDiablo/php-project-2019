@@ -31,6 +31,7 @@ class RenderHandler
                 $obj = new RootView();
                 $content = $obj->render($this->code, $this->object);
                 break;
+            case Registries::REGISTER_POST:
             case Registries::REGISTER:
             case Registries::USER:
                 $obj = new UserView();

@@ -4,6 +4,7 @@
 namespace mywishlist\controllers;
 
 
+use mywishlist\models\User;
 use mywishlist\utils\Registries;
 use mywishlist\views\RenderHandler;
 use Slim\Slim;
@@ -68,13 +69,41 @@ class UserController
             }
 
 
+            if (self::checkIfEmailExsite($user_data['email']) && self::checkIfUsernameExsite($user_data['username'])) {
+                $user = new User();
+                $user->email = $user_data['email'];
+                $user->username = $user_data['username'];
+                $user->password_hash = password_hash($user_data['password'], PASSWORD_DEFAULT);
+                $user->save();
+            }
 
             // TODO ajout la creation du compte + creation d'un session et/ou cookie.
 
+            $render = new RenderHandler(Registries::REGISTER_POST, null);
+            $render->render();
 
 
         }
     }
+
+    private static function checkIfEmailExsite($email) {
+        $value = User::where('email', '=', $email)->get();
+        if (isset($value)) {
+            return count($value) == 0;
+        } else {
+            return true;
+        }
+    }
+
+    private static function checkIfUsernameExsite($username) {
+        $value = User::where('username', '=', $username)->get();
+        if (isset($value)) {
+            return count($value) == 0;
+        } else {
+            return true;
+        }
+    }
+
     private static function post_failed()
     {
         $render = new RenderHandler(Registries::REGISTER_POST_FAILED, null);

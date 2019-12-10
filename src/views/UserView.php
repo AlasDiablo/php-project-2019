@@ -16,6 +16,9 @@ class UserView implements IView
             case Registries::REGISTER:
                 return $this->registerFrom();
                 break;
+            case Registries::REGISTER_POST:
+                return array('html' => 'you are register');
+                break;
         }
     }
 
@@ -23,7 +26,7 @@ class UserView implements IView
     private function registerFrom(): array
     {
         $html = <<<END
-<form id="register" method="post" action="post">
+<form id="register" method="post" action="register/post">
     <label>Nom d'utilisateur</label>
     <input type="text" name="username" required>
     <label>Email</label>
