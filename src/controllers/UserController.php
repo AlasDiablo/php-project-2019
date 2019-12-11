@@ -113,6 +113,7 @@ class UserController
                 $user->email = $user_data['email'];
                 $user->username = $user_data['username'];
                 $user->password_hash = password_hash($user_data['password'], PASSWORD_DEFAULT);
+                $user->user_level = 1;
                 $user->save();
             } else {
                 self::post_failed_user_or_email_exsite();

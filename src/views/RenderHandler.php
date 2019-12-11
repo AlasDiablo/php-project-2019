@@ -82,7 +82,7 @@ class RenderHandler
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="template/template.css">
+    <link rel="stylesheet" type="text/css" href="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/css/default.css">
     $donnee_css
     <title>MyWishList$titre</title>
 </head>

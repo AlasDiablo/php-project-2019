@@ -1,7 +1,8 @@
 create table user (
     username varchar(256),
     password_hash varchar(256),
-    email varchar(256)
+    email varchar(256),
+    user_level int(1)
 );
 
 alter table user
