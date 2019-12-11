@@ -105,4 +105,16 @@ class ParticipationView implements IView
         }
         return $str;
     }
+
+    public static function reserveItem($item)
+    {
+<<<END
+<form action="/item/reserve/submit/:$item" method="POST"
+Item: $item
+Nom:<br>
+<input type="text" name="nom_reserve_item">
+<input type="submit" name="valider">
+/form>
+END;
+    }
 }
