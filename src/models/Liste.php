@@ -10,4 +10,8 @@ class Liste extends \Illuminate\Database\Eloquent\Model {
     public function no() {
         return $this->belongsTo('\models\Item', 'liste_id')->first();
     }
+
+    public function messages() {
+        return $this->hasMany('\models\Message', 'list_id');
+    }
 }
