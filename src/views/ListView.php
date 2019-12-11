@@ -15,7 +15,7 @@ class ListView implements IView
                 return array(
                     'css' => '',
                     'html' => $this->formCreateList(),
-                    'title' => "Create list"
+                    'title' => "Création d'une liste"
                 );
                 break;
             default:
@@ -29,11 +29,16 @@ class ListView implements IView
     }
 
     private function formCreateList(){
-        $str = "<form id=\"formCreateList\" method=\"POST\" action=\"/list/create\">
-                        <input type=\"text\" placeholder=\"Titre de la liste\">
-                        <input type=\"text\" placeholder=\"Description de la liste\">
-                        <input type=\"date\" placeholder=\"Date d'expiration de la liste\">
-                </form>";
+        $str =
+            <<<END
+<form id="formCreateList" method="POST" action="list/create">
+<input type="text" name="titre" placeholder="Titre de la liste">
+<input type="text" name="description" placeholder="Description de la liste">
+<input type="date" name="date" placeholder="Date d'expiration de la liste">
 
+<button type="submit" name ="valid_create_list" value="valid_f1">Valider</button>
+</form>
+END;
+        return $str;
     }
 }
