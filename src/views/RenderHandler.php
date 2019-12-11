@@ -80,14 +80,24 @@ class RenderHandler
         $html = <<<END
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        $donnee_css
-        <title>MyWishList$titre</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="template/template.css">
+    $donnee_css
+    <title>MyWishList$titre</title>
+</head>
     <body>
-        $donnee_html
-    </body> 
+        <div class="top">
+            <a class="active" href="#home">Accueil</a>
+            <a href="">Liste</a>
+            <a href="">Item</a>
+            <a href="index.php/user/register">Inscription</a>
+            <a href="">Connexion</a>
+        </div>
+        <div class="principal">
+            $donnee_html
+        </div>
+    </body>
 </html>
 END;
         echo $html;
