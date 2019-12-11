@@ -12,6 +12,7 @@ class RootView implements IView
         $html = <<<End
 <p><a href="index.php/item/display/all">display all items</a></p>
 <p><a href="index.php/list/display/all">display all liste</a></p>
+<p><a href="index.php/user/register">créer un compte</a></p>
 End;
         return array(
            'css' => '',

@@ -7,7 +7,6 @@ namespace mywishlist\controllers;
 use mywishlist\models\User;
 use mywishlist\utils\Registries;
 use mywishlist\views\RenderHandler;
-use Slim\Slim;
 
 class UserController
 {
@@ -129,7 +128,8 @@ class UserController
         }
     }
 
-    private static function checkIfEmailExsite($email) {
+    private static function checkIfEmailExsite($email)
+    {
         $value = User::where('email', '=', $email)->get();
         if (isset($value)) {
             return count($value) == 0;
@@ -138,7 +138,8 @@ class UserController
         }
     }
 
-    private static function checkIfUsernameExsite($username) {
+    private static function checkIfUsernameExsite($username)
+    {
         $value = User::where('username', '=', $username)->get();
         if (isset($value)) {
             return count($value) == 0;
