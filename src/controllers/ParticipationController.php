@@ -6,6 +6,7 @@ namespace mywishlist\controllers;
 
 use mywishlist\models\Liste;
 use mywishlist\models\Item;
+use mywishlist\models\ReserveItem;
 use mywishlist\views\RenderHandler;
 use mywishlist\utils\Registries;
 

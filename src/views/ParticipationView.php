@@ -28,14 +28,21 @@ class ParticipationView implements IView
                 return array(
                     'css' => '',
                     'html' => $this->displayList($data_set),
-                    'title' => "All lists"
+                    'title' => "list"
                 );
                 break;
             case Registries::ITEMONLY:
                 return array(
                     'css' => '',
                     'html' => $this->displayItem($data_set),
-                    'title' => "All items"
+                    'title' => "item"
+                );
+                break;
+            case Registries::ITEM_REGISTER_FORM:
+                return array(
+                    'css' => '',
+                    'html' => $this->reserveItem($data_set),
+                    'title' => "reserve item"
                 );
                 break;
             default:
