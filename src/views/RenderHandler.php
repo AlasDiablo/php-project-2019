@@ -90,7 +90,7 @@ class RenderHandler
 </head>
     <body>
         <div class="top">
-            <a class="active" href="#home">Accueil</a>
+            <a href="/">Accueil</a>
             <a href="">Liste</a>
             <a href="">Item</a>
             <a href="index.php/user/register">Inscription</a>
