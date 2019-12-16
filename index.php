@@ -6,6 +6,7 @@ require_once './vendor/autoload.php';
 // Liste des tous les imports
 use mywishlist\controllers\ParticipationController;
 use \mywishlist\controllers\UserController;
+use mywishlist\controllers\ListController;
 use \Illuminate\Database\Capsule\Manager as DB;
 use \Slim\Slim as Slim;
 use \mywishlist\views\RenderHandler;
@@ -64,7 +65,12 @@ $router->get('/item/reserve/:id', function ($id) {
 $router->get('/item/reserve/submit/:id', function ($id) {
     ParticipationController::reserveItemSubmit($id);
 });
-
+$router->get('/list/create/form', function(){
+    ListController::formCreateList();
+});
+$router->post('/list/create/submit', function(){
+    ListController::createList();
+});
 $router->get(Registries::REGISTER_PATH, function () {
     UserController::register();
 })->name(Registries::REGISTER);

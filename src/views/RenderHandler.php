@@ -46,6 +46,7 @@ class RenderHandler
                 $content = $obj->render($this->code, $this->object);
                 break;
             case Registries::LIST:
+            case Registries::FORMCREATELIST:
                 $obj = new ListView();
                 $content = $obj->render($this->code, $this->object);
                 break;
