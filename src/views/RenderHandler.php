@@ -58,6 +58,7 @@ class RenderHandler
             case Registries::LISTONLY:
             case Registries::ITEMONLY:
             case Registries::PARTICIPATION:
+            case Registries::ITEM_REGISTER_FORM:
                 $obj = new ParticipationView();
                 $content = $obj->render($this->code, $this->object);
                 break;
