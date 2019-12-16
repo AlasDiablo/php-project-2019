@@ -89,10 +89,10 @@ class RenderHandler
 </head>
     <body>
         <div class="top">
-            <a href="/">Accueil</a>
+            <a href="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/">Accueil</a>
             <a href="">Liste</a>
             <a href="">Item</a>
-            <a href="index.php/user/register">Inscription</a>
+            <a href="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/index.php/user/register">Inscription</a>
             <a href="">Connexion</a>
         </div>
         <div class="principal">

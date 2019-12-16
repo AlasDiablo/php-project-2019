@@ -31,7 +31,7 @@ class ListView implements IView
     private function formCreateList(){
         $str =
             <<<END
-<form id="formCreateList" method="POST" action="list/create">
+<form id="formCreateList" method="POST" action="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/list/create">
 <input type="text" name="titre" placeholder="Titre de la liste">
 <input type="text" name="description" placeholder="Description de la liste">
 <input type="date" name="date" placeholder="Date d'expiration de la liste">

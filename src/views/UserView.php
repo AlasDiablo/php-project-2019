@@ -38,7 +38,7 @@ class UserView implements IView
     private function registerFrom(): array
     {
         $html = <<<END
-<form id="register" method="post" action="register/post">
+<form id="register" method="post" action="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/register/post">
     <label>Nom d'utilisateur</label>
     <input type="text" name="username" required>
     <label>Email</label>
