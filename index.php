@@ -71,6 +71,12 @@ $router->get('/list/create/form', function(){
 $router->post('/list/create/submit', function(){
     ListController::createList();
 });
+$router->get('/item/reserve/:id', function ($id) {
+    ParticipationController::reserveItem($id);
+});
+$router->post('/item/reserve/submit/', function () {
+    ParticipationController::reserveItemSubmit();
+});
 $router->get(Registries::REGISTER_PATH, function () {
     UserController::register();
 })->name(Registries::REGISTER);
