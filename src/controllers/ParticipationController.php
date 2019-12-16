@@ -43,26 +43,31 @@ class ParticipationController
     public static function reserveItem($IDitem)
     {
         $item = ReserveItem::select('id', 'nom')->where('id', 'like', $IDitem)->get();
-        if(empty($item))
+        if(empty($item[$IDitem]))
         {
-            //item do not exist
+            $r = new RenderHandler(Registries::ITEM_REGISTER_FORM, $IDitem);
+            $r->render();
             return;
         }
         if(!empty($item[$IDitem]))
         {
-            ParticipationController::displayItem($IDitem);
+            //ParticipationController::displayItem($IDitem);
+            /*$r = new RenderHandler(Registries::ITEM_REGISTER_FORM, null);
+            $r->render();*/
             return;
         }
         //form
-        $r = new RenderHandler(Registries::ITEM_REGISTER_FORM, null);
+        $r = new RenderHandler(Registries::ROOT, null);
         $r->render();
     }
 
-    public static function reserveItemSubmit($IDitem)
+    public static function reserveItemSubmit()
     {
+        $IDitem = filter_var($_POST['id_reserve_item'], FILTER_SANITIZE_SPECIAL_CHARS);
+        $name = filter_var($_POST['nom_reserve_item'], FILTER_SANITIZE_SPECIAL_CHARS);
         $ri = new ReserveItem();
-        $ri->name = filter_var($_POST['nom_reserve_item'], FILTER_SANITIZE_SPECIAL_CHARS);
         $ri->id = $IDitem;
+        $ri->name = $name;
         $ri->save();
         ParticipationController::displayItem($IDitem);
     }

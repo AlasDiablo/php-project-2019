@@ -3,7 +3,7 @@
 ## C'est quoi ?
 
 MyWishList.app est un projet universitaire composé de :
-+ **Pierre Marcolet** *(AlasDiablo)*
++ **Pierre Marcolet** *(AlasDiablo et lIotaMiu(Compte utilisé suite a des probléme sous windows))*
 + **Lucas Burté** *(lucasburte)*
 + **Aurélien Rethiers** *(Aurel-11)*
 + **Émilien Visentini** *(Safyrus)*
