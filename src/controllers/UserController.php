@@ -114,6 +114,8 @@ class UserController
                 $user->username = $user_data['username'];
                 $user->password_hash = password_hash($user_data['password'], PASSWORD_DEFAULT);
                 $user->user_level = 1;
+                $user->user_id = self::getNewUserId();
+                self::getNewUserId();
                 $user->save();
             } else {
                 self::post_failed_user_or_email_exsite();
@@ -127,6 +129,11 @@ class UserController
 
 
         }
+    }
+
+    private static function getNewUserId()
+    {
+        return User::max('user_id') + 1;
     }
 
     private static function checkIfEmailExsite($email)
