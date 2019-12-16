@@ -24,12 +24,12 @@ class ListController
         $l->expiration = filter_var($_POST['date'],FILTER_SANITIZE_SPECIAL_CHARS);
         $token = bin2hex(random_bytes(16));
         $bool = false;
-        while(!bool) {
+        while(!$bool) {
             $value = Liste::where('token', '=', $token)->get();
-            if (isset($value)) {
-                $token = bin2hex(random_bytes(16));
-            } else {
+            if (count($value) == 0) {
                 $bool = true;
+            } else {
+                $token = bin2hex(random_bytes(16));
             }
         }
         $l->token = $token;
