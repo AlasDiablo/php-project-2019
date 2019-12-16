@@ -117,6 +117,7 @@ class UserController
                 $user->user_id = self::getNewUserId();
                 self::getNewUserId();
                 $user->save();
+                self::createSession($user_data['username']);
             } else {
                 self::post_failed_user_or_email_exsite();
                 return;
@@ -129,6 +130,15 @@ class UserController
 
 
         }
+    }
+
+    private static function createSession($user) {
+        session_start();
+        $_SESSION['user_id'] = $user;
+    }
+
+    private static function deleteSession() {
+        session_destroy();
     }
 
     private static function getNewUserId()
