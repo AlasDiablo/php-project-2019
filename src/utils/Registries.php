@@ -42,5 +42,10 @@ class Registries
     const CHANGE_FAILD = 'CHANGE_FAILD';
     const CHANGE_BAD_PASSWORD = 'CHANGE_BAD_PASSWORD';
     const CHANGE_USER_ERROR = 'CHANGE_USER_ERROR';
+    const CHANGE_PATH = '/user/change';
+    const CHANGE = 'CHANGE';
+    const LOGIN_POST_PATH = '/user/login/post';
+    const CHANGE_POST_PATH = '/user/change/post';
+    const CHANGE_POST = 'CHANGE_POST';
 
 }

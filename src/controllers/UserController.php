@@ -130,7 +130,13 @@ class UserController
         }
     }
 
-    private static function login()
+    public static function login_display()
+    {
+        $render = new RenderHandler(Registries::LOGIN, null);
+        $render->render();
+    }
+
+    public static function login()
     {
         if (isset($_POST['submit'])) if ($_POST['submit'] == 'doRegister') {
             $user_data = array();
@@ -186,8 +192,13 @@ class UserController
         }
     }
 
+    public static function change_password_display()
+    {
+        $render = new RenderHandler(Registries::CHANGE, null);
+        $render->render();
+    }
 
-    private static function change_password()
+    public static function change_password()
     {
         if (isset($_POST['submit'])) if ($_POST['submit'] == 'doRegister') {
             $user_data = array();

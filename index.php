@@ -77,6 +77,7 @@ $router->get('/item/reserve/:id', function ($id) {
 $router->post('/item/reserve/submit/', function () {
     ParticipationController::reserveItemSubmit();
 });
+
 $router->get(Registries::REGISTER_PATH, function () {
     UserController::register();
 })->name(Registries::REGISTER);
@@ -84,6 +85,22 @@ $router->get(Registries::REGISTER_PATH, function () {
 $router->post(Registries::REGISTER_POST_PATH, function () {
     UserController::register_post();
 })->name(Registries::REGISTER_POST);
+
+$router->get(Registries::LOGIN_PATH, function () {
+    UserController::login_display();
+})->name(Registries::LOGIN);
+
+$router->get(Registries::LOGIN_POST_PATH, function () {
+    UserController::login();
+})->name(Registries::LOGIN_POST);
+
+$router->get(Registries::CHANGE_PATH, function () {
+    UserController::change_password_display();
+})->name(Registries::CHANGE);
+
+$router->get(Registries::CHANGE_POST_PATH, function () {
+    UserController::change_password();
+})->name(Registries::CHANGE_POST);
 
 // démarrage du routage des urls
 $router->run();
