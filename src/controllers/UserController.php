@@ -123,14 +123,153 @@ class UserController
                 return;
             }
 
-            // TODO ajout la creation du compte + creation d'un session et/ou cookie.
-
             $render = new RenderHandler(Registries::REGISTER_POST, null);
             $render->render();
 
 
         }
     }
+
+    private static function login()
+    {
+        if (isset($_POST['submit'])) if ($_POST['submit'] == 'doRegister') {
+            $user_data = array();
+
+            // check du nom d'utilisateur
+            if (isset($_POST['username'])) {
+                $val = filter_var($_POST['username'], FILTER_DEFAULT);
+                if ($val != FALSE) {
+                    $user_data['username'] = $val;
+                } else {
+                    $render = new RenderHandler(Registries::LOGIN_FAILD, null);
+                    $render->render();
+                    return;
+                }
+            } else {
+                $render = new RenderHandler(Registries::LOGIN_FAILD, null);
+                $render->render();
+                return;
+            }
+
+            // check du mot de passe
+            if (isset($_POST['password'])) {
+
+                $val = filter_var($_POST['password'], FILTER_DEFAULT);
+                if ($val != FALSE) {
+                    $user_data['password'] = $val;
+                } else{
+                    $render = new RenderHandler(Registries::LOGIN_FAILD, null);
+                    $render->render();
+                    return;
+                }
+            } else {
+                $render = new RenderHandler(Registries::LOGIN_FAILD, null);
+                $render->render();
+                return;
+            }
+
+            if (!self::checkIfUsernameExsite($user_data['username'])) {
+                if (password_verify($user_data['password'], User::select('password_hash')->where('user', '=', $user_data['username']))) {
+                    self::createSession($user_data['username']);
+                } else {
+                    $render = new RenderHandler(Registries::LOGIN_BAD_PASSWORD, null);
+                    $render->render();
+                    return;
+                }
+            } else {
+                $render = new RenderHandler(Registries::LOGIN_BAD_USER, null);
+                $render->render();
+                return;
+            }
+            $render = new RenderHandler(Registries::LOGIN_POST, null);
+            $render->render();
+        }
+    }
+
+
+    private static function change_password()
+    {
+        if (isset($_POST['submit'])) if ($_POST['submit'] == 'doRegister') {
+            $user_data = array();
+
+            // check du mot de passe
+            if (isset($_POST['password'])) {
+
+                $val = filter_var($_POST['password'], FILTER_DEFAULT);
+                if ($val != FALSE) {
+                    $user_data['password'] = $val;
+                } else{
+                    $render = new RenderHandler(Registries::CHANGE_FAILD, null);
+                    $render->render();
+                    return;
+                }
+            } else {
+                $render = new RenderHandler(Registries::CHANGE_FAILD, null);
+                $render->render();
+                return;
+            }
+
+            // check du mot de passe de verification
+            if (isset($_POST['password-confirm'])) {
+
+                $val = filter_var($_POST['password-confirm'], FILTER_DEFAULT);
+                if ($val != FALSE) {
+                    $user_data['password-confirm'] = $val;
+                } else{
+                    $render = new RenderHandler(Registries::CHANGE_FAILD, null);
+                    $render->render();
+                    return;
+                }
+            } else {
+                $render = new RenderHandler(Registries::CHANGE_FAILD, null);
+                $render->render();
+                return;
+            }
+
+            // check du mot de passe exsitant
+            if (isset($_POST['password-old'])) {
+
+                $val = filter_var($_POST['password-old'], FILTER_DEFAULT);
+                if ($val != FALSE) {
+                    $user_data['password-old'] = $val;
+                } else{
+                    $render = new RenderHandler(Registries::CHANGE_FAILD, null);
+                    $render->render();
+                    return;
+                }
+            } else {
+                $render = new RenderHandler(Registries::CHANGE_FAILD, null);
+                $render->render();
+                return;
+            }
+
+            // Check si les mot de passe sont identique
+            if ($user_data['password'] != $user_data['password-confirm']) {
+                $render = new RenderHandler(Registries::CHANGE_BAD_PASSWORD, null);
+                $render->render();
+                return;
+            }
+
+            if (!self::checkIfUsernameExsite($_SESSION['username'])) {
+                if (password_verify($user_data['password-old'], User::select('password_hash')->where('user', '=', $_SESSION['username']))) {
+                    $user = User::find($_SESSION['username']);
+                    $user->password_hash = password_hash($user_data['password'], PASSWORD_DEFAULT);
+                    $user->save();
+                    self::deleteSession();
+                } else {
+                    $render = new RenderHandler(Registries::CHANGE_BAD_PASSWORD, null);
+                    $render->render();
+                    return;
+                }
+            } else {
+                $render = new RenderHandler(Registries::CHANGE_USER_ERROR, null);
+                $render->render();
+                return;
+            }
+
+        }
+    }
+
 
     private static function createSession($user) {
         session_start();
