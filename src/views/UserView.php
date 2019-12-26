@@ -129,7 +129,7 @@ END;
         if ($this->selecteur->equals(Selection::LOGIN_POST_USERPASS_WRONG())) $this->content = $this->htmlLoginBadUserPass();
         if ($this->selecteur->equals(Selection::LOGOUT())) $this->content = $this->htmlLogout();
 
-        include __DIR__ . '/HeaderView.php';
+        GlobalView::Header();
         echo <<<END
 <div id="content">
 				<div id="content-inner">
@@ -139,7 +139,7 @@ END;
 				</div>
 			</div>
 END;
-        include __DIR__ . '/FooterView.php';
+        GlobalView::Footer();
     }
 
 }
