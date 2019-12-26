@@ -4,19 +4,34 @@
 namespace mywishlist\controllers;
 
 
+use mywishlist\utils\Selection;
+use mywishlist\views\UserView;
 use mywishlist\models\User;
 use mywishlist\utils\Registries;
 use mywishlist\views\RenderHandler;
 
 class UserController
 {
-    public static function register()
+    public function register()
     {
-        $render = new RenderHandler(Registries::REGISTER, null);
+        $v = new UserView(null, Selection::REGISTER());
+        $v->render();
+    }
+
+    public function login()
+    {
+        $v = new UserView(null, Selection::LOGIN());
+        $v->render();
+    }
+
+    public function logout()
+    {
+        session_destroy();
+        $render = new UserView(null, Selection::LOGOUT());
         $render->render();
     }
 
-    public static function register_post()
+    public function register_post()
     {
         if (isset($_POST['submit'])) if ($_POST['submit'] == 'doRegister') {
             $user_data = array();
@@ -123,89 +138,70 @@ class UserController
                 return;
             }
 
-            $render = new RenderHandler(Registries::REGISTER_POST, null);
-            $render->render();
-
+            $v = new UserView(null, Selection::REGISTER_POST_SUCCESS());
+            $v->render();
 
         }
     }
 
-    public static function login_display()
+    public function login_post()
     {
-        $render = new RenderHandler(Registries::LOGIN, null);
-        $render->render();
-    }
-
-    public static function login()
-    {
-        if (isset($_POST['submit'])) if ($_POST['submit'] == 'doRegister') {
+        if (isset($_POST['submit'])) if ($_POST['submit'] == 'doLogin') {
             $user_data = array();
-
             // check du nom d'utilisateur
             if (isset($_POST['username'])) {
                 $val = filter_var($_POST['username'], FILTER_DEFAULT);
                 if ($val != FALSE) {
                     $user_data['username'] = $val;
                 } else {
-                    $render = new RenderHandler(Registries::LOGIN_FAILD, null);
+                    $render = new UserView(null, Selection::LOGIN_POST_FAILED());
                     $render->render();
                     return;
                 }
             } else {
-                $render = new RenderHandler(Registries::LOGIN_FAILD, null);
+                $render = new UserView(null, Selection::LOGIN_POST_FAILED());
                 $render->render();
                 return;
             }
-
             // check du mot de passe
             if (isset($_POST['password'])) {
-
                 $val = filter_var($_POST['password'], FILTER_DEFAULT);
                 if ($val != FALSE) {
                     $user_data['password'] = $val;
                 } else{
-                    $render = new RenderHandler(Registries::LOGIN_FAILD, null);
+                    $render = new UserView(null, Selection::LOGIN_POST_FAILED());
                     $render->render();
                     return;
                 }
             } else {
-                $render = new RenderHandler(Registries::LOGIN_FAILD, null);
+                $render = new UserView(null, Selection::LOGIN_POST_FAILED());
                 $render->render();
                 return;
             }
-
             if (!self::checkIfUsernameExsite($user_data['username'])) {
-                if (password_verify($user_data['password'], User::select('password_hash')->where('user', '=', $user_data['username']))) {
+                if (password_verify($user_data['password'], User::select('password_hash')->where('username', '=', $user_data['username'])->get())) {
                     self::createSession($user_data['username']);
+                    $render = new UserView(null, Selection::LOGIN_POST_SUCCESS());
+                    $render->render();
                 } else {
-                    $render = new RenderHandler(Registries::LOGIN_BAD_PASSWORD, null);
+                    $render = new UserView(null, Selection::LOGIN_POST_USERPASS_WRONG());
                     $render->render();
                     return;
                 }
             } else {
-                $render = new RenderHandler(Registries::LOGIN_BAD_USER, null);
+                $render = new UserView(null, Selection::LOGIN_POST_USERPASS_WRONG());
                 $render->render();
                 return;
             }
-            $render = new RenderHandler(Registries::LOGIN_POST, null);
-            $render->render();
         }
     }
 
-    public static function change_password_display()
-    {
-        $render = new RenderHandler(Registries::CHANGE, null);
-        $render->render();
-    }
-
-    public static function change_password()
+    public function change_password()
     {
         if (isset($_POST['submit'])) if ($_POST['submit'] == 'doRegister') {
             $user_data = array();
-
             // check du mot de passe
             if (isset($_POST['password'])) {
-
                 $val = filter_var($_POST['password'], FILTER_DEFAULT);
                 if ($val != FALSE) {
                     $user_data['password'] = $val;
@@ -219,10 +215,8 @@ class UserController
                 $render->render();
                 return;
             }
-
             // check du mot de passe de verification
             if (isset($_POST['password-confirm'])) {
-
                 $val = filter_var($_POST['password-confirm'], FILTER_DEFAULT);
                 if ($val != FALSE) {
                     $user_data['password-confirm'] = $val;
@@ -236,10 +230,8 @@ class UserController
                 $render->render();
                 return;
             }
-
             // check du mot de passe exsitant
             if (isset($_POST['password-old'])) {
-
                 $val = filter_var($_POST['password-old'], FILTER_DEFAULT);
                 if ($val != FALSE) {
                     $user_data['password-old'] = $val;
@@ -253,20 +245,18 @@ class UserController
                 $render->render();
                 return;
             }
-
             // Check si les mot de passe sont identique
             if ($user_data['password'] != $user_data['password-confirm']) {
                 $render = new RenderHandler(Registries::CHANGE_BAD_PASSWORD, null);
                 $render->render();
                 return;
             }
-
             if (!self::checkIfUsernameExsite($_SESSION['username'])) {
                 if (password_verify($user_data['password-old'], User::select('password_hash')->where('user', '=', $_SESSION['username']))) {
                     $user = User::find($_SESSION['username']);
                     $user->password_hash = password_hash($user_data['password'], PASSWORD_DEFAULT);
                     $user->save();
-                    self::deleteSession();
+                    self::logout();
                 } else {
                     $render = new RenderHandler(Registries::CHANGE_BAD_PASSWORD, null);
                     $render->render();
@@ -276,20 +266,17 @@ class UserController
                 $render = new RenderHandler(Registries::CHANGE_USER_ERROR, null);
                 $render->render();
                 return;
-            }
 
+
+            }
         }
     }
-
 
     private static function createSession($user) {
         session_start();
         $_SESSION['user_id'] = $user;
     }
 
-    private static function deleteSession() {
-        session_destroy();
-    }
 
     private static function getNewUserId()
     {
@@ -318,25 +305,25 @@ class UserController
 
     private static function post_failed()
     {
-        $render = new RenderHandler(Registries::REGISTER_POST_FAILED, null);
-        $render->render();
+        $v = new UserView(null, Selection::REGISTER_POST_FAILED());
+        $v->render();
     }
 
     private static function post_failed_email()
     {
-        $render = new RenderHandler(Registries::REGISTER_POST_EMAIL_FAILED, null);
-        $render->render();
+        $v = new UserView(null, Selection::REGISTER_POST_FAILED());
+        $v->render();
     }
 
     private static function post_failed_pass()
     {
-        $render = new RenderHandler(Registries::REGISTER_POST_PASSWORD_FAILED, null);
-        $render->render();
+        $v = new UserView(null, Selection::REGISTER_POST_FAILED());
+        $v->render();
     }
 
     private static function post_failed_user_or_email_exsite()
     {
-        $render = new RenderHandler(Registries::REGISTER_POST_USER_OR_EMAIL_EXSITE, null);
-        $render->render();
+        $v = new UserView(null, Selection::REGISTER_POST_USER_OR_EMAIL_EXSITE());
+        $v->render();
     }
 }

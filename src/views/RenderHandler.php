@@ -38,16 +38,6 @@ class RenderHandler
             case Registries::REGISTER_POST_FAILED:
             case Registries::REGISTER:
             case Registries::USER:
-            case Registries::LOGIN_POST:
-            case Registries::LOGIN:
-            case Registries::LOGIN_FAILD:
-            case Registries::LOGIN_BAD_USER:
-            case Registries::LOGIN_BAD_PASSWORD:
-            case Registries::CHANGE:
-            case Registries::CHANGE_POST:
-            case Registries::CHANGE_USER_ERROR:
-            case Registries::CHANGE_FAILD:
-            case Registries::CHANGE_BAD_PASSWORD:
                 $obj = new UserView();
                 $content = $obj->render($this->code, $this->object);
                 break;

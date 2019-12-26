@@ -4,99 +4,142 @@
 namespace mywishlist\views;
 
 
-use mywishlist\utils\Registries;
+use mywishlist\utils\Selection;
 
-class UserView implements IView
+class UserView
 {
 
-    public function render(string $code, $data_set): array
+    protected $list, $selecteur, $content;
+
+    public function __construct($l, Selection $s)
     {
-        switch ($code)
-        {
-            case Registries::REGISTER:
-                return $this->registerFrom();
-            case Registries::REGISTER_POST:
-                return array('html' => 'you are register');
-            case Registries::REGISTER_POST_FAILED:
-                return array('html' => 'Probléme dans la recuperation des donnée saisi');
-            case Registries::REGISTER_POST_EMAIL_FAILED:
-                return array('html' => 'L\'email donnée est invalide');
-            case Registries::REGISTER_POST_PASSWORD_FAILED:
-                return array('html' => 'Le mot de passe donnée est invalide');
-            case Registries::REGISTER_POST_USER_OR_EMAIL_EXSITE:
-                return array('html' => 'l\'email et/ou l\'utilisateur exsite deja');
-            case Registries::LOGIN:
-                return $this->loginFrom();
-            case Registries::CHANGE:
-                return $this->changeFrom();
-            case Registries::LOGIN_BAD_PASSWORD:
-                return array('html' => 'Le mot de pass donnée et erroné');
-            case Registries::LOGIN_BAD_USER:
-                return array('html' => 'L\'utilisateur donnée n\'exsite pas');
-            case Registries::LOGIN_FAILD:
-                return array('html' => 'Les donnée rentré sont invalide veuielle les verifier');
-            case Registries::LOGIN_POST:
-                return array('html' => 'Vous etais conecté');
-            case Registries::CHANGE_BAD_PASSWORD:
-                return array('html' => 'Le mot de pass donnée et erroné');
-            case Registries::CHANGE_FAILD:
-                return array('html' => 'Les donnée rentré sont invalide veuielle les verifier');
-            case Registries::CHANGE_USER_ERROR:
-                return array('html' => 'Un erreur inatendu ces produite votre nom d\'utilisateur ne corespond a rien d\'exsitent...');
-            case Registries::CHANGE_POST:
-                return array('html' => 'Mot de pass changé, reconecté vous');
-        }
+        $this->list = $l;
+        $this->selecteur = $s;
     }
 
-
-    private function registerFrom(): array
+    private function htmlAccountRegister()
     {
-        $html = <<<END
-<form id="register" method="post" action="register/post">
-    <label>Nom d'utilisateur</label>
-    <input type="text" name="username" required>
-    <label>Email</label>
-    <input type="email" name="email" required>
-    <label>Confirmé l'email</label>
-    <input type="email" name="email-confirm" required>
-    <label>Mot de passe</label>
-    <input type="password" name="password" required>
-    <label>Cofirmé le mot de passe</label>
-    <input type="password" name="password-confirm" required>
-    <button type="submit" name="submit" value="doRegister">Créer mon compte</button>
-</form>
+        $str = <<<END
+        <form method="post" action="/index.php/account/register/add">
+            <label>Nom d'utilisateur</label>
+            <input type="text" name="username" required>
+            <label>Email</label>
+            <input type="email" name="email" required>
+            <label>Confirmer l'email</label>
+            <input type="email" name="email-confirm" required>
+            <label>Mot de passe</label>
+            <input type="password" name="password" required>
+            <label>Confirmer le mot de passe</label>
+            <input type="password" name="password-confirm" required>
+            <button type="submit" name="submit" value="doRegister">Créer mon compte</button>
+        </form>
 END;
-        return array('html' => $html, 'css' => '', 'title' => 'Creation d\'un compte');
+        return $str;
     }
 
-
-    private function loginFrom(): array
+    private function htmlAccountLogin()
     {
-        $html = <<<END
-<form id="register" method="post" action="register/post">
+        $str = <<<END
+<form id="register" method="post" action="/index.php/account/login/submit">
     <label>Nom d'utilisateur</label>
     <input type="text" name="username" required>
     <label>Mot de passe</label>
     <input type="password" name="password" required>
-    <button type="submit" name="submit" value="doLogin">Me conecté a mon compte</button>
+    <button type="submit" name="submit" value="doLogin">Se connecter</button>
 </form>
 END;
-        return array('html' => $html, 'css' => '', 'title' => 'Connection a un compte');
+        return $str;
     }
 
-    private function changeFrom(): array
+    private function htmlAccountChange()
     {
-        $html = <<<END
+        $str = <<<END
 <form id="register" method="post" action="register/post">
     <label>Mot de passe</label>
     <input type="password" name="password-old" required>
     <label>Nouveau mot de passe</label>
     <input type="password" name="password" required>
-    <label>Cofirmé le nouveau mot de passe</label>
+    <label>Confirmer le nouveau mot de passe</label>
     <input type="password" name="password-confirm" required>
-    <button type="submit" name="submit" value="doChange">Changé mon mot de pass</button>
+    <button type="submit" name="submit" value="doChange">Appliquer</button>
 </form>
 END;
-        return array('html' => $html, 'css' => '', 'title' => 'Changement d\'un mot de pass');
+        return $str;
     }
+
+
+    private function htmlGetDataFailed()
+    {
+        $str = <<<END
+<p>Une erreur lors de la récupération des données saisies</p>
+END;
+        return $str;
+    }
+
+    private function htmlRegisterUserEmailExists()
+    {
+        $str = <<<END
+<p>L'utilisateur ou l'email est déjà enregistré</p>
+END;
+        return $str;
+    }
+
+    private function htmlRegisterSuccess()
+    {
+        $str = <<<END
+<p>Vous êtes enregistré !</p>
+END;
+        return $str;
+    }
+
+    private function htmlLoginSuccess()
+    {
+        $str = <<<END
+<p>Vous êtes connecté !</p>
+END;
+        return $str;
+    }
+
+    private function htmlLoginBadUserPass()
+    {
+        $str = <<<END
+<p>L'utilisateur ou le mot de passe sont erronés</p>
+END;
+        return $str;
+    }
+
+    private function htmlLogout()
+    {
+        $str = <<<END
+<p>Vous êtes déconnecté !</p>
+END;
+        return $str;
+    }
+
+    public function render()
+    {
+
+        if ($this->selecteur->equals(Selection::REGISTER())) $this->content = $this->htmlAccountRegister();
+        if ($this->selecteur->equals(Selection::REGISTER_POST_FAILED())) $this->content = $this->htmlGetDataFailed();
+        if ($this->selecteur->equals(Selection::REGISTER_POST_SUCCESS())) $this->content = $this->htmlRegisterSuccess();
+        if ($this->selecteur->equals(Selection::REGISTER_POST_USER_OR_EMAIL_EXSITE())) $this->content = $this->htmlRegisterUserEmailExists();
+        if ($this->selecteur->equals(Selection::LOGIN())) $this->content = $this->htmlAccountLogin();
+        if ($this->selecteur->equals(Selection::LOGIN_POST_SUCCESS())) $this->content = $this->htmlLoginSuccess();
+        if ($this->selecteur->equals(Selection::LOGIN_POST_FAILED())) $this->content = $this->htmlGetDataFailed();
+        if ($this->selecteur->equals(Selection::LOGIN_POST_USERPASS_WRONG())) $this->content = $this->htmlLoginBadUserPass();
+        if ($this->selecteur->equals(Selection::LOGOUT())) $this->content = $this->htmlLogout();
+
+        include __DIR__ . '/HeaderView.php';
+        echo <<<END
+<div id="content">
+				<div id="content-inner">
+				
+                     $this->content
+					
+				</div>
+			</div>
+END;
+        include __DIR__ . '/FooterView.php';
+    }
+
 }

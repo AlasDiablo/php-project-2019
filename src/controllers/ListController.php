@@ -5,16 +5,33 @@ namespace mywishlist\controllers;
 
 
 use mywishlist\models\Liste;
-use mywishlist\utils\Registries;
+use mywishlist\utils\Selection;
 use mywishlist\views\ParticipationView;
 use mywishlist\views\ListView;
 use mywishlist\views\RenderHandler;
 
-class ListController
-{
-    public static function formCreateList(){
-        $r = new RenderHandler(Registries::FORMCREATELIST,null);
-        $r->render();
+class ListController {
+
+
+
+    public function allList()
+    {
+        $lists = Liste::all();
+        $v = new ListView($lists, Selection::ALL_LIST());
+        $v->render();
+    }
+
+    public function displayList($id)
+    {
+        $l = Liste::where('no', '=', $id)->get();
+        $v = new ListView($l, Selection::ID_LIST());
+        $v->render();
+    }
+
+    public function listForm()
+    {
+        $v = new ListView(null, Selection::FORM());
+        $v->render();
     }
 
     public static function createList(){
@@ -35,4 +52,11 @@ class ListController
         $l->token = $token;
         $l->save();
     }
+
+
+/*    public static function formCreateList(){
+        $r = new RenderHandler(Registries::FORMCREATELIST,null);
+        $r->render();
+    }*/
+
 }

@@ -7,28 +7,17 @@ require_once './vendor/autoload.php';
 use mywishlist\controllers\ParticipationController;
 use \mywishlist\controllers\UserController;
 use mywishlist\controllers\ListController;
+use mywishlist\controllers\ItemController;
 use \Illuminate\Database\Capsule\Manager as DB;
-use \Slim\Slim as Slim;
 use \mywishlist\views\RenderHandler;
-use \mywishlist\utils\Registries;
 
 // Informations de connexion a la base de données
-$ini_file = parse_ini_file('src/conf/conf.ini');
 
 // instance de la base de données
 $db = new DB();
 
 // ajout des informations pour se connecter à la base de données
-$db->addConnection([
-    'driver'    => $ini_file['driver'],
-    'host'      => $ini_file['host'],
-    'database'  => $ini_file['database'],
-    'username'  => $ini_file['username'],
-    'password'  => $ini_file['password'],
-    'charset'   => $ini_file['charset'],
-    'collation' => $ini_file['charset'] . '_unicode_ci',
-    'prefix'    => ''
-]);
+$db->addConnection(parse_ini_file('src/conf/conf.ini'));
 
 // demarage de la basse de donnée
 $db->setAsGlobal();
@@ -36,73 +25,74 @@ $db->bootEloquent();
 
 
 // intance de slim qui a pour but de créer le rootage des urls
-$router = new Slim();
+$app = new \Slim\Slim();
 
 
 
-// route de la racine
-$router->get(Registries::ROOT_PATH, function() {
-    $render = new RenderHandler(Registries::ROOT, null);
-    $render->render();
-})->name(Registries::ROOT);
-
-
-$router->get('/list/display/all', function () {
-    ParticipationController::displayAllLists();
-});
-$router->get('/item/display/all', function () {
-    ParticipationController::displayAllItems();
-});
-$router->get('/list/display/:id', function ($id) {
-    ParticipationController::displayList($id);
-});
-$router->get('/item/display/:id', function ($id) {
-    ParticipationController::displayItem($id);
-});
-$router->get('/item/reserve/:id', function ($id) {
-    ParticipationController::reserveItem($id);
-});
-$router->get('/item/reserve/submit/:id', function ($id) {
-    ParticipationController::reserveItemSubmit($id);
-});
-$router->get('/list/create/form', function(){
-    ListController::formCreateList();
-});
-$router->post('/list/create/submit', function(){
-    ListController::createList();
-});
-$router->get('/item/reserve/:id', function ($id) {
-    ParticipationController::reserveItem($id);
-});
-$router->post('/item/reserve/submit/', function () {
-    ParticipationController::reserveItemSubmit();
+$app->get('/', function () {
+    $c = new \mywishlist\controllers\IndexController();
+    $c->accueil();
 });
 
-$router->get(Registries::REGISTER_PATH, function () {
-    UserController::register();
-})->name(Registries::REGISTER);
+$app->get('/list/display/all', function () {
+    $c = new ListController();
+    $c->allList();
+});
 
-$router->post(Registries::REGISTER_POST_PATH, function () {
-    UserController::register_post();
-})->name(Registries::REGISTER_POST);
+$app->get('/list/display/:id', function ($id) {
+    $c = new ListController();
+    $c->displayList($id);
+});
 
-$router->get(Registries::LOGIN_PATH, function () {
-    UserController::login_display();
-})->name(Registries::LOGIN);
+$app->get('/list/create', function () {
+    $c = new ListController();
+    $c->listForm();
+});
 
-$router->get(Registries::LOGIN_POST_PATH, function () {
-    UserController::login();
-})->name(Registries::LOGIN_POST);
 
-$router->get(Registries::CHANGE_PATH, function () {
-    UserController::change_password_display();
-})->name(Registries::CHANGE);
+$app->get('/item/display/all', function () {
+    $c = new ItemController();
+    $c->allItems();
+});
 
-$router->get(Registries::CHANGE_POST_PATH, function () {
-    UserController::change_password();
-})->name(Registries::CHANGE_POST);
+$app->get('/item/display/:id', function ($id) {
+    $c = new ItemController();
+    $c->displayItem($id);
+});
 
-// démarrage du routage des urls
-$router->run();
+
+$app->get('/account/register', function () {
+    $c = new UserController();
+    $c->register();
+});
+
+
+$app->get('/account/login', function () {
+    $c = new UserController();
+    $c->login();
+});
+
+$app->get('/account/logout', function () {
+    $c = new UserController();
+    $c->logout();
+});
+
+$app->post('/list/create/submit', function () {
+    $c = new ListController();
+    $c->createList();
+});
+
+$app->post('/account/register/add', function () {
+    $c = new UserController();
+    $c->register_post();
+});
+
+$app->post('/account/login/submit', function () {
+    $c = new UserController();
+    $c->login_post();
+});
+
+
+$app->run();
 
 

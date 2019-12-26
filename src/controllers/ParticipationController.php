@@ -12,11 +12,12 @@ use mywishlist\utils\Registries;
 
 class ParticipationController
 {
-    public static function displayAllLists()
+    public static function displayAllLists($rq, $rs, $args)
     {
         $list = Liste::all();
-        $r = new RenderHandler(Registries::LISTALL, $list);
-        $r->render();
+        $v = new ListController($list, ALL_LIST);
+        $rs->getBody()->write($v->render());
+        return $rs;
     }
 
     public static function displayList($id)
