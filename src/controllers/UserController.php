@@ -179,7 +179,7 @@ class UserController
                 return;
             }
             if (!self::checkIfUsernameExsite($user_data['username'])) {
-                if (password_verify($user_data['password'], User::select('password_hash')->where('username', '=', $user_data['username'])->get())) {
+                if (password_verify($user_data['password'], User::select('password_hash')->where('username', '=', $user_data['username'])->first()->password_hash)) {
                     self::createSession($user_data['username']);
                     $render = new UserView(null, Selection::LOGIN_POST_SUCCESS());
                     $render->render();
