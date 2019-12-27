@@ -1,10 +1,6 @@
 <?php
 
-
 namespace mywishlist\views;
-
-
-use mywishlist\utils\Registries;
 
 class ItemView
 {
@@ -34,7 +30,32 @@ class ItemView
     }
 
     private function htmlIdList() {
-        return $this->item;
+        $res = "<table><th>ID</th><th>liste_ID</th><th>nom</th><th>description</th><th>tarif</th>";
+        foreach ($this->item as $i)
+        {
+            $res = $res . "<tr>";
+            $res = $res . "<td>" . $i->id . "</td><td>" . $i->liste_id . "</td><td>" . $i->nom . "</td><td>" . $i->descr . "</td><td>" . $i->tarif . "</td>";
+            $res = $res . "<tr>";
+        }
+        $res = $res . "</table>";
+        return $res;
+    }
+
+    private function htmlReserve()
+    {
+        $id=filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
+        $str = 
+<<<END
+<form action="/index.php/item/reserve/submit/" method="POST">
+Item:$id<br>
+<input name = 'id_reserve_item' value=$id><br>
+Nom:
+<input type="text" name="nom_reserve_item"><br>
+<input type="submit" name="valider">
+</form>
+
+END;
+        return $str;
     }
 
     public function render()
@@ -48,6 +69,11 @@ class ItemView
             case self::ID_ITEM:
             {
                 $content = $this->htmlIdList();
+                break;
+            }
+            case self::FORM:
+            {
+                $content = $this->htmlReserve();
                 break;
             }
             default:

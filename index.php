@@ -55,9 +55,19 @@ $app->get('/item/display/all', function () {
     $c->allItems();
 });
 
-$app->get('/item/display/:id', function ($id) {
+$app->get('/item/display/', function () {
     $c = new ItemController();
-    $c->displayItem($id);
+    $c->displayItem();
+});
+
+$app->get('/item/reserve/', function () {
+    $c = new ItemController();
+    $c->reserveItem();
+});
+
+$app->post('/item/reserve/submit/', function () {
+    $c = new ItemController();
+    $c->reserveItemSubmit();
 });
 
 
