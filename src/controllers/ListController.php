@@ -19,13 +19,13 @@ class ListController {
     {
         $id = filter_var($_GET['id'],FILTER_SANITIZE_SPECIAL_CHARS);
         $l = Liste::where('no', '=', $id)->get();
-        $v = new ListView($l, Selection::ID_LIST());
+        $v = new ListView($l, Selection::ID_LIST);
         $v->render();
     }
 
     public function listForm()
     {
-        $v = new ListView(null, Selection::FORM_LIST());
+        $v = new ListView(null, Selection::FORM_LIST);
         $v->render();
     }
 

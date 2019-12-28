@@ -7,7 +7,7 @@ use mywishlist\utils\Selection;
 class ItemView
 {
 
-    protected $item, $selecteur;
+    protected $item, $selecteur, $content;
 
     public function __construct($i, $s)
     {
@@ -60,29 +60,38 @@ END;
         return $str;
     }
 
+    private function htmlFail()
+    {
+        $str = <<<END
+<p> Une erreur est survenu, vérifiez que l'item n'est pas déjà réservé.
+END;
+
+        return $str;
+    }
+
     public function render()
     {
         switch ($this->selecteur) {
             case Selection::ALL_ITEM:
-                $content = $this->htmlAllItem();
+                $this->content = $this->htmlAllItem();
                 break;
             case Selection::ID_ITEM:
-                $content = $this->htmlIdList();
+                $this->content = $this->htmlIdList();
                 break;
             case Selection::FORM_ITEM_RESERVE:
-                $content = $this->htmlReserve();
+                $this->content = $this->htmlReserve();
                 break;
             case Selection::FORM_ITEM_RESERVE_FAIL:
-                $content = "FORM_ITEM_RESERVE_FAIL";
+                $this->content = $this->htmlFail();
                 break;
             default:
-                $content = "Switch Constant Error";
+                $this->content = "Switch Constant Error";
                 break;
         }
         $body = <<<END
 <div id="content">
     <div id="content-inner">
-         $content
+         $this->content
     </div>
 </div>
 END;

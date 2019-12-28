@@ -60,9 +60,21 @@ END;
 
     public function render()
     {
-        if ($this->selecteur->equals(Selection::ALL_LIST())) $this->content = $this->displayAllList();
-        if ($this->selecteur->equals(Selection::ID())) $this->content = $this->displayOneList();
-        if ($this->selecteur->equals(Selection::FORM_LIST())) $this->content = $this->formCreateList();
+
+        switch ($this->selecteur) {
+            case Selection::ALL_LIST:
+                $this->content = $this->displayAllList();
+                break;
+            case Selection::ID_LIST:
+                $this->content = $this->displayOneList();
+                break;
+            case Selection::FORM_LIST:
+                $this->content = $this->formCreateList();
+                break;
+            default:
+                $this->content = "Switch Constant Error";
+                break;
+        }
 
          $body = <<<END
 <div id="content">

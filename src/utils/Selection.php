@@ -2,10 +2,9 @@
 
 
 namespace mywishlist\utils;
-use MyCLabs\Enum\Enum;
 
 
-class Selection extends Enum
+class Selection
 {
     const ALL_LIST = 'ALL_LIST';
     const ID_LIST = 'ID_LIST';

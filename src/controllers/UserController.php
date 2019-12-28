@@ -13,7 +13,7 @@ class UserController
     public function logout()
     {
         session_destroy();
-        $render = new UserView(null, Selection::LOGOUT());
+        $render = new UserView(null, Selection::LOGOUT);
         $render->render();
     }
 
@@ -124,7 +124,7 @@ class UserController
                 return;
             }
 
-            $v = new UserView(null, Selection::REGISTER_POST_SUCCESS());
+            $v = new UserView(null, Selection::REGISTER_POST_SUCCESS);
             $v->render();
 
         }
@@ -140,12 +140,12 @@ class UserController
                 if ($val != FALSE) {
                     $user_data['username'] = $val;
                 } else {
-                    $render = new UserView(null, Selection::LOGIN_POST_FAILED());
+                    $render = new UserView(null, Selection::LOGIN_POST_FAILED);
                     $render->render();
                     return;
                 }
             } else {
-                $render = new UserView(null, Selection::LOGIN_POST_FAILED());
+                $render = new UserView(null, Selection::LOGIN_POST_FAILED);
                 $render->render();
                 return;
             }
@@ -155,27 +155,27 @@ class UserController
                 if ($val != FALSE) {
                     $user_data['password'] = $val;
                 } else{
-                    $render = new UserView(null, Selection::LOGIN_POST_FAILED());
+                    $render = new UserView(null, Selection::LOGIN_POST_FAILED);
                     $render->render();
                     return;
                 }
             } else {
-                $render = new UserView(null, Selection::LOGIN_POST_FAILED());
+                $render = new UserView(null, Selection::LOGIN_POST_FAILED);
                 $render->render();
                 return;
             }
             if (!self::checkIfUsernameExsite($user_data['username'])) {
                 if (password_verify($user_data['password'], User::select('password_hash')->where('username', '=', $user_data['username'])->first()->password_hash)) {
                     self::createSession($user_data['username']);
-                    $render = new UserView(null, Selection::LOGIN_POST_SUCCESS());
+                    $render = new UserView(null, Selection::LOGIN_POST_SUCCESS);
                     $render->render();
                 } else {
-                    $render = new UserView(null, Selection::LOGIN_POST_USERPASS_WRONG());
+                    $render = new UserView(null, Selection::LOGIN_POST_USERPASS_WRONG);
                     $render->render();
                     return;
                 }
             } else {
-                $render = new UserView(null, Selection::LOGIN_POST_USERPASS_WRONG());
+                $render = new UserView(null, Selection::LOGIN_POST_USERPASS_WRONG);
                 $render->render();
                 return;
             }
@@ -192,12 +192,12 @@ class UserController
                 if ($val != FALSE) {
                     $user_data['password'] = $val;
                 } else{
-                    $render = new UserView(null, Selection::CHANGE_FAILD());
+                    $render = new UserView(null, Selection::CHANGE_FAILD);
                     $render->render();
                     return;
                 }
             } else {
-                $render = new UserView(null, Selection::CHANGE_FAILD());
+                $render = new UserView(null, Selection::CHANGE_FAILD);
                 $render->render();
                 return;
             }
@@ -207,12 +207,12 @@ class UserController
                 if ($val != FALSE) {
                     $user_data['password-confirm'] = $val;
                 } else{
-                    $render = new UserView(null, Selection::CHANGE_FAILD());
+                    $render = new UserView(null, Selection::CHANGE_FAILD);
                     $render->render();
                     return;
                 }
             } else {
-                $render = new UserView(null, Selection::CHANGE_FAILD());
+                $render = new UserView(null, Selection::CHANGE_FAILD);
                 $render->render();
                 return;
             }
@@ -222,18 +222,18 @@ class UserController
                 if ($val != FALSE) {
                     $user_data['password-old'] = $val;
                 } else{
-                    $render = new UserView(null, Selection::CHANGE_FAILD());
+                    $render = new UserView(null, Selection::CHANGE_FAILD);
                     $render->render();
                     return;
                 }
             } else {
-                $render = new UserView(null, Selection::CHANGE_FAILD());
+                $render = new UserView(null, Selection::CHANGE_FAILD);
                 $render->render();
                 return;
             }
             // Check si les mot de passe sont identique
             if ($user_data['password'] != $user_data['password-confirm']) {
-                $render = new UserView(null, Selection::CHANGE_BAD_PASSWORD());
+                $render = new UserView(null, Selection::CHANGE_BAD_PASSWORD);
                 $render->render();
                 return;
             }
@@ -244,12 +244,12 @@ class UserController
                     $user->save();
                     self::logout();
                 } else {
-                    $render = new UserView(null, Selection::CHANGE_BAD_PASSWORD());
+                    $render = new UserView(null, Selection::CHANGE_BAD_PASSWORD);
                     $render->render();
                     return;
                 }
             } else {
-                $render = new UserView(null, Selection::CHANGE_USER_ERROR());
+                $render = new UserView(null, Selection::CHANGE_USER_ERROR);
                 $render->render();
                 return;
 
@@ -291,31 +291,31 @@ class UserController
 
     private static function post_failed()
     {
-        $v = new UserView(null, Selection::REGISTER_POST_FAILED());
+        $v = new UserView(null, Selection::REGISTER_POST_FAILED);
         $v->render();
     }
 
     private static function post_failed_email()
     {
-        $v = new UserView(null, Selection::REGISTER_POST_FAILED());
+        $v = new UserView(null, Selection::REGISTER_POST_FAILED);
         $v->render();
     }
 
     private static function post_failed_pass()
     {
-        $v = new UserView(null, Selection::REGISTER_POST_FAILED());
+        $v = new UserView(null, Selection::REGISTER_POST_FAILED);
         $v->render();
     }
 
     private static function post_failed_user_or_email_exsite()
     {
-        $v = new UserView(null, Selection::REGISTER_POST_USER_OR_EMAIL_EXSITE());
+        $v = new UserView(null, Selection::REGISTER_POST_USER_OR_EMAIL_EXSITE);
         $v->render();
     }
 
     public function account()
     {
-        $v = new UserView(null, Selection::ACCOUNT());
+        $v = new UserView(null, Selection::ACCOUNT);
         $v->render();
     }
 }

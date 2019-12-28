@@ -10,7 +10,7 @@ class UserView
 
     protected $list, $selecteur, $content;
 
-    public function __construct($l, Selection $s)
+    public function __construct($l, $s)
     {
         $this->list = $l;
         $this->selecteur = $s;
@@ -118,15 +118,34 @@ END;
 
     public function render()
     {
-
-        if ($this->selecteur->equals(Selection::ACCOUNT())) $this->content = $this->accountRegisterAndLogin();
-        if ($this->selecteur->equals(Selection::REGISTER_POST_FAILED())) $this->content = $this->getDataFailed();
-        if ($this->selecteur->equals(Selection::REGISTER_POST_SUCCESS())) $this->content = $this->registerSuccess();
-        if ($this->selecteur->equals(Selection::REGISTER_POST_USER_OR_EMAIL_EXSITE())) $this->content = $this->registerUserEmailExists();
-        if ($this->selecteur->equals(Selection::LOGIN_POST_SUCCESS())) $this->content = $this->loginSuccess();
-        if ($this->selecteur->equals(Selection::LOGIN_POST_FAILED())) $this->content = $this->getDataFailed();
-        if ($this->selecteur->equals(Selection::LOGIN_POST_USERPASS_WRONG())) $this->content = $this->loginBadUserPass();
-        if ($this->selecteur->equals(Selection::LOGOUT())) $this->content = $this->logout();
+        switch ($this->selecteur)
+        {
+            case Selection::ACCOUNT:
+                $this->content = $this->accountRegisterAndLogin();
+                break;
+            case Selection::LOGIN_POST_FAILED:
+            case Selection::REGISTER_POST_FAILED:
+                $this->content = $this->getDataFailed();
+                break;
+            case Selection::REGISTER_POST_SUCCESS:
+                $this->content = $this->registerSuccess();
+                break;
+            case Selection::REGISTER_POST_USER_OR_EMAIL_EXSITE:
+                $this->content = $this->registerUserEmailExists();
+                break;
+            case Selection::LOGIN_POST_SUCCESS:
+                $this->content = $this->loginSuccess();
+                break;
+            case Selection::LOGIN_POST_USERPASS_WRONG:
+                $this->content = $this->loginBadUserPass();
+                break;
+            case Selection::LOGOUT:
+                $this->content = $this->logout();
+                break;
+            default:
+                $this->content = "Switch Constant Error";
+                break;
+        }
 
         $body = <<<END
 <div id="content">
