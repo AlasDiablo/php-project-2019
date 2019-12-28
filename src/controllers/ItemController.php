@@ -16,7 +16,7 @@ class ItemController
         $v->render();
     }
 
-    public function displayItem() {
+    public function oneItem() {
         $id=filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
         $l = Item::where('id', '=', $id)->get();
         $v = new ItemView($l, Selection::ID_ITEM);
@@ -29,7 +29,7 @@ class ItemController
         $item = ReserveItem::select('id', 'name')->where('id', 'like', $IDitem)->get();
         if(empty($item[0]['id']))
         {
-            $r = new ItemView($item, Selection::FORM_ITEM);
+            $r = new ItemView($item, Selection::FORM_ITEM_RESERVE);
             $r->render();
         }else{
             $l = Item::where('id', '=', $IDitem)->get();
@@ -43,15 +43,17 @@ class ItemController
         $IDitem = filter_var($_POST['id_reserve_item'], FILTER_SANITIZE_SPECIAL_CHARS);
         $name = filter_var($_POST['nom_reserve_item'], FILTER_SANITIZE_SPECIAL_CHARS);
         $item = ReserveItem::select('id', 'name')->where('id', 'like', $IDitem)->get();
-        if(empty($item[0]['id']))
-        {
+        $select = Selection::ID_ITEM;
+        if(empty($item[0]['id'])){
             $ri = new ReserveItem();
             $ri->id = $IDitem;
             $ri->name = $name;
             $ri->save();
+        }else {
+            $select = Selection::FORM_ITEM_RESERVE_FAIL;
         }
         $l = Item::where('id', '=', $IDitem)->get();
-        $v = new ItemView($l, Selection::ID_ITEM);
+        $v = new ItemView($l, $select);
         $v->render();
     }
 }

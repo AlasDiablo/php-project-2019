@@ -16,7 +16,7 @@ class UserView
         $this->selecteur = $s;
     }
 
-    private function htmlAccountRegister()
+    private function accountRegister()
     {
         $str = <<<END
         <form method="post" action="/index.php/account/register/add">
@@ -36,7 +36,7 @@ END;
         return $str;
     }
 
-    private function htmlAccountLogin()
+    private function accountLogin()
     {
         $str = <<<END
 <form id="register" method="post" action="/index.php/account/login/submit">
@@ -50,7 +50,7 @@ END;
         return $str;
     }
 
-    private function htmlAccountChange()
+    private function accountChange()
     {
         $str = <<<END
 <form id="register" method="post" action="register/post">
@@ -67,7 +67,7 @@ END;
     }
 
 
-    private function htmlGetDataFailed()
+    private function getDataFailed()
     {
         $str = <<<END
 <p>Une erreur lors de la récupération des données saisies</p>
@@ -75,7 +75,7 @@ END;
         return $str;
     }
 
-    private function htmlRegisterUserEmailExists()
+    private function registerUserEmailExists()
     {
         $str = <<<END
 <p>L'utilisateur ou l'email est déjà enregistré</p>
@@ -83,7 +83,7 @@ END;
         return $str;
     }
 
-    private function htmlRegisterSuccess()
+    private function registerSuccess()
     {
         $str = <<<END
 <p>Vous êtes enregistré !</p>
@@ -91,7 +91,7 @@ END;
         return $str;
     }
 
-    private function htmlLoginSuccess()
+    private function loginSuccess()
     {
         $str = <<<END
 <p>Vous êtes connecté !</p>
@@ -99,7 +99,7 @@ END;
         return $str;
     }
 
-    private function htmlLoginBadUserPass()
+    private function loginBadUserPass()
     {
         $str = <<<END
 <p>L'utilisateur ou le mot de passe sont erronés</p>
@@ -107,7 +107,7 @@ END;
         return $str;
     }
 
-    private function htmlLogout()
+    private function logout()
     {
         $str = <<<END
 <p>Vous êtes déconnecté !</p>
@@ -118,15 +118,15 @@ END;
     public function render()
     {
 
-        if ($this->selecteur->equals(Selection::REGISTER())) $this->content = $this->htmlAccountRegister();
-        if ($this->selecteur->equals(Selection::REGISTER_POST_FAILED())) $this->content = $this->htmlGetDataFailed();
-        if ($this->selecteur->equals(Selection::REGISTER_POST_SUCCESS())) $this->content = $this->htmlRegisterSuccess();
-        if ($this->selecteur->equals(Selection::REGISTER_POST_USER_OR_EMAIL_EXSITE())) $this->content = $this->htmlRegisterUserEmailExists();
-        if ($this->selecteur->equals(Selection::LOGIN())) $this->content = $this->htmlAccountLogin();
-        if ($this->selecteur->equals(Selection::LOGIN_POST_SUCCESS())) $this->content = $this->htmlLoginSuccess();
-        if ($this->selecteur->equals(Selection::LOGIN_POST_FAILED())) $this->content = $this->htmlGetDataFailed();
-        if ($this->selecteur->equals(Selection::LOGIN_POST_USERPASS_WRONG())) $this->content = $this->htmlLoginBadUserPass();
-        if ($this->selecteur->equals(Selection::LOGOUT())) $this->content = $this->htmlLogout();
+        if ($this->selecteur->equals(Selection::REGISTER())) $this->content = $this->accountRegister();
+        if ($this->selecteur->equals(Selection::REGISTER_POST_FAILED())) $this->content = $this->getDataFailed();
+        if ($this->selecteur->equals(Selection::REGISTER_POST_SUCCESS())) $this->content = $this->registerSuccess();
+        if ($this->selecteur->equals(Selection::REGISTER_POST_USER_OR_EMAIL_EXSITE())) $this->content = $this->registerUserEmailExists();
+        if ($this->selecteur->equals(Selection::LOGIN())) $this->content = $this->accountLogin();
+        if ($this->selecteur->equals(Selection::LOGIN_POST_SUCCESS())) $this->content = $this->loginSuccess();
+        if ($this->selecteur->equals(Selection::LOGIN_POST_FAILED())) $this->content = $this->getDataFailed();
+        if ($this->selecteur->equals(Selection::LOGIN_POST_USERPASS_WRONG())) $this->content = $this->loginBadUserPass();
+        if ($this->selecteur->equals(Selection::LOGOUT())) $this->content = $this->logout();
 
         $body = <<<END
 <div id="content">

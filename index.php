@@ -8,10 +8,9 @@ use \mywishlist\controllers\UserController;
 use \mywishlist\controllers\ListController;
 use \mywishlist\controllers\ItemController;
 use \mywishlist\controllers\IndexController;
+use \mywishlist\views\AccueilView;
 use \Illuminate\Database\Capsule\Manager as DB;
 use \Slim\Slim;
-
-// Informations de connexion a la base de données
 
 // instance de la base de données
 $db = new DB();
@@ -37,11 +36,9 @@ $db->bootEloquent();
 // intance de slim qui a pour but de créer le rootage des urls
 $app = new Slim();
 
-
-
 $app->get('/', function () {
-    $c = new IndexController();
-    $c->accueil();
+    $v = new AccueilView();
+    $v->render();
 });
 
 $app->get('/list/display/all', function () {
@@ -51,7 +48,7 @@ $app->get('/list/display/all', function () {
 
 $app->get('/list/display/', function () {
     $c = new ListController();
-    $c->displayList();
+    $c->oneList();
 });
 
 $app->get('/list/create', function () {
@@ -67,7 +64,7 @@ $app->get('/item/display/all', function () {
 
 $app->get('/item/display/', function () {
     $c = new ItemController();
-    $c->displayItem();
+    $c->oneItem();
 });
 
 $app->get('/item/reserve/', function () {

@@ -14,6 +14,8 @@ class Selection extends Enum
     const ALL_ITEM = 'ALL_ITEM';
     const ID_ITEM = 'ID_ITEM';
     const FORM_ITEM = 'FORM_ITEM';
+    const FORM_ITEM_RESERVE = 'FORM_ITEM_RESERVE';
+    const FORM_ITEM_RESERVE_FAIL = 'FORM_ITEM_RESERVE_FAIL';
 
     const REGISTER = 'REGISTER';
     const REGISTER_POST = 'REGISTER_POST';

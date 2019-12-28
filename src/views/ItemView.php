@@ -67,10 +67,13 @@ END;
                 $content = $this->htmlAllItem();
                 break;
             case Selection::ID_ITEM:
-                    $content = $this->htmlIdList();
+                $content = $this->htmlIdList();
                 break;
-            case Selection::FORM_ITEM:
-                    $content = $this->htmlReserve();
+            case Selection::FORM_ITEM_RESERVE:
+                $content = $this->htmlReserve();
+                break;
+            case Selection::FORM_ITEM_RESERVE_FAIL:
+                $content = "FORM_ITEM_RESERVE_FAIL";
                 break;
             default:
                 $content = "Switch Constant Error";
@@ -79,7 +82,7 @@ END;
         $body = <<<END
 <div id="content">
     <div id="content-inner">
-         $content;
+         $content
     </div>
 </div>
 END;

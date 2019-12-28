@@ -15,7 +15,7 @@ class ListController {
         $v->render();
     }
 
-    public function displayList()
+    public function oneList()
     {
         $id = filter_var($_GET['id'],FILTER_SANITIZE_SPECIAL_CHARS);
         $l = Liste::where('no', '=', $id)->get();

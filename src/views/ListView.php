@@ -14,7 +14,7 @@ class ListView
         $this->selecteur = $s;
     }
 
-    private function htmlAllList()
+    private function displayAllList()
     {
         $res = "<table><th>no</th><th>user_id</th><th>titre</th><th>description</th><th>expiration</th>";
         foreach ($this->list as $lis)
@@ -29,7 +29,7 @@ CONACT;
         return $res . "</table>";
     }
 
-    private function htmlIdList()
+    private function displayOneList()
     {
         $res = "<table><th>no</th><th>user_id</th><th>titre</th><th>description</th><th>expiration</th>";
         foreach ($this->list as $lis)
@@ -60,8 +60,8 @@ END;
 
     public function render()
     {
-        if ($this->selecteur==Selection::ALL_LIST) $this->content = $this->htmlAllList();
-        if ($this->selecteur==Selection::ID_LIST) $this->content = $this->htmlIdList();
+        if ($this->selecteur==Selection::ALL_LIST) $this->content = $this->displayAllList();
+        if ($this->selecteur==Selection::ID_LIST) $this->content = $this->displayOneList();
         if ($this->selecteur==Selection::FORM_LIST) $this->content = $this->formCreateList();
 
          $body = <<<END
