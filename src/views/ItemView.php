@@ -2,12 +2,10 @@
 
 namespace mywishlist\views;
 
+use mywishlist\utils\Selection;
+
 class ItemView
 {
-
-    const ALL_ITEM = 'ALL_ITEM';
-    const ID_ITEM = 'ID_ITEM';
-    const FORM = 'FORM';
 
     protected $item, $selecteur;
 
@@ -65,26 +63,18 @@ END;
     public function render()
     {
         switch ($this->selecteur) {
-            case self::ALL_ITEM:
-            {
+            case Selection::ALL_ITEM:
                 $content = $this->htmlAllItem();
                 break;
-            }
-            case self::ID_ITEM:
-            {
-                $content = $this->htmlIdList();
+            case Selection::ID_ITEM:
+                    $content = $this->htmlIdList();
                 break;
-            }
-            case self::FORM:
-            {
-                $content = $this->htmlReserve();
+            case Selection::FORM_ITEM:
+                    $content = $this->htmlReserve();
                 break;
-            }
             default:
-            {
                 $content = "Switch Constant Error";
                 break;
-            }
         }
         $body = <<<END
 <div id="content">

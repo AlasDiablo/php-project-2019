@@ -9,7 +9,11 @@ class Selection extends Enum
 {
     const ALL_LIST = 'ALL_LIST';
     const ID_LIST = 'ID_LIST';
-    const FORM = 'FORM';
+    const FORM_LIST = 'FORM_LIST';
+
+    const ALL_ITEM = 'ALL_ITEM';
+    const ID_ITEM = 'ID_ITEM';
+    const FORM_ITEM = 'FORM_ITEM';
 
     const REGISTER = 'REGISTER';
     const REGISTER_POST = 'REGISTER_POST';
