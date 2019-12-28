@@ -26,7 +26,7 @@ class ViewRendering
                 <ul>
                 <li><a href="/index.php/list/display/all">Listes</a></li>
                 <li><a href="/index.php/item/display/all">Items</a></li>
-                <li><a href="/index.php/account/register">S'inscrire/Se Connecter</a></li>
+                <li><a href="/index.php/account">S'inscrire/Se Connecter</a></li>
                 </ul>
             </div>
             <div class="clr"></div>
