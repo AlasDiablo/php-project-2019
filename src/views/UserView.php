@@ -20,7 +20,7 @@ class UserView
     {
         return <<<BODY
 <div id="user-form">
-    <div id="register">
+    <div id="register-div">
         <form method="post" action="/index.php/account/register_post">
             <label>Nom d'utilisateur</label>
             <input type="text" name="username" required>
@@ -35,7 +35,7 @@ class UserView
             <button type="submit" name="submit" value="doRegister">Créer mon compte</button>
         </form>
     </div>
-    <div id="login">
+    <div id="login-div">
         <form id="register" method="post" action="/index.php/account/login_post">
             <label>Nom d'utilisateur</label>
             <input type="text" name="username" required>
