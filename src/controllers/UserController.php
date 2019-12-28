@@ -203,12 +203,12 @@ class UserController
                 if ($val != FALSE) {
                     $user_data['password'] = $val;
                 } else{
-                    $render = new RenderHandler(Registries::CHANGE_FAILD, null);
+                    $render = new UserView(null, Selection::CHANGE_FAILD());
                     $render->render();
                     return;
                 }
             } else {
-                $render = new RenderHandler(Registries::CHANGE_FAILD, null);
+                $render = new UserView(null, Selection::CHANGE_FAILD());
                 $render->render();
                 return;
             }
@@ -218,12 +218,12 @@ class UserController
                 if ($val != FALSE) {
                     $user_data['password-confirm'] = $val;
                 } else{
-                    $render = new RenderHandler(Registries::CHANGE_FAILD, null);
+                    $render = new UserView(null, Selection::CHANGE_FAILD());
                     $render->render();
                     return;
                 }
             } else {
-                $render = new RenderHandler(Registries::CHANGE_FAILD, null);
+                $render = new UserView(null, Selection::CHANGE_FAILD());
                 $render->render();
                 return;
             }
@@ -233,18 +233,18 @@ class UserController
                 if ($val != FALSE) {
                     $user_data['password-old'] = $val;
                 } else{
-                    $render = new RenderHandler(Registries::CHANGE_FAILD, null);
+                    $render = new UserView(null, Selection::CHANGE_FAILD());
                     $render->render();
                     return;
                 }
             } else {
-                $render = new RenderHandler(Registries::CHANGE_FAILD, null);
+                $render = new UserView(null, Selection::CHANGE_FAILD());
                 $render->render();
                 return;
             }
             // Check si les mot de passe sont identique
             if ($user_data['password'] != $user_data['password-confirm']) {
-                $render = new RenderHandler(Registries::CHANGE_BAD_PASSWORD, null);
+                $render = new UserView(null, Selection::CHANGE_BAD_PASSWORD());
                 $render->render();
                 return;
             }
@@ -255,12 +255,12 @@ class UserController
                     $user->save();
                     self::logout();
                 } else {
-                    $render = new RenderHandler(Registries::CHANGE_BAD_PASSWORD, null);
+                    $render = new UserView(null, Selection::CHANGE_BAD_PASSWORD());
                     $render->render();
                     return;
                 }
             } else {
-                $render = new RenderHandler(Registries::CHANGE_USER_ERROR, null);
+                $render = new UserView(null, Selection::CHANGE_USER_ERROR());
                 $render->render();
                 return;
 

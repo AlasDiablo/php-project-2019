@@ -25,4 +25,7 @@ class Selection extends Enum
     const LOGIN_POST_USERPASS_WRONG = "LOGIN_POST_USERPASS_WRONG";
 
     const LOGOUT = "LOGOUT";
+    const CHANGE_FAILD = "CHANGE_FAILD";
+    const CHANGE_BAD_PASSWORD = "CHANGE_BAD_PASSWORD";
+    const CHANGE_USER_ERROR = "CHANGE_USER_ERROR";
 }

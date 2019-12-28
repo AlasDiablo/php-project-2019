@@ -17,7 +17,6 @@ class ViewRendering
     <link href ="/css/style.css" rel="stylesheet">
 </head>
 <body>
-<div id="page">
     <header id="header">
         <div id="header-inner">	
             <div id="logo">
@@ -33,11 +32,6 @@ class ViewRendering
             <div class="clr"></div>
         </div>
     </header>
-    <div class="feature">
-        <div class="feature-inner">
-        <h1>My wishlist</h1>
-        </div>
-    </div>
 
     $body
 
