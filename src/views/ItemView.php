@@ -21,24 +21,28 @@ class ItemView
         $res = "<table><th>ID</th><th>liste_ID</th><th>nom</th><th>description</th><th>tarif</th>";
         foreach ($this->item as $i)
         {
-            $res = $res . "<tr>";
-            $res = $res . "<td>" . $i->id . "</td><td>" . $i->liste_id . "</td><td>" . $i->nom . "</td><td>" . $i->descr . "</td><td>" . $i->tarif . "</td>";
-            $res = $res . "<tr>";
+            $res = <<<RES
+$res
+<tr>
+<td>$i->id</td><td>$i->liste_id</td><td>$i->nom</td><td>$i->descr</td><td>$i->tarif</td>
+</tr>
+RES;
         }
-        $res = $res . "</table>";
-        return $res;
+        return $res . "</table>";
     }
 
     private function htmlIdList() {
         $res = "<table><th>ID</th><th>liste_ID</th><th>nom</th><th>description</th><th>tarif</th>";
         foreach ($this->item as $i)
         {
-            $res = $res . "<tr>";
-            $res = $res . "<td>" . $i->id . "</td><td>" . $i->liste_id . "</td><td>" . $i->nom . "</td><td>" . $i->descr . "</td><td>" . $i->tarif . "</td>";
-            $res = $res . "<tr>";
+            $res = <<<RES
+$res
+<tr>
+<td>$i->id</td><td>$i->liste_id</td><td>$i->nom</td><td>$i->descr</td><td>$i->tarif</td>
+</tr>
+RES;
         }
-        $res = $res . "</table>";
-        return $res;
+        return $res . "</table>";
     }
 
     private function htmlReserve()
@@ -82,17 +86,13 @@ END;
                 break;
             }
         }
-
-        GlobalView::Header();
-        echo <<<END
+        $body = <<<END
 <div id="content">
-				<div id="content-inner">
-				
-                     $content;
-					
-				</div>
-			</div>
+    <div id="content-inner">
+         $content;
+    </div>
+</div>
 END;
-        GlobalView::Footer();
+        ViewRendering::render($body);
     }
 }

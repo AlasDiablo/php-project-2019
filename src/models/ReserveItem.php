@@ -2,7 +2,9 @@
 
 namespace mywishlist\models;
 
-class ReserveItem extends \Illuminate\Database\Eloquent\Model {
+use Illuminate\Database\Eloquent\Model;
+
+class ReserveItem extends Model {
     protected $table = 'reserveitem';
     protected $primaryKey = 'id';
     public $timestamps = false;

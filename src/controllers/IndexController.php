@@ -2,6 +2,7 @@
 
 
 namespace mywishlist\controllers;
+
 use mywishlist\views\AccueilView;
 
 class IndexController

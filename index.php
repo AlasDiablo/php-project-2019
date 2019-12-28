@@ -4,12 +4,12 @@
 require_once './vendor/autoload.php';
 
 // Liste des tous les imports
-use mywishlist\controllers\ParticipationController;
 use \mywishlist\controllers\UserController;
-use mywishlist\controllers\ListController;
-use mywishlist\controllers\ItemController;
+use \mywishlist\controllers\ListController;
+use \mywishlist\controllers\ItemController;
+use \mywishlist\controllers\IndexController;
 use \Illuminate\Database\Capsule\Manager as DB;
-use \mywishlist\views\RenderHandler;
+use \Slim\Slim;
 
 // Informations de connexion a la base de données
 
@@ -17,7 +17,17 @@ use \mywishlist\views\RenderHandler;
 $db = new DB();
 
 // ajout des informations pour se connecter à la base de données
-$db->addConnection(parse_ini_file('src/conf/conf.ini'));
+$ini_file = parse_ini_file('src/conf/conf.ini');
+$db->addConnection([
+    'driver'    => $ini_file['driver'],
+    'host'      => $ini_file['host'],
+    'database'  => $ini_file['database'],
+    'username'  => $ini_file['username'],
+    'password'  => $ini_file['password'],
+    'charset'   => $ini_file['charset'],
+    'collation' => $ini_file['charset'] . '_unicode_ci',
+    'prefix'    => ''
+]);
 
 // demarage de la basse de donnée
 $db->setAsGlobal();
@@ -25,12 +35,12 @@ $db->bootEloquent();
 
 
 // intance de slim qui a pour but de créer le rootage des urls
-$app = new \Slim\Slim();
+$app = new Slim();
 
 
 
 $app->get('/', function () {
-    $c = new \mywishlist\controllers\IndexController();
+    $c = new IndexController();
     $c->accueil();
 });
 

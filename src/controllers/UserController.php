@@ -3,12 +3,9 @@
 
 namespace mywishlist\controllers;
 
-
 use mywishlist\utils\Selection;
 use mywishlist\views\UserView;
 use mywishlist\models\User;
-use mywishlist\utils\Registries;
-use mywishlist\views\RenderHandler;
 
 class UserController
 {

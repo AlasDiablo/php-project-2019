@@ -2,8 +2,8 @@
 
 
 namespace mywishlist\models;
-use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {

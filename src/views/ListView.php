@@ -3,10 +3,7 @@
 
 namespace mywishlist\views;
 
-
-use mywishlist\utils\Registries;
 use mywishlist\utils\Selection;
-use function Composer\Autoload\includeFile;
 
 class ListView
 {
@@ -25,12 +22,14 @@ class ListView
         $res = "<table><th>no</th><th>user_id</th><th>titre</th><th>description</th><th>expiration</th>";
         foreach ($this->list as $lis)
         {
-            $res = $res . "<tr>";
-            $res = $res . "<td>" . $lis->no . "</td><td>" . $lis->user_id . "</td><td>" . $lis->titre . "</td><td>" . $lis->description . "</td><td>" . $lis->expiration . "</td>";
-            $res = $res . "<tr>";
+            $res = <<<CONACT
+$res
+<tr>
+<td>$lis->no</td><td>$lis->user_id</td><td>$lis->titre</td><td>$lis->description</td><td>$lis->expiration</td>
+</tr>
+CONACT;
         }
-        $res = $res . "</table>";
-        return $res;
+        return $res . "</table>";
     }
 
     private function htmlIdList()
@@ -58,58 +57,15 @@ END;
         if ($this->selecteur->equals(Selection::ID_LIST())) $this->content = $this->htmlIdList();
         if ($this->selecteur->equals(Selection::FORM())) $this->content = $this->formCreateList();
 
-/*        switch ($this->selecteur)
-        {
-            case S::ALL_LIST: {
-                $content = $this->htmlAllList();
-                break;
-            }
-            case self::ID_LIST: {
-                $content = $this->htmlIdList();
-                break;
-            }
-            case self::FORM: {
-                $content = $this->formCreateList();
-                break;
-            }
-            default: {
-                $content = "Switch Constant Error";
-                break;
-            }
-        }*/
-
-        GlobalView::Header();
-         echo <<<END
+         $body = <<<END
 <div id="content">
-				<div id="content-inner">
-				
-                     $this->content;
-					
-				</div>
-			</div>
+    <div id="content-inner">
+         $this->content
+    </div>
+</div>
 END;
-        GlobalView::Footer();
+        ViewRendering::render($body);
 
     }
-
-
-/*    public function render($code, $data_set): array{
-        switch ($code){
-            case Registries::FORMCREATELIST:
-                return array(
-                    'css' => '',
-                    'html' => $this->formCreateList(),
-                    'title' => "Création d'une liste"
-                );
-                break;
-            default:
-                return array(
-                    'css' => '',
-                    'html' => "<p>404</p>",
-                    'title' => "error"
-                );
-                break;
-        }
-    }*/
 
 }

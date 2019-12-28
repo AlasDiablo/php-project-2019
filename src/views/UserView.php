@@ -3,7 +3,6 @@
 
 namespace mywishlist\views;
 
-
 use mywishlist\utils\Selection;
 
 class UserView
@@ -129,17 +128,16 @@ END;
         if ($this->selecteur->equals(Selection::LOGIN_POST_USERPASS_WRONG())) $this->content = $this->htmlLoginBadUserPass();
         if ($this->selecteur->equals(Selection::LOGOUT())) $this->content = $this->htmlLogout();
 
-        GlobalView::Header();
-        echo <<<END
+        $body = <<<END
 <div id="content">
-				<div id="content-inner">
-				
-                     $this->content
-					
-				</div>
-			</div>
+    <div id="content-inner">
+    
+         $this->content
+        
+    </div>
+</div>
 END;
-        GlobalView::Footer();
+        ViewRendering::render($body);
     }
 
 }
