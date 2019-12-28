@@ -36,11 +36,15 @@ $db->bootEloquent();
 // intance de slim qui a pour but de créer le rootage des urls
 $app = new Slim();
 
+
+/*-----|acceuil|-----*/
 $app->get('/', function () {
     $v = new AccueilView();
     $v->render();
 });
 
+
+/*-----|listes|-----*/
 $app->get('/list/display/all', function () {
     $c = new ListController();
     $c->allList();
@@ -57,6 +61,7 @@ $app->get('/list/create', function () {
 });
 
 
+/*-----|items|-----*/
 $app->get('/item/display/all', function () {
     $c = new ItemController();
     $c->allItems();
@@ -77,6 +82,8 @@ $app->post('/item/reserve/submit/', function () {
     $c->reserveItemSubmit();
 });
 
+
+/*-----|comptes|-----*/
 $app->get('/account', function () {
     $c = new UserController();
     $c->account();
@@ -103,6 +110,5 @@ $app->post('/account/login_post', function () {
 });
 
 
+
 $app->run();
-
-
