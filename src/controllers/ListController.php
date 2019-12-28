@@ -1,6 +1,5 @@
 <?php
 
-
 namespace mywishlist\controllers;
 
 use mywishlist\models\Liste;
@@ -9,17 +8,16 @@ use mywishlist\views\ListView;
 
 class ListController {
 
-
-
     public function allList()
     {
         $lists = Liste::all();
-        $v = new ListView($lists, Selection::ALL_LIST());
+        $v = new ListView($lists, Selection::ALL_LIST);
         $v->render();
     }
 
-    public function displayList($id)
+    public function displayList()
     {
+        $id = filter_var($_GET['id'],FILTER_SANITIZE_SPECIAL_CHARS);
         $l = Liste::where('no', '=', $id)->get();
         $v = new ListView($l, Selection::ID_LIST());
         $v->render();
@@ -27,11 +25,11 @@ class ListController {
 
     public function listForm()
     {
-        $v = new ListView(null, Selection::FORM());
+        $v = new ListView(null, Selection::FORM_LIST());
         $v->render();
     }
 
-    public static function createList(){
+    public function createList(){
         $l = new Liste();
         $l->titre = filter_var($_POST['titre'],FILTER_SANITIZE_SPECIAL_CHARS);
         $l->description = filter_var($_POST['description'],FILTER_SANITIZE_SPECIAL_CHARS);

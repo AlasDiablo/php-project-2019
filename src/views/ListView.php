@@ -1,6 +1,5 @@
 <?php
 
-
 namespace mywishlist\views;
 
 use mywishlist\utils\Selection;
@@ -10,9 +9,7 @@ class ListView
 
     protected $list, $selecteur, $content;
 
-
-    public function  __construct($l, Selection $s)
-    {
+    public function  __construct($l, $s){
         $this->list = $l;
         $this->selecteur = $s;
     }
@@ -34,7 +31,17 @@ CONACT;
 
     private function htmlIdList()
     {
-        return $this->list;
+        $res = "<table><th>no</th><th>user_id</th><th>titre</th><th>description</th><th>expiration</th>";
+        foreach ($this->list as $lis)
+        {
+            $res = <<<CONACT
+$res
+<tr>
+<td>$lis->no</td><td>$lis->user_id</td><td>$lis->titre</td><td>$lis->description</td><td>$lis->expiration</td>
+</tr>
+CONACT;
+        }
+        return $res . "</table>";
     }
 
     private function formCreateList(){
@@ -53,9 +60,9 @@ END;
 
     public function render()
     {
-        if ($this->selecteur->equals(Selection::ALL_LIST())) $this->content = $this->htmlAllList();
-        if ($this->selecteur->equals(Selection::ID_LIST())) $this->content = $this->htmlIdList();
-        if ($this->selecteur->equals(Selection::FORM())) $this->content = $this->formCreateList();
+        if ($this->selecteur==Selection::ALL_LIST) $this->content = $this->htmlAllList();
+        if ($this->selecteur==Selection::ID_LIST) $this->content = $this->htmlIdList();
+        if ($this->selecteur==Selection::FORM_LIST) $this->content = $this->formCreateList();
 
          $body = <<<END
 <div id="content">

@@ -49,9 +49,9 @@ $app->get('/list/display/all', function () {
     $c->allList();
 });
 
-$app->get('/list/display/:id', function ($id) {
+$app->get('/list/display/', function () {
     $c = new ListController();
-    $c->displayList($id);
+    $c->displayList();
 });
 
 $app->get('/list/create', function () {
