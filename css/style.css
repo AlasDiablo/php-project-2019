@@ -16,12 +16,19 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0;
 }
 
-#register-div {
-    width: 50%;
-    display: inline-block;
+#user-form {
+    text-align: center;
 }
-#login-div {
-    width: 50%;
+
+.user-form {
+    border-radius: 12px;
+    background: rgba(107, 161, 255, 0.51);
+    color: darkslateblue;
+    margin: 2% 6%;
+    min-height: 420px;
+    width: 32%;
+    vertical-align: top;
+    text-align: center;
     display: inline-block;
 }
 

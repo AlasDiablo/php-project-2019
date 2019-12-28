@@ -20,27 +20,29 @@ class UserView
     {
         return <<<BODY
 <div id="user-form">
-    <div id="register-div">
+    <div id="register-div" class="user-form">
+        <h2>Creation d'un compte</h2>
         <form method="post" action="/index.php/account/register_post">
-            <label>Nom d'utilisateur</label>
-            <input type="text" name="username" required>
-            <label>Email</label>
-            <input type="email" name="email" required>
-            <label>Confirmer l'email</label>
-            <input type="email" name="email-confirm" required>
-            <label>Mot de passe</label>
-            <input type="password" name="password" required>
-            <label>Confirmer le mot de passe</label>
-            <input type="password" name="password-confirm" required>
+            <label>Nom d'utilisateur :</label><br>
+            <input type="text" name="username" required><br>
+            <label>Email :</label><br>
+            <input type="email" name="email" required><br>
+            <label>Confirmer l'email :</label><br>
+            <input type="email" name="email-confirm" required><br>
+            <label>Mot de passe :</label><br>
+            <input type="password" name="password" required><br>
+            <label>Confirmer le mot de passe :</label><br>
+            <input type="password" name="password-confirm" required><br><br>
             <button type="submit" name="submit" value="doRegister">Créer mon compte</button>
         </form>
     </div>
-    <div id="login-div">
+    <div id="login-div" class="user-form">
+        <h2>Connection a un compte</h2>
         <form id="register" method="post" action="/index.php/account/login_post">
-            <label>Nom d'utilisateur</label>
-            <input type="text" name="username" required>
-            <label>Mot de passe</label>
-            <input type="password" name="password" required>
+            <label>Nom d'utilisateur :</label><br>
+            <input type="text" name="username" required><br>
+            <label>Mot de passe :</label><br>
+            <input type="password" name="password" required><br><br>
             <button type="submit" name="submit" value="doLogin">Se connecter</button>
         </form>
     </div>
