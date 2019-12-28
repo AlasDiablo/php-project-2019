@@ -77,16 +77,9 @@ $app->post('/item/reserve/submit/', function () {
     $c->reserveItemSubmit();
 });
 
-
-$app->get('/account/register', function () {
+$app->get('/account', function () {
     $c = new UserController();
-    $c->register();
-});
-
-
-$app->get('/account/login', function () {
-    $c = new UserController();
-    $c->login();
+    $c->account();
 });
 
 $app->get('/account/logout', function () {
@@ -99,12 +92,12 @@ $app->post('/list/create/submit', function () {
     $c->createList();
 });
 
-$app->post('/account/register/add', function () {
+$app->post('/account/register_post', function () {
     $c = new UserController();
     $c->register_post();
 });
 
-$app->post('/account/login/submit', function () {
+$app->post('/account/login_post', function () {
     $c = new UserController();
     $c->login_post();
 });

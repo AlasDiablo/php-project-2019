@@ -16,10 +16,12 @@ class UserView
         $this->selecteur = $s;
     }
 
-    private function accountRegister()
+    private function accountRegisterAndLogin()
     {
-        $str = <<<END
-        <form method="post" action="/index.php/account/register/add">
+        return <<<BODY
+<div id="user-form">
+    <div id="register">
+        <form method="post" action="/index.php/account/register_post">
             <label>Nom d'utilisateur</label>
             <input type="text" name="username" required>
             <label>Email</label>
@@ -32,22 +34,19 @@ class UserView
             <input type="password" name="password-confirm" required>
             <button type="submit" name="submit" value="doRegister">Créer mon compte</button>
         </form>
-END;
-        return $str;
-    }
+    </div>
+    <div id="login">
+        <form id="register" method="post" action="/index.php/account/login_post">
+            <label>Nom d'utilisateur</label>
+            <input type="text" name="username" required>
+            <label>Mot de passe</label>
+            <input type="password" name="password" required>
+            <button type="submit" name="submit" value="doLogin">Se connecter</button>
+        </form>
+    </div>
+</div>
+BODY;
 
-    private function accountLogin()
-    {
-        $str = <<<END
-<form id="register" method="post" action="/index.php/account/login/submit">
-    <label>Nom d'utilisateur</label>
-    <input type="text" name="username" required>
-    <label>Mot de passe</label>
-    <input type="password" name="password" required>
-    <button type="submit" name="submit" value="doLogin">Se connecter</button>
-</form>
-END;
-        return $str;
     }
 
     private function accountChange()
@@ -118,11 +117,10 @@ END;
     public function render()
     {
 
-        if ($this->selecteur->equals(Selection::REGISTER())) $this->content = $this->accountRegister();
+        if ($this->selecteur->equals(Selection::ACCOUNT())) $this->content = $this->accountRegisterAndLogin();
         if ($this->selecteur->equals(Selection::REGISTER_POST_FAILED())) $this->content = $this->getDataFailed();
         if ($this->selecteur->equals(Selection::REGISTER_POST_SUCCESS())) $this->content = $this->registerSuccess();
         if ($this->selecteur->equals(Selection::REGISTER_POST_USER_OR_EMAIL_EXSITE())) $this->content = $this->registerUserEmailExists();
-        if ($this->selecteur->equals(Selection::LOGIN())) $this->content = $this->accountLogin();
         if ($this->selecteur->equals(Selection::LOGIN_POST_SUCCESS())) $this->content = $this->loginSuccess();
         if ($this->selecteur->equals(Selection::LOGIN_POST_FAILED())) $this->content = $this->getDataFailed();
         if ($this->selecteur->equals(Selection::LOGIN_POST_USERPASS_WRONG())) $this->content = $this->loginBadUserPass();

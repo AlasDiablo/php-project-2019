@@ -9,17 +9,6 @@ use mywishlist\models\User;
 
 class UserController
 {
-    public function register()
-    {
-        $v = new UserView(null, Selection::REGISTER());
-        $v->render();
-    }
-
-    public function login()
-    {
-        $v = new UserView(null, Selection::LOGIN());
-        $v->render();
-    }
 
     public function logout()
     {
@@ -321,6 +310,12 @@ class UserController
     private static function post_failed_user_or_email_exsite()
     {
         $v = new UserView(null, Selection::REGISTER_POST_USER_OR_EMAIL_EXSITE());
+        $v->render();
+    }
+
+    public function account()
+    {
+        $v = new UserView(null, Selection::ACCOUNT());
         $v->render();
     }
 }
