@@ -60,9 +60,9 @@ END;
 
     public function render()
     {
-        if ($this->selecteur==Selection::ALL_LIST) $this->content = $this->displayAllList();
-        if ($this->selecteur==Selection::ID_LIST) $this->content = $this->displayOneList();
-        if ($this->selecteur==Selection::FORM_LIST) $this->content = $this->formCreateList();
+        if ($this->selecteur->equals(Selection::ALL_LIST())) $this->content = $this->displayAllList();
+        if ($this->selecteur->equals(Selection::ID())) $this->content = $this->displayOneList();
+        if ($this->selecteur->equals(Selection::FORM_LIST())) $this->content = $this->formCreateList();
 
          $body = <<<END
 <div id="content">
