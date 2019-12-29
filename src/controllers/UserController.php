@@ -319,7 +319,8 @@ class UserController
         $v->render();
     }
 
-    public function accountById($id)
+    public function accountEdit()
     {
+        // TODO
     }
 }

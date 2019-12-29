@@ -90,9 +90,9 @@ $app->get('/account', function () {
     $c->account();
 });
 
-$app->get('/account/:id', function ($id) {
+$app->get('/account/edit', function () {
     $c = new UserController();
-    $c->accountById($id);
+    $c->accountEdit();
 });
 
 

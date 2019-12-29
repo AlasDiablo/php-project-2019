@@ -19,11 +19,10 @@ class ViewRendering
 NAV;
         } else {
             $username = Authentication::getUsername();
-            $user_id = Authentication::getUserId();
             return <<<NAV
 <li><a href="/index.php/list/display/all">Listes</a></li>
 <li><a href="/index.php/item/display/all">Items</a></li>
-<li><a href="/index.php/account/$user_id">Bonjour, $username</a></li>
+<li><a href="/index.php/account/edit">Bonjour, $username</a></li>
 <li><a href="/index.php/account/logout">Se Deconnecter</a></li>
 NAV;
         }

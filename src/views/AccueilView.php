@@ -11,7 +11,7 @@ class AccueilView
 <div id="content">
     <div id="content-inner">
     
-         <p><h1>TO-DO : Page d'accueil</h1></p>
+         <h1>TO-DO : Page d'accueil</h1>
         
         <div class="clr"></div>
     </div>
