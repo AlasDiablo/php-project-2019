@@ -115,10 +115,10 @@ class UserController
                 $user->username = $user_data['username'];
                 $user->password_hash = password_hash($user_data['password'], PASSWORD_DEFAULT);
                 $user->user_level = 1;
-                $user->user_id = self::getNewUserId();
-                self::getNewUserId();
+                $user_id = self::getNewUserId();
+                $user->user_id = $user_id;
                 $user->save();
-                self::createSession($user_data['username']);
+                self::createSession($user_id);
             } else {
                 self::post_failed_user_or_email_exsite();
                 return;
@@ -166,7 +166,8 @@ class UserController
             }
             if (!self::checkIfUsernameExsite($user_data['username'])) {
                 if (password_verify($user_data['password'], User::select('password_hash')->where('username', '=', $user_data['username'])->first()->password_hash)) {
-                    self::createSession($user_data['username']);
+                    $user_id = User::select('user_id')->where('username', '=', $user_data['username'])->get()[0]['user_id'];
+                    self::createSession($user_id);
                     $render = new UserView(null, Selection::LOGIN_POST_SUCCESS);
                     $render->render();
                 } else {
@@ -258,9 +259,8 @@ class UserController
         }
     }
 
-    private static function createSession($user) {
-        session_start();
-        $_SESSION['user_id'] = $user;
+    private static function createSession($user_id) {
+        $_SESSION['user_id'] = $user_id;
     }
 
 
@@ -317,5 +317,9 @@ class UserController
     {
         $v = new UserView(null, Selection::ACCOUNT);
         $v->render();
+    }
+
+    public function accountById($id)
+    {
     }
 }

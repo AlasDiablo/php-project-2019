@@ -3,11 +3,35 @@
 
 namespace mywishlist\views;
 
+use mywishlist\utils\Authentication;
+
 class ViewRendering
 {
 
+    private static function getTopNav()
+    {
+        if (Authentication::getUserLevel() == Authentication::ANONYMOUS)
+        {
+            return <<<NAV
+<li><a href="/index.php/list/display/all">Listes</a></li>
+<li><a href="/index.php/item/display/all">Items</a></li>
+<li><a href="/index.php/account">S'inscrire/Se Connecter</a></li>
+NAV;
+        } else {
+            $username = Authentication::getUsername();
+            $user_id = Authentication::getUserId();
+            return <<<NAV
+<li><a href="/index.php/list/display/all">Listes</a></li>
+<li><a href="/index.php/item/display/all">Items</a></li>
+<li><a href="/index.php/account/$user_id">Bonjour, $username</a></li>
+<li><a href="/index.php/account/logout">Se Deconnecter</a></li>
+NAV;
+        }
+    }
+
     public static function render(string $body, string $title = "")
     {
+        $top_nav = self::getTopNav();
         echo <<<HTML
 <!DOCTYPE html>
 <html lang="fr">
@@ -24,9 +48,7 @@ class ViewRendering
             </div>
             <div id="top-nav">
                 <ul>
-                <li><a href="/index.php/list/display/all">Listes</a></li>
-                <li><a href="/index.php/item/display/all">Items</a></li>
-                <li><a href="/index.php/account">S'inscrire/Se Connecter</a></li>
+                    $top_nav
                 </ul>
             </div>
             <div class="clr"></div>

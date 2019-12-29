@@ -7,7 +7,6 @@ require_once './vendor/autoload.php';
 use \mywishlist\controllers\UserController;
 use \mywishlist\controllers\ListController;
 use \mywishlist\controllers\ItemController;
-use \mywishlist\controllers\IndexController;
 use \mywishlist\views\AccueilView;
 use \Illuminate\Database\Capsule\Manager as DB;
 use \Slim\Slim;
@@ -32,6 +31,8 @@ $db->addConnection([
 $db->setAsGlobal();
 $db->bootEloquent();
 
+// demerage d'un session
+session_start();
 
 // intance de slim qui a pour but de créer le rootage des urls
 $app = new Slim();
@@ -89,6 +90,12 @@ $app->get('/account', function () {
     $c->account();
 });
 
+$app->get('/account/:id', function ($id) {
+    $c = new UserController();
+    $c->accountById($id);
+});
+
+
 $app->get('/account/logout', function () {
     $c = new UserController();
     $c->logout();
@@ -108,7 +115,5 @@ $app->post('/account/login_post', function () {
     $c = new UserController();
     $c->login_post();
 });
-
-
 
 $app->run();
