@@ -60,6 +60,10 @@ $app->get('/list/create', function () {
     $c = new ListController();
     $c->listForm();
 });
+$app->get('/list/share', function () {
+    $c = new ListController();
+    $c->share();
+});
 
 
 /*-----|items|-----*/

@@ -9,6 +9,7 @@ class Selection
     const ALL_LIST = 'ALL_LIST';
     const ID_LIST = 'ID_LIST';
     const FORM_LIST = 'FORM_LIST';
+    const SHARE_LIST = 'SHARE_LIST';
 
     const ALL_ITEM = 'ALL_ITEM';
     const ID_ITEM = 'ID_ITEM';

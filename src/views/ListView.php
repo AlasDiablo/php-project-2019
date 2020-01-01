@@ -58,6 +58,17 @@ END;
         return $str;
     }
 
+    private function share(){
+        $actual_link = "http://$_SERVER[HTTP_HOST]";
+        $token = $this->list[0]['tokenPart'];
+        $id = $this->list[0]['no'];
+        $str =
+            <<<END
+url: $actual_link/index.php/list/display?id=$id&token=$token<br>
+END;
+        return $str;
+    }
+
     public function render()
     {
 
@@ -70,6 +81,9 @@ END;
                 break;
             case Selection::FORM_LIST:
                 $this->content = $this->formCreateList();
+                break;
+            case Selection::SHARE_LIST:
+                $this->content = $this->share();
                 break;
             default:
                 $this->content = "Switch Constant Error";
