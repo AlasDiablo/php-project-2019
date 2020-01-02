@@ -39,9 +39,6 @@ Code sous licence **AGPL-3.0**, lire la licence [ici](https://github.com/AlasDia
 + [ ] 3 - Réserver un item
 + [x] 6 - **~~Créer une liste~~**
 + [ ] 8 - Ajouter des items
-+ [ ] 11 - Rajouter une image à un item
-+ [ ] 12 - Modifier une image d'un item
-+ [ ] 13 - Supprimer une image d'un item
 + [ ] 14 - Partager une liste
 
 ### Niveau 2
@@ -58,6 +55,9 @@ Code sous licence **AGPL-3.0**, lire la licence [ici](https://github.com/AlasDia
 
 ### Niveau 3
 
++ [ ] 11 - Rajouter une image à un item
++ [ ] 12 - Modifier une image d'un item
++ [ ] 13 - Supprimer une image d'un item
 + [x] 17 - **~~Créer un compte~~**
 + [x] 18 - **~~S'authentifier~~**
 + [ ] 19 - ***Modifier son compte***
