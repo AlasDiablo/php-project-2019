@@ -56,13 +56,13 @@ BODY;
         $str = <<<END
 <div>
     <img src="$gravatar" alt="gravatar">
-    <a href="https://fr.gravatar.com">Changé mon Gravatar</a>
+    <a href="https://fr.gravatar.com">Changer mon Gravatar</a>
     <label>Nom d'utilisateur</label>
     <input type="text" value="$username" name="username" disabled="disabled">
     <form id="email-change" method="post" action="/account/edit/email">
         <label>Email</label>
         <input type="email" value="$email" name="old-email" disabled="disabled">
-        <label>Nouvelle email</label>
+        <label>Nouvel email</label>
         <input type="email" name="new-email">
         <label>Mot de passe</label>
         <input type="password" name="password" required>
@@ -78,7 +78,7 @@ BODY;
         <button type="submit" name="submit" value="doChange">Appliquer</button>
     </form>
     <form id="delete" method="post" action="/account/edit/delete">
-        <button type="submit" name="submit" value="doChange">Supprimé mon compte</button>
+        <button type="submit" name="submit" value="doChange">Supprimer mon compte</button>
     </form>
 </div>
 
@@ -138,7 +138,7 @@ END;
     private function accountDelete()
     {
         $str = <<<END
-<p>Compte supprimée !</p>
+<p>Compte supprimé !</p>
 END;
         return $str;
     }
