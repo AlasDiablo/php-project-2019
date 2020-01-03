@@ -51,18 +51,32 @@ BODY;
 
     }
 
-    private function accountChange()
+    private function accountChange($username, $email)
     {
         $str = <<<END
-<form id="register" method="post" action="register/post">
-    <label>Mot de passe</label>
-    <input type="password" name="password-old" required>
-    <label>Nouveau mot de passe</label>
-    <input type="password" name="password" required>
-    <label>Confirmer le nouveau mot de passe</label>
-    <input type="password" name="password-confirm" required>
-    <button type="submit" name="submit" value="doChange">Appliquer</button>
-</form>
+<div>
+    <label>Nom d'utilisateur</label>
+    <input type="text" value="$username" name="username" disabled="disabled">
+    <form id="email-change" method="post" action="register/post/email">
+        <label>Email</label>
+        <input type="email" value="$email" name="old-email" disabled="disabled">
+        <label>Nouvelle email</label>
+        <input type="email" name="new-email">
+        <label>Mot de passe</label>
+        <input type="password" name="password" required>
+        <button type="submit" name="submit" value="doChange">Appliquer</button>
+    </form>
+    <form id="password-change" method="post" action="register/post/password">
+        <label>Mot de passe</label>
+        <input type="password" name="password-old" required>
+        <label>Nouveau mot de passe</label>
+        <input type="password" name="password" required>
+        <label>Confirmer le nouveau mot de passe</label>
+        <input type="password" name="password-confirm" required>
+        <button type="submit" name="submit" value="doChange">Appliquer</button>
+    </form>
+</div>
+
 END;
         return $str;
     }
@@ -141,6 +155,12 @@ END;
                 break;
             case Selection::LOGOUT:
                 $this->content = $this->logout();
+                break;
+            case Selection::CHANGE_USER:
+                $this->content = $this->accountChange($this->list['username'], $this->list['email']);
+                break;
+            case Selection::CHANGE_USER_UNAUTHORIZED:
+                $this->content = (new GlobalView())->unauthorized();
                 break;
             default:
                 $this->content = "Switch Constant Error";

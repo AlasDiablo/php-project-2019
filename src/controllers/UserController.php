@@ -3,6 +3,7 @@
 
 namespace mywishlist\controllers;
 
+use mywishlist\utils\Authentication;
 use mywishlist\utils\Selection;
 use mywishlist\views\UserView;
 use mywishlist\models\User;
@@ -321,6 +322,15 @@ class UserController
 
     public function accountEdit()
     {
-        // TODO
+        $user_id = Authentication::getUserId();
+        if ($user_id != Authentication::ANONYMOUS) {
+            $username = Authentication::getUsername();
+            $email = User::select('email')->where('username', '=', $username)->first()->email;
+            $v = new UserView(array('username' => $username, 'email' => $email), Selection::CHANGE_USER);
+            $v->render();
+        } else {
+            $v = new UserView(null, Selection::CHANGE_USER_UNAUTHORIZED);
+            $v->render();
+        }
     }
 }
