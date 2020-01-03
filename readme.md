@@ -34,24 +34,24 @@ Code sous licence **AGPL-3.0**, lire la licence [ici](https://github.com/AlasDia
 
 ### Niveau 1
 
-+ [x] **~~1 - Afficher une liste de souhaits~~**
-+ [x] **~~2 - Afficher un item d'une liste~~**
-+ [ ] **3 - Réserver un item** **[Emilien]**
-+ [x] ***6 - Créer une liste*** **[Aurélien]**
-+ [ ] ***8 - Ajouter des items*** **[Aurélien]**
++ [x] **~~1 - Afficher une liste de souhaits~~** **[unknown]**
++ [x] **~~2 - Afficher un item d'une liste~~** **[unknown]**
++ [ ] ***3 - Réserver un item*** ***[Emilien]***
++ [x] ***6 - Créer une liste*** ***[Aurélien]***
++ [ ] ***8 - Ajouter des items*** ***[Aurélien]***
 + [x] **~~14 - Partager une liste~~** 
 
 ### Niveau 2
 
-+ [ ] *4 - Ajouter un message avec sa réservation* **[Lucas]**
-+ [ ] *5 - Ajouter un message sur une liste* **[Lucas]**
-+ [ ] ***7 - Modifier les informations générales d'une de ses listes*** **[Aurélien]**
-+ [ ] ***9 - Modifier un item*** **[Aurélien]**
-+ [ ] ***10 - Supprimer un item*** **[Aurélien]**
++ [ ] ***4 - Ajouter un message avec sa réservation*** ***[Lucas]***
++ [ ] ***5 - Ajouter un message sur une liste*** ***[Lucas]***
++ [ ] ***7 - Modifier les informations générales d'une de ses listes*** ***[Aurélien]***
++ [ ] ***9 - Modifier un item*** ***[Aurélien]***
++ [ ] ***10 - Supprimer un item*** ***[Aurélien]***
 + [ ] 15 - Consulter les réservations d'une de ses listes avant échéance
 + [ ] 16 - Consulter les réservations et messages d'une de ses listes après échéance
-+ [ ] ***20 - Rendre une liste publique*** **[Aurélien]**
-+ [ ] ***21 - Afficher les listes de souhaits publiques*** **[Aurélien]**
++ [ ] ***20 - Rendre une liste publique*** ***[Aurélien]***
++ [ ] ***21 - Afficher les listes de souhaits publiques*** ***[Aurélien]***
 
 ### Niveau 3
 
@@ -60,11 +60,11 @@ Code sous licence **AGPL-3.0**, lire la licence [ici](https://github.com/AlasDia
 + [ ] 13 - Supprimer une image d'un item
 + [x] **~~17 - Créer un compte~~** **[Pierre]**
 + [x] **~~18 - S'authentifier~~** **[Pierre]**
-+ [ ] ***19 - Modifier son compte*** **[Pierre]**
++ [ ] ***19 - Modifier son compte*** ***[Pierre]***
 + [ ] 22 - Créer une cagnotte sur un item
 + [ ] 23 - Participer à une cagnotte
-+ [ ] ***24 - Uploader une image*** **[Lucas]**
++ [ ] ***24 - Uploader une image*** ***[Lucas]***
 + [ ] 25 - Créer un compte participant
 + [ ] 26 - Afficher la liste des créateurs 
-+ [ ] ***27 - Supprimer son compte*** **[Pierre]**
++ [x] **~~27 - Supprimer son compte~~** **[Pierre]**
 + [ ] 28 - Joindre des listes à son compte
