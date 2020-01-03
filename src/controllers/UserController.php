@@ -5,6 +5,7 @@ namespace mywishlist\controllers;
 
 use mywishlist\utils\Authentication;
 use mywishlist\utils\Selection;
+use mywishlist\views\GlobalView;
 use mywishlist\views\UserView;
 use mywishlist\models\User;
 
@@ -320,6 +321,17 @@ class UserController
         $v->render();
     }
 
+    public function accountDelete()
+    {
+        if (isset($_POST['submit'])) {
+            User::where('user_id', '=' , Authentication::getUserId())->delete();
+            $v = new UserView(null, Selection::ACCOUNT_DELETE);
+            $v->render();
+        } else {
+            GlobalView::bad_request();
+        }
+    }
+
     public function accountEdit()
     {
         $user_id = Authentication::getUserId();
@@ -329,8 +341,7 @@ class UserController
             $v = new UserView(array('username' => $username, 'email' => $email, 'gravatar' => $this->get_gravatar($email)), Selection::CHANGE_USER);
             $v->render();
         } else {
-            $v = new UserView(null, Selection::CHANGE_USER_UNAUTHORIZED);
-            $v->render();
+            GlobalView::unauthorized();
         }
     }
 

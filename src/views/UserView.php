@@ -59,7 +59,7 @@ BODY;
     <a href="https://fr.gravatar.com">Changé mon Gravatar</a>
     <label>Nom d'utilisateur</label>
     <input type="text" value="$username" name="username" disabled="disabled">
-    <form id="email-change" method="post" action="register/post/email">
+    <form id="email-change" method="post" action="/account/edit/email">
         <label>Email</label>
         <input type="email" value="$email" name="old-email" disabled="disabled">
         <label>Nouvelle email</label>
@@ -68,7 +68,7 @@ BODY;
         <input type="password" name="password" required>
         <button type="submit" name="submit" value="doChange">Appliquer</button>
     </form>
-    <form id="password-change" method="post" action="register/post/password">
+    <form id="password-change" method="post" action="/account/edit/password">
         <label>Mot de passe</label>
         <input type="password" name="password-old" required>
         <label>Nouveau mot de passe</label>
@@ -76,6 +76,9 @@ BODY;
         <label>Confirmer le nouveau mot de passe</label>
         <input type="password" name="password-confirm" required>
         <button type="submit" name="submit" value="doChange">Appliquer</button>
+    </form>
+    <form id="delete" method="post" action="/account/edit/delete">
+        <button type="submit" name="submit" value="doChange">Supprimé mon compte</button>
     </form>
 </div>
 
@@ -132,6 +135,14 @@ END;
         return $str;
     }
 
+    private function accountDelete()
+    {
+        $str = <<<END
+<p>Compte supprimée !</p>
+END;
+        return $str;
+    }
+
     public function render()
     {
         switch ($this->selecteur)
@@ -161,8 +172,8 @@ END;
             case Selection::CHANGE_USER:
                 $this->content = $this->accountChange($this->list['username'], $this->list['email'], $this->list['gravatar']);
                 break;
-            case Selection::CHANGE_USER_UNAUTHORIZED:
-                $this->content = (new GlobalView())->unauthorized();
+            case Selection::ACCOUNT_DELETE:
+                $this->content = $this->accountDelete();
                 break;
             default:
                 $this->content = "Switch Constant Error";

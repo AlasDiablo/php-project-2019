@@ -99,6 +99,10 @@ $app->get('/account/edit', function () {
     $c->accountEdit();
 });
 
+$app->post('/account/edit/delete', function () {
+    $c = new UserController();
+    $c->accountDelete();
+});
 
 $app->get('/account/logout', function () {
     $c = new UserController();
