@@ -39,7 +39,7 @@ HTML;
     public static function teapot()
     {
         $content = <<<HTML
-<h1>Je suis une théière 🍵 - Bad Request 418</h1>
+<h1>Je suis une théière 🍵 - I'm a teapot 418</h1>
 <p>Malheureusement, je n'ai pas pu préparer le café :(</p>
 HTML;
         header('HTTP/1.1 418 I’m a teapot', true, 418);
