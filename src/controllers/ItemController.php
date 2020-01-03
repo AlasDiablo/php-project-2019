@@ -29,7 +29,7 @@ class ItemController
         $item = ReserveItem::select('id', 'name')->where('id', 'like', $IDitem)->get();
         if(empty($item[0]['id']))
         {
-            $r = new ItemView($item, Selection::FORM_ITEM_RESERVE);
+            $r = new ItemView(null, Selection::FORM_ITEM_RESERVE);
             $r->render();
         }else{
             $l = Item::where('id', '=', $IDitem)->get();
@@ -42,18 +42,19 @@ class ItemController
     {
         $IDitem = filter_var($_POST['id_reserve_item'], FILTER_SANITIZE_SPECIAL_CHARS);
         $name = filter_var($_POST['nom_reserve_item'], FILTER_SANITIZE_SPECIAL_CHARS);
+        $image = filter_var($_POST['image'], FILTER_SANITIZE_URL);
         $item = ReserveItem::select('id', 'name')->where('id', 'like', $IDitem)->get();
-        $select = Selection::ID_ITEM;
+        $select = Selection::FORM_ITEM_RESERVE_SUCCESS;
         if(empty($item[0]['id'])){
             $ri = new ReserveItem();
             $ri->id = $IDitem;
             $ri->name = $name;
+            $ri->image = $image;
             $ri->save();
         }else {
             $select = Selection::FORM_ITEM_RESERVE_FAIL;
         }
-        $l = Item::where('id', '=', $IDitem)->get();
-        $v = new ItemView($l, $select);
+        $v = new ItemView(null, $select);
         $v->render();
     }
 }

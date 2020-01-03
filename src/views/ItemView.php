@@ -2,6 +2,7 @@
 
 namespace mywishlist\views;
 
+use mywishlist\models\ReserveItem;
 use mywishlist\utils\Selection;
 
 class ItemView
@@ -40,7 +41,23 @@ $res
 </tr>
 RES;
         }
-        return $res . "</table>";
+        $p = ReserveItem::select('id')->where('id', 'like', $i->id)->get();
+        $id=filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
+        if(empty($p[0]['id'])) {
+            return $res = <<<END
+$res
+</table>
+<form action="/index.php/item/reserve/submit/" method="POST">
+Réservation l'item :<br>
+ID : <input name = 'id_reserve_item' value=$id readonly="readonly"><br>
+Nom : <input type="text" name="nom_reserve_item"><br>
+Lien de l'image : <input type="text" name="image"><br>
+<input type="submit" name="valider">
+</form>
+END;
+        } else {
+            return $res . "</table>";
+        }
     }
 
     private function htmlReserve()
@@ -50,12 +67,11 @@ RES;
 <<<END
 <form action="/index.php/item/reserve/submit/" method="POST">
 Item:$id<br>
-<input name = 'id_reserve_item' value=$id><br>
+<input name = 'id_reserve_item' value=$id readonly="readonly"><br>
 Nom:
 <input type="text" name="nom_reserve_item"><br>
 <input type="submit" name="valider">
 </form>
-
 END;
         return $str;
     }
@@ -64,6 +80,15 @@ END;
     {
         $str = <<<END
 <p> Une erreur est survenu, vérifiez que l'item n'est pas déjà réservé.
+END;
+
+        return $str;
+    }
+
+    private function htmlSuccess()
+    {
+        $str = <<<END
+<p> Item réservé avec succès !
 END;
 
         return $str;
@@ -83,6 +108,9 @@ END;
                 break;
             case Selection::FORM_ITEM_RESERVE_FAIL:
                 $this->content = $this->htmlFail();
+                break;
+            case Selection::FORM_ITEM_RESERVE_SUCCESS:
+                $this->content = $this->htmlSuccess();
                 break;
             default:
                 $this->content = "Switch Constant Error";
