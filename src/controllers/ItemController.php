@@ -40,20 +40,37 @@ class ItemController
 
     public function reserveItemSubmit($id)
     {
-        $name = filter_var($_POST['nom_reserve_item'], FILTER_SANITIZE_SPECIAL_CHARS);
-        $image = filter_var($_POST['image'], FILTER_SANITIZE_URL);
-        $item = ReserveItem::select('id', 'name')->where('id', 'like', $id)->get();
-        $select = Selection::FORM_ITEM_RESERVE_SUCCESS;
-        if(empty($item[0]['id'])){
+        if (isset($_POST['nom_reserve_item']) && !empty($_FILES["image"]["name"])) {
+            $name = filter_var($_POST['nom_reserve_item'], FILTER_SANITIZE_SPECIAL_CHARS);
+            $targetDir = "C:\wamp64\www\uploads\\"; // TO-DO : Dégager le chemin absolu
+            $fileName = basename($_FILES["image"]["name"]);
+            $targetFilePath = $targetDir . $fileName;
+            $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+            $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
+            if (in_array($fileType, $allowTypes)) {
+                if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFilePath)) {
+                    $image = $fileName;
+                } else {
+                    $v = new ItemView(null, Selection::FORM_ITEM_RESERVE_FAIL);
+                    $v->render();
+                    return;
+                }
+            } else {
+                $v = new ItemView(null, Selection::FORM_ITEM_RESERVE_FAIL);
+                $v->render();
+                return;
+            }
             $ri = new ReserveItem();
             $ri->id = $id;
             $ri->name = $name;
             $ri->image = $image;
             $ri->save();
-        }else {
-            $select = Selection::FORM_ITEM_RESERVE_FAIL;
+        } else {
+            $v = new ItemView(null, Selection::FORM_ITEM_RESERVE_FAIL);
+            $v->render();
+            return;
         }
-        $v = new ItemView(null, $select);
+        $v = new ItemView(null, Selection::FORM_ITEM_RESERVE_SUCCESS);
         $v->render();
     }
 }

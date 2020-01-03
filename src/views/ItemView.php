@@ -47,10 +47,10 @@ RES;
             return $res = <<<END
 $res
 </table>
-<form action="/index.php/item/reserve/submit/$id" method="POST">
+<form action="/index.php/item/reserve/submit/$id" method="POST" enctype="multipart/form-data">
 Réservation l'item :<br>
 Nom : <input type="text" name="nom_reserve_item"><br>
-Lien de l'image : <input type="text" name="image"><br>
+Lien de l'image : <input type="file" name="image"><br>
 <input type="submit" name="valider">
 </form>
 END;
