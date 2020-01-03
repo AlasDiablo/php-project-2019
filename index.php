@@ -82,9 +82,9 @@ $app->get('/item/reserve/', function () {
     $c->reserveItem();
 });
 
-$app->post('/item/reserve/submit/', function () {
+$app->post('/item/reserve/submit/:id', function ($id) {
     $c = new ItemController();
-    $c->reserveItemSubmit();
+    $c->reserveItemSubmit($id);
 });
 
 
