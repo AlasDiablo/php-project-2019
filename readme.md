@@ -18,7 +18,7 @@ MyWishList.app est un projet universitaire composé de :
 
 4) Et pour finir l'installation créez un fichier `conf.ini` dans `src/conf/` et y insérez les données suivantes:
     ```ini
-    driver=VosDriver
+    driver=VosDrivers
     username=VotreUsername
     password=VotreMotdepasse
     host=VotreIp
@@ -30,28 +30,28 @@ MyWishList.app est un projet universitaire composé de :
 
 Code sous licence **AGPL-3.0**, lire la licence [ici](https://github.com/AlasDiablo/php-project-2019/blob/master/LICENSE).
 
-## Tache a faire et faite
+## Tâches à faire/en cours
 
 ### Niveau 1
 
-+ [ ] 1 - Afficher une liste de souhaits
-+ [ ] 2 - Afficher un item d'une liste
-+ [ ] 3 - Réserver un item
-+ [x] 6 - **~~Créer une liste~~**
-+ [ ] 8 - Ajouter des items
-+ [ ] 14 - Partager une liste
++ [x] 1 - **~~Afficher une liste de souhaits~~**
++ [x] 2 - **~~Afficher un item d'une liste~~**
++ [ ] 3 *_- Réserver un item_* [Emilien]
++ [x] 6 - **_Créer une liste_** [Aurélien]
++ [ ] **_8 - Ajouter des items_** [Aurélien]
++ [x] 14 - **~~Partager une liste~~**
 
 ### Niveau 2
 
-+ [ ] 4 - Ajouter un message avec sa réservation
-+ [ ] 5 - Ajouter un message sur une liste
-+ [ ] 7 - Modifier les informations générales d'une de ses listes
-+ [ ] 9 - Modifier un item
-+ [ ] 10 - Supprimer un item
++ [ ] *_4 - Ajouter un message avec sa réservation_* [Lucas]
++ [ ] *_5 - Ajouter un message sur une liste_* [Lucas]
++ [ ] **_7 - Modifier les informations générales d'une de ses listes_** [Aurélien]
++ [ ] **_9 - Modifier un item_** [Aurélien]
++ [ ] **_10 - Supprimer un item_** [Aurélien]
 + [ ] 15 - Consulter les réservations d'une de ses listes avant échéance
-+ [ ] 16 - Con sulter les réservations et messages d'une de ses listes après échéance
-+ [ ] 20 - Rendre une liste publique
-+ [ ] 21 - Afficher les listes de souhaits publiques
++ [ ] 16 - Consulter les réservations et messages d'une de ses listes après échéance
++ [ ] **_20 - Rendre une liste publique_** [Aurélien]
++ [ ] **_21 - Afficher les listes de souhaits publiques_** [Aurélien]
 
 ### Niveau 3
 
