@@ -51,10 +51,12 @@ BODY;
 
     }
 
-    private function accountChange($username, $email)
+    private function accountChange($username, $email, $gravatar)
     {
         $str = <<<END
 <div>
+    <img src="$gravatar" alt="gravatar">
+    <a href="https://fr.gravatar.com">Changé mon Gravatar</a>
     <label>Nom d'utilisateur</label>
     <input type="text" value="$username" name="username" disabled="disabled">
     <form id="email-change" method="post" action="register/post/email">
@@ -157,7 +159,7 @@ END;
                 $this->content = $this->logout();
                 break;
             case Selection::CHANGE_USER:
-                $this->content = $this->accountChange($this->list['username'], $this->list['email']);
+                $this->content = $this->accountChange($this->list['username'], $this->list['email'], $this->list['gravatar']);
                 break;
             case Selection::CHANGE_USER_UNAUTHORIZED:
                 $this->content = (new GlobalView())->unauthorized();

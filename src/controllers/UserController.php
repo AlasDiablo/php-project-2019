@@ -326,11 +326,18 @@ class UserController
         if ($user_id != Authentication::ANONYMOUS) {
             $username = Authentication::getUsername();
             $email = User::select('email')->where('username', '=', $username)->first()->email;
-            $v = new UserView(array('username' => $username, 'email' => $email), Selection::CHANGE_USER);
+            $v = new UserView(array('username' => $username, 'email' => $email, 'gravatar' => $this->get_gravatar($email)), Selection::CHANGE_USER);
             $v->render();
         } else {
             $v = new UserView(null, Selection::CHANGE_USER_UNAUTHORIZED);
             $v->render();
         }
+    }
+
+    private function get_gravatar($email, $s = 80) {
+        $url = 'https://www.gravatar.com/avatar/';
+        $url .= md5(strtolower(trim($email)));
+        $url .= "?s=$s&d=retro&r=g";
+        return $url;
     }
 }
