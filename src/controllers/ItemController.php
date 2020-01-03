@@ -38,16 +38,15 @@ class ItemController
         }
     }
 
-    public function reserveItemSubmit()
+    public function reserveItemSubmit($id)
     {
-        $IDitem = filter_var($_POST['id_reserve_item'], FILTER_SANITIZE_SPECIAL_CHARS);
         $name = filter_var($_POST['nom_reserve_item'], FILTER_SANITIZE_SPECIAL_CHARS);
         $image = filter_var($_POST['image'], FILTER_SANITIZE_URL);
-        $item = ReserveItem::select('id', 'name')->where('id', 'like', $IDitem)->get();
+        $item = ReserveItem::select('id', 'name')->where('id', 'like', $id)->get();
         $select = Selection::FORM_ITEM_RESERVE_SUCCESS;
         if(empty($item[0]['id'])){
             $ri = new ReserveItem();
-            $ri->id = $IDitem;
+            $ri->id = $id;
             $ri->name = $name;
             $ri->image = $image;
             $ri->save();
