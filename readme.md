@@ -39,7 +39,7 @@ Code sous licence **AGPL-3.0**, lire la licence [ici](https://github.com/AlasDia
 + [ ] ***3 - Réserver un item*** ***[Emilien]***
 + [x] ***6 - Créer une liste*** ***[Aurélien]***
 + [ ] ***8 - Ajouter des items*** ***[Aurélien]***
-+ [x] **~~14 - Partager une liste~~** 
++ [x] **~~14 - Partager une liste~~** **[unknown]**
 
 ### Niveau 2
 
