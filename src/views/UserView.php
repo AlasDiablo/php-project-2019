@@ -5,17 +5,35 @@ namespace mywishlist\views;
 
 use mywishlist\utils\Selection;
 
+/**
+ * Class UserView, elle a pour but de gère l'affichage en rapport à l'utilisateur et c'est action liée à son compte.
+ * @package mywishlist\views
+ */
 class UserView
 {
 
+    /**
+     * @var $list array Elle peut être nulle ou pas, elle sert juste à passer des paramètres à sertir rendu.
+     * @var $content string Il sagit de tous le code html qui contient le contenues.
+     * @var $selecteur string Il sagit de la variable contenant le type html a generé.
+     */
     private $list, $selecteur, $content;
 
+    /**
+     * UserView constructor.
+     * @param $l array Elle peut être nulle ou pas, elle sert juste à passer des paramètres à sertir rendu.
+     * @param $s string Il sagit de la variable contenant le type html a generé.
+     */
     public function __construct($l, $s)
     {
         $this->list = $l;
         $this->selecteur = $s;
     }
 
+    /**
+     * Fonction que a pour but de creér le formulaire de connection et d'incription.
+     * @return string Html generés.
+     */
     private function accountRegisterAndLogin()
     {
         return <<<BODY
@@ -51,6 +69,13 @@ BODY;
 
     }
 
+    /**
+     * Fonction que a pour but de creér le formulaire de modification de compte.
+     * @param $username string Nom de l'utilisateurs.
+     * @param $email string Email de l'utilisateurs.
+     * @param $gravatar string Url du gravatar de l'utilisateurs.
+     * @return string Html generés.
+     */
     private function accountChange($username, $email, $gravatar)
     {
         $str = <<<END
@@ -86,6 +111,9 @@ END;
         return $str;
     }
 
+    /**
+     * Fonction applé pour faires le rendu et affiché l'html generais.
+     */
     public function render()
     {
         switch ($this->selecteur)

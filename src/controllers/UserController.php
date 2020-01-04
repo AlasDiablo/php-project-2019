@@ -9,9 +9,16 @@ use mywishlist\views\GlobalView;
 use mywishlist\views\UserView;
 use mywishlist\models\User;
 
+/**
+ * Class UserController, Elle a pour but de géré tous les action fait par les utilisateurs.
+ * @package mywishlist\controllers
+ */
 class UserController
 {
 
+    /**
+     * Fonction appelle lord de la deconection de l'utlisateurs
+     */
     public function logout()
     {
         session_destroy();
@@ -19,6 +26,9 @@ class UserController
         $render->render();
     }
 
+    /**
+     * Fonction appelle apres que l'utilisateurs et click sur le boutton 'Créer mon compte', elle a donc pour but de créer le compte de l'utilisateurs.
+     */
     public function registerPost()
     {
         if (isset($_POST['submit'])) if ($_POST['submit'] == 'doRegister') {
@@ -132,6 +142,9 @@ class UserController
         }
     }
 
+    /**
+     * Fonction appelle apres que l'utilisateurs et click sur le boutton 'Se connecter', elle a donc pour but de connecté l'utilisateurs.
+     */
     public function loginPost()
     {
         if (isset($_POST['submit'])) if ($_POST['submit'] == 'doLogin') {
@@ -185,6 +198,9 @@ class UserController
         }
     }
 
+    /**
+     * Fonction appelle apres que l'utilisateurs et click sur le boutton qui et lié a change sont mots de passe, elle a donc pour but de changé le mot de passe de l'utilisateurs.
+     */
     public function changePassword()
     {
         if (isset($_POST['submit'])) if ($_POST['submit'] == 'doChange') {
@@ -263,6 +279,9 @@ class UserController
         }
     }
 
+    /**
+     * Fonction appelle apres que l'utilisateurs et click sur le boutton qui et lié a change sont email, elle a donc pour but de changé l'email de l'utilisateurs.
+     */
     public function accountEmail()
     {
         if (isset($_POST['submit'])) if ($_POST['submit'] == 'doEmailChange') {
@@ -323,16 +342,28 @@ class UserController
         }
     }
 
+    /**
+     * Fonction qui ajoute l'utilisateurs dans la session.
+     * @param $user_id string Id de l'utilisateurs.
+     */
     private static function createSession($user_id) {
         $_SESSION['user_id'] = $user_id;
     }
 
-
+    /**
+     * Fonction qui generais un nouvelle id d'utilisateurs.
+     * @return int id d'utilisateurs generais.
+     */
     private static function getNewUserId()
     {
         return User::max('user_id') + 1;
     }
 
+    /**
+     * Fonction que regarde si un email et deja present dans la base de donnée.
+     * @param $email string email a verifiers.
+     * @return bool vrai si l'email et deja presente, faux si elle ne l'ais pas.
+     */
     private static function checkIfEmailExsite($email)
     {
         $value = User::where('email', '=', $email)->get();
@@ -343,6 +374,11 @@ class UserController
         }
     }
 
+    /**
+     * Fonction que regarde si un nom d'utilisateurs et deja present dans la base de donnée.
+     * @param $username string nom d'utilisateurs  a verifiers.
+     * @return bool vrai si le nom d'utilisateurs et deja presente, faux si elle ne l'ais pas.
+     */
     private static function checkIfUsernameExsite($username)
     {
         $value = User::where('username', '=', $username)->get();
@@ -383,6 +419,10 @@ class UserController
         $v->render();
     }
 
+    /**
+     * Fonction appelle quand l'utilisateurs veux supprimé sont compte.
+     */
+    // TODO: Ajouts la supprestion de tous les donnée lié a cette utilasteurs ou passé le comptes dans un status de deleted.
     public function accountDelete()
     {
         if (isset($_POST['submit'])) if ($_POST['submit'] == 'doDelete') {
@@ -394,6 +434,9 @@ class UserController
         }
     }
 
+    /**
+     * Fonction appelle quand l'utilisateurs veux regardé et/ou modifier sont compte.
+     */
     public function accountEdit()
     {
         $user_id = Authentication::getUserId();
@@ -407,6 +450,12 @@ class UserController
         }
     }
 
+    /**
+     * Implemantation des gravatar.
+     * @param $email string Email de l'utilisateurs.
+     * @param int $s int Tails de l'images (Par defaut 80 pixel de côté).
+     * @return string Urls du gravatar.
+     */
     private function getGravatar($email, $s = 80) {
         $url = 'https://www.gravatar.com/avatar/';
         $url .= md5(strtolower(trim($email)));
