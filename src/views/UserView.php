@@ -50,9 +50,14 @@ class UserView
             <label>Mot de passe :</label><br>
             <input type="password" name="password" required><br>
             <label>Confirmer le mot de passe :</label><br>
-            <input type="password" name="password-confirm" required><br><br>
-            <input type="checkbox" name="terms-of-use" value="iAgree" required>
-            <label>J'ai lu et j'accepte la <a href="/cgu">Clauses D'utilisation</a></label><br><br>
+            <input type="password" name="password-confirm" required><br>
+            
+            
+            <input type="checkbox" name="terms-of-use" value="iAgree" id="checkbox" class="css-checkbox" required/>
+			<label for="checkbox" class="css-label">J'ai lu et j'accepte la <a href="/cgu">Clauses D'utilisation</a></label><br>
+			
+            
+            
             <button type="submit" name="submit" value="doRegister">Créer mon compte</button>
         </form>
     </div>
