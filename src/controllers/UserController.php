@@ -263,6 +263,66 @@ class UserController
         }
     }
 
+    public function accountEmail()
+    {
+        if (isset($_POST['submit'])) if ($_POST['submit'] == 'doEmailChange') {
+
+
+            // check du mot de passe
+            if (isset($_POST['password'])) {
+                $val = filter_var($_POST['password'], FILTER_DEFAULT);
+                if ($val != FALSE) {
+                    $user_data['password'] = $val;
+                } else{
+                    $render = new UserView(null, Selection::CHANGE_FAILD);
+                    $render->render();
+                    return;
+                }
+            } else {
+                $render = new UserView(null, Selection::CHANGE_FAILD);
+                $render->render();
+                return;
+            }
+
+            if (!self::checkIfUsernameExsite(Authentication::getUsername())) {
+                if (password_verify($user_data['password'], User::select('password_hash')->where('user_id', '=', Authentication::getUserId())->first()->password_hash)) {
+                    // check de l'email
+                    if (isset($_POST['new-email'])) {
+                        $val = filter_var($_POST['new-email'], FILTER_VALIDATE_EMAIL);
+                        if ($val != FALSE) {
+                            $user_data['email'] = $val;
+                        } else{
+                            $render = new UserView(null, Selection::CHANGE_EMAIL_ERROR);
+                            $render->render();
+                            return;
+                        }
+                    } else {
+                        $render = new UserView(null, Selection::CHANGE_EMAIL_ERROR);
+                        $render->render();
+                        return;
+                    }
+                    $user = User::find(Authentication::getUserId());
+                    $user->email = $user_data['email'];
+                    $user->save();
+                    session_destroy();
+                    $render = new UserView(null, Selection::CHANGE_OK);
+                    $render->render();
+                    return;
+                } else {
+                    $render = new UserView(null, Selection::CHANGE_BAD_PASSWORD);
+                    $render->render();
+                    return;
+                }
+            } else {
+                $render = new UserView(null, Selection::CHANGE_USER_ERROR);
+                $render->render();
+                return;
+            }
+        } else {
+            GlobalView::bad_request();
+        }
+    }
+
     private static function createSession($user_id) {
         $_SESSION['user_id'] = $user_id;
     }

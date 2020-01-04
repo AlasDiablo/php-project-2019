@@ -66,7 +66,7 @@ BODY;
         <input type="email" name="new-email">
         <label>Mot de passe</label>
         <input type="password" name="password" required>
-        <button type="submit" name="submit" value="doChange">Appliquer</button>
+        <button type="submit" name="submit" value="doEmailChange">Appliquer</button>
     </form>
     <form id="password-change" method="post" action="/account/edit/password">
         <label>Mot de passe</label>
@@ -151,6 +151,14 @@ END;
         return $str;
     }
 
+    private function changeEmailError()
+    {
+        $str = <<<END
+<p>Un probléme et survenue avec l'email donnée.</p>
+END;
+        return $str;
+    }
+
     public function render()
     {
         switch ($this->selecteur)
@@ -184,7 +192,10 @@ END;
                 $this->content = $this->accountDelete();
                 break;
             case Selection::CHANGE_OK:
-                $this->content  =$this->changeOk();
+                $this->content = $this->changeOk();
+                break;
+            case Selection::CHANGE_EMAIL_ERROR:
+                $this->content = $this->changeEmailError();
                 break;
             default:
                 $this->content = "Switch Constant Error";
