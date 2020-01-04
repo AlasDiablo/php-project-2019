@@ -14,7 +14,7 @@ MyWishList.app est un projet universitaire composé de :
 
 2) Après ceci faire la commande `composer install`, si vous ne l'avez pas, référez vous à [getcomposer.org](https://getcomposer.org/).
 
-3) dans sql vous aurais les commande sql pour mariaDB a executé pour créer la base de donnée demandé plus base
+3) dans sql vous aurais un dump(`base_de_donnée.sql`) sql pour mariaDB a executé pour créer la base de donnée demandé plus base
 
 4) Et pour finir l'installation créez un fichier `conf.ini` dans `src/conf/` et y insérez les données suivantes:
     ```ini
