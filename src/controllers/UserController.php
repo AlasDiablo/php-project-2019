@@ -32,6 +32,18 @@ class UserController
     public function registerPost()
     {
         if (isset($_POST['submit'])) if ($_POST['submit'] == 'doRegister') {
+
+            if (!isset($_POST['terms-of-use'])) {
+                $v = new UserView(null, Selection::REGISTER_TERMS_OF_USE_NOT_CHECK);
+                $v->render();
+                return;
+            }
+            if ($_POST['terms-of-use'] != 'iAgree') {
+                $v = new UserView(null, Selection::REGISTER_TERMS_OF_USE_NOT_CHECK);
+                $v->render();
+                return;
+            }
+
             $user_data = array();
 
             // check du nom d'utilisateur
@@ -138,7 +150,9 @@ class UserController
 
             $v = new UserView(null, Selection::REGISTER_POST_SUCCESS);
             $v->render();
-
+            return;
+        } else {
+            GlobalView::bad_request();
         }
     }
 
@@ -195,6 +209,8 @@ class UserController
                 $render->render();
                 return;
             }
+        } else {
+            GlobalView::bad_request();
         }
     }
 

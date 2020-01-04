@@ -51,6 +51,8 @@ class UserView
             <input type="password" name="password" required><br>
             <label>Confirmer le mot de passe :</label><br>
             <input type="password" name="password-confirm" required><br><br>
+            <input type="checkbox" name="terms-of-use" value="iAgree" required>
+            <label>J'ai lu et j'accepte la <a href="/cgu">Clauses D'utilisation</a></label><br><br>
             <button type="submit" name="submit" value="doRegister">Créer mon compte</button>
         </form>
     </div>
@@ -152,6 +154,15 @@ END;
             case Selection::CHANGE_EMAIL_ERROR:
                 $this->content = "<h3 class=\"post-code\">Un probléme et survenue avec l'email donnée.</h3>";
                 break;
+            case Selection::REGISTER_TERMS_OF_USE_NOT_CHECK:
+                $this->content = "<h3 class=\"post-code\">Vous devais accepte la Clauses D'utilisation.</h3>";;
+                break;
+            case Selection::CHANGE_BAD_PASSWORD:
+                $this->content = "<h3 class=\"post-code\">le mot de passe est erronés.</h3>";
+                break;
+            case Selection::CHANGE_USER_ERROR:
+                GlobalView::bad_request();
+                return;
             default:
                 GlobalView::teapot();
                 return;
