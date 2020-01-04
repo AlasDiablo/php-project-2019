@@ -81,31 +81,34 @@ BODY;
     private function accountChange($username, $email, $gravatar)
     {
         $str = <<<END
-<div>
-    <img src="$gravatar" alt="gravatar">
-    <a href="https://fr.gravatar.com">Changer mon Gravatar</a>
-    <label>Nom d'utilisateur</label>
-    <input type="text" value="$username" name="username" disabled="disabled">
+<div id="edit">
+    <img id="gravatar" src="$gravatar" alt="gravatar"><br>
+    <a id="gravatar-link" href="https://fr.gravatar.com">Changer mon Gravatar</a><br>
+    <label id="username">Nom d'utilisateur :</label>
+    <input id="username-value" type="text" value="$username" name="username" disabled="disabled"><br>
+    <br>
     <form id="email-change" method="post" action="/account/edit/email">
-        <label>Email</label>
+        <label>Email :</label>
         <input type="email" value="$email" name="old-email" disabled="disabled">
-        <label>Nouvel email</label>
+        <label>Nouvel email :</label>
         <input type="email" name="new-email">
-        <label>Mot de passe</label>
-        <input type="password" name="password" required>
+        <label>Mot de passe :</label>
+        <input type="password" name="password" required><br>
         <button type="submit" name="submit" value="doEmailChange">Appliquer</button>
     </form>
+    <br>
     <form id="password-change" method="post" action="/account/edit/password">
-        <label>Mot de passe</label>
+        <label>Mot de passe :</label>
         <input type="password" name="password-old" required>
-        <label>Nouveau mot de passe</label>
+        <label>Nouveau mot de passe :</label>
         <input type="password" name="password" required>
-        <label>Confirmer le nouveau mot de passe</label>
-        <input type="password" name="password-confirm" required>
+        <label>Confirmer le nouveau mot de passe :</label>
+        <input type="password" name="password-confirm" required><br>
         <button type="submit" name="submit" value="doChange">Appliquer</button>
     </form>
+    <br>
     <form id="delete" method="post" action="/account/edit/delete">
-        <button type="submit" name="submit" value="doDelete">Supprimer mon compte</button>
+        <button id="delete-button" type="submit" name="submit" value="doDelete">Supprimer mon compte</button>
     </form>
 </div>
 

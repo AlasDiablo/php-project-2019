@@ -16,6 +16,66 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0;
 }
 
+#edit {
+    border-radius: 12px;
+    background: rgba(107, 161, 255, 0.51);
+    color: darkslateblue;
+    margin: 2% 6%;
+    padding: 1%;
+    min-height: 420px;
+    vertical-align: top;
+    display: inline-block;
+}
+
+#gravatar {
+    border-radius: 100%;
+}
+
+#gravatar-link {
+    text-decoration: none;
+    color: blueviolet;
+}
+
+input[type=text], input[type=email], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button[type=submit] {
+    width: 100%;
+    background-color: darkslateblue;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[type=submit]:hover {
+    background-color: #393973;
+}
+
+#delete-button {
+    width: 100%;
+    background-color: #cd0000;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#delete-button:hover {
+    background-color: darkred;
+}
+
 .error-code, .post-code {
     margin: 4% 10% 16%;
     padding: 2%;
@@ -32,7 +92,7 @@ h1, h2, h3, h4, h5, h6 {
     background: rgba(107, 161, 255, 0.51);
     color: darkslateblue;
     margin: 2% 6%;
-    min-height: 420px;
+    padding: 2%;
     width: 32%;
     vertical-align: top;
     text-align: center;
