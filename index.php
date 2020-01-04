@@ -61,6 +61,22 @@ $app->get('/list/create', function () {
     $c = new ListController();
     $c->listForm();
 });
+
+$app->post('/list/create/submit', function () {
+    $c = new ListController();
+    $c->createList();
+});
+
+$app->get('/list/:id/addItem', function ($id) {
+    $c = new ItemController();
+    $c->ItemForm($id);
+});
+
+$app->post('/list/:id/addItem/submit', function ($id) {
+    $c = new ItemController();
+    $c->createItem($id);
+});
+
 $app->get('/list/share', function () {
     $c = new ListController();
     $c->share();
@@ -118,11 +134,6 @@ $app->post('/account/edit/delete', function () {
 $app->get('/account/logout', function () {
     $c = new UserController();
     $c->logout();
-});
-
-$app->post('/list/create/submit', function () {
-    $c = new ListController();
-    $c->createList();
 });
 
 $app->post('/account/register_post', function () {

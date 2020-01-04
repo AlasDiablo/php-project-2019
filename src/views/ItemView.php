@@ -93,9 +93,28 @@ END;
         return $str;
     }
 
+
+    private function htmlCreate(){
+        $id = $this->item->liste_id;
+        $str =
+            <<<END
+<form id="formCreateItem" method="POST" action="/index.php/list/$id/addItem/submit">
+<input type="text" name="nom" placeholder="Nom de l'item">
+<input type="text" name="description" placeholder="Description de l'item">
+<input type="number" step="0.01" name="prix" placeholder="Prix de l'item">
+<input type="url" name="url" placeholder="Lien site marchand">
+<button type="submit" name ="valid_create_list" value="valid_f1">Valider</button>
+</form>
+END;
+        return $str;
+    }
+
     public function render()
     {
         switch ($this->selecteur) {
+            case Selection::FORM_ITEM:
+                $this->content = $this->htmlCreate();
+                break;
             case Selection::ALL_ITEM:
                 $this->content = $this->htmlAllItem();
                 break;

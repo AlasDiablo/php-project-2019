@@ -23,6 +23,26 @@ class ItemController
         $v->render();
     }
 
+    public function ItemForm($id)
+    {
+        $i = new Item();
+        $i->liste_id = filter_var($id,FILTER_SANITIZE_NUMBER_INT);
+        $v = new ItemView($i, Selection::FORM_ITEM);
+        $v->render();
+    }
+
+    public function createItem($id){
+        $i = new Item();
+        $i->nom = filter_var($_POST['nom'],FILTER_SANITIZE_SPECIAL_CHARS);
+        $i->descr = filter_var($_POST['description'],FILTER_SANITIZE_SPECIAL_CHARS);
+        $i->tarif = filter_var($_POST['prix'],FILTER_SANITIZE_NUMBER_FLOAT);
+        if($_POST['url'] != ""){
+            $i->url = filter_var($_POST['url'],FILTER_SANITIZE_URL);
+        }
+        $i->liste_id = $id;
+        $i->save();
+    }
+
     public function reserveItem()
     {
         $IDitem=filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);

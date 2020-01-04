@@ -56,11 +56,4 @@ class ListController {
         $v = new ListView($l, Selection::SHARE_LIST);
         $v->render();
     }
-
-
-/*    public static function formCreateList(){
-        $r = new RenderHandler(Registries::FORMCREATELIST,null);
-        $r->render();
-    }*/
-
 }
