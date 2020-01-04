@@ -2,6 +2,7 @@
 
 namespace mywishlist\controllers;
 
+use mywishlist\models\Item;
 use mywishlist\models\Liste;
 use mywishlist\utils\Selection;
 use mywishlist\views\ListView;
@@ -18,7 +19,7 @@ class ListController {
     public function oneList()
     {
         $id = filter_var($_GET['id'],FILTER_SANITIZE_SPECIAL_CHARS);
-        $l = Liste::where('no', '=', $id)->get();
+        $l = Item::where('liste_id', '=', $id)->get();
         $v = new ListView($l, Selection::ID_LIST);
         $v->render();
     }
@@ -55,6 +56,7 @@ class ListController {
         $v = new ListView($l, Selection::SHARE_LIST);
         $v->render();
     }
+
 
 /*    public static function formCreateList(){
         $r = new RenderHandler(Registries::FORMCREATELIST,null);
