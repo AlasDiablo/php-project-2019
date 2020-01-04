@@ -8,7 +8,7 @@ use mywishlist\utils\Selection;
 class UserView
 {
 
-    protected $list, $selecteur, $content;
+    private $list, $selecteur, $content;
 
     public function __construct($l, $s)
     {
@@ -86,79 +86,6 @@ END;
         return $str;
     }
 
-
-    private function getDataFailed()
-    {
-        $str = <<<END
-<p>Une erreur lors de la récupération des données saisies</p>
-END;
-        return $str;
-    }
-
-    private function registerUserEmailExists()
-    {
-        $str = <<<END
-<p>L'utilisateur ou l'email est déjà enregistré</p>
-END;
-        return $str;
-    }
-
-    private function registerSuccess()
-    {
-        $str = <<<END
-<p>Vous êtes enregistré !</p>
-END;
-        return $str;
-    }
-
-    private function loginSuccess()
-    {
-        $str = <<<END
-<p>Vous êtes connecté !</p>
-END;
-        return $str;
-    }
-
-    private function loginBadUserPass()
-    {
-        $str = <<<END
-<p>L'utilisateur ou le mot de passe sont erronés</p>
-END;
-        return $str;
-    }
-
-    private function logout()
-    {
-        $str = <<<END
-<p>Vous êtes déconnecté !</p>
-END;
-        return $str;
-    }
-
-    private function accountDelete()
-    {
-        $str = <<<END
-<p>Compte supprimé !</p>
-END;
-        return $str;
-    }
-
-    private function changeOk()
-    {
-        $str = <<<END
-<p>Le mot de passe a été mis à jour, reconnectez vous.</p>
-END;
-        return $str;
-    }
-
-    private function changeEmailError()
-    {
-        $str = <<<END
-<p>Un probléme et survenue avec l'email donnée.</p>
-END;
-        return $str;
-    }
-
     public function render()
     {
         switch ($this->selecteur)
@@ -168,38 +95,38 @@ END;
                 break;
             case Selection::LOGIN_POST_FAILED:
             case Selection::REGISTER_POST_FAILED:
-                $this->content = $this->getDataFailed();
+                $this->content = "<p class=\"post-code\">Une erreur lors de la récupération des données saisies</p>";
                 break;
             case Selection::REGISTER_POST_SUCCESS:
-                $this->content = $this->registerSuccess();
+                $this->content = "<p class=\"post-code\">Vous êtes enregistré !</p>";
                 break;
             case Selection::REGISTER_POST_USER_OR_EMAIL_EXSITE:
-                $this->content = $this->registerUserEmailExists();
+                $this->content = "<p class=\"post-code\">L'utilisateur ou l'email est déjà enregistré</p>";
                 break;
             case Selection::LOGIN_POST_SUCCESS:
-                $this->content = $this->loginSuccess();
+                $this->content = "<p class=\"post-code\">Vous êtes connecté !</p>";
                 break;
             case Selection::LOGIN_POST_USERPASS_WRONG:
-                $this->content = $this->loginBadUserPass();
+                $this->content = "<p class=\"post-code\">L'utilisateur ou le mot de passe sont erronés</p>";
                 break;
             case Selection::LOGOUT:
-                $this->content = $this->logout();
+                $this->content = "<p class=\"post-code\">Vous êtes déconnecté !</p>";
                 break;
             case Selection::CHANGE_USER:
                 $this->content = $this->accountChange($this->list['username'], $this->list['email'], $this->list['gravatar']);
                 break;
             case Selection::ACCOUNT_DELETE:
-                $this->content = $this->accountDelete();
+                $this->content = "<p class=\"post-code\">Compte supprimé !</p>";
                 break;
             case Selection::CHANGE_OK:
-                $this->content = $this->changeOk();
+                $this->content = "<p class=\"post-code\">Votre compte a été mis à jour, reconnectez vous.</p>";
                 break;
             case Selection::CHANGE_EMAIL_ERROR:
-                $this->content = $this->changeEmailError();
+                $this->content = "<p class=\"post-code\">Un probléme et survenue avec l'email donnée.</p>";
                 break;
             default:
-                $this->content = "Switch Constant Error";
-                break;
+                GlobalView::teapot();
+                return;
         }
 
         $body = <<<END
