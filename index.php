@@ -9,6 +9,7 @@ use \mywishlist\controllers\ListController;
 use \mywishlist\controllers\ItemController;
 use \mywishlist\views\AccueilView;
 use \Illuminate\Database\Capsule\Manager as DB;
+use mywishlist\views\GlobalView;
 use \Slim\Slim;
 
 // instance de la base de données
@@ -99,6 +100,16 @@ $app->get('/account/edit', function () {
     $c->accountEdit();
 });
 
+$app->post('/account/edit/password', function () {
+    $c = new UserController();
+    $c->changePassword();
+});
+
+$app->post('/account/edit/email', function () {
+    $c = new UserController();
+    $c->accountEmail();
+});
+
 $app->post('/account/edit/delete', function () {
     $c = new UserController();
     $c->accountDelete();
@@ -116,12 +127,16 @@ $app->post('/list/create/submit', function () {
 
 $app->post('/account/register_post', function () {
     $c = new UserController();
-    $c->register_post();
+    $c->registerPost();
 });
 
 $app->post('/account/login_post', function () {
     $c = new UserController();
-    $c->login_post();
+    $c->loginPost();
+});
+
+$app->get('/account/teapot', function () {
+    GlobalView::teapot();
 });
 
 $app->run();

@@ -19,7 +19,7 @@ class UserController
         $render->render();
     }
 
-    public function register_post()
+    public function registerPost()
     {
         if (isset($_POST['submit'])) if ($_POST['submit'] == 'doRegister') {
             $user_data = array();
@@ -30,11 +30,11 @@ class UserController
                 if ($val != FALSE) {
                     $user_data['username'] = $val;
                 } else{
-                    self::post_failed();
+                    self::postFailed();
                     return;
                 }
             } else {
-                self::post_failed();
+                self::postFailed();
                 return;
             }
 
@@ -44,11 +44,11 @@ class UserController
                 if ($val != FALSE) {
                     $user_data['email'] = $val;
                 } else{
-                    self::post_failed();
+                    self::postFailed();
                     return;
                 }
             } else {
-                self::post_failed();
+                self::postFailed();
                 return;
             }
 
@@ -59,17 +59,17 @@ class UserController
                 if ($val != FALSE) {
                     $user_data['email-confirm'] = $val;
                 } else{
-                    self::post_failed();
+                    self::postFailed();
                     return;
                 }
             } else {
-                self::post_failed();
+                self::postFailed();
                 return;
             }
 
             // Check si les email identique
             if ($user_data['email'] != $user_data['email-confirm']) {
-                self::post_failed_email();
+                self::postFailedEmail();
                 return;
             }
 
@@ -81,11 +81,11 @@ class UserController
                 if ($val != FALSE) {
                     $user_data['password'] = $val;
                 } else{
-                    self::post_failed();
+                    self::postFailed();
                     return;
                 }
             } else {
-                self::post_failed();
+                self::postFailed();
                 return;
             }
 
@@ -96,17 +96,17 @@ class UserController
                 if ($val != FALSE) {
                     $user_data['password-confirm'] = $val;
                 } else{
-                    self::post_failed();
+                    self::postFailed();
                     return;
                 }
             } else {
-                self::post_failed();
+                self::postFailed();
                 return;
             }
 
             // Check si les mot de passe sont identique
             if ($user_data['password'] != $user_data['password-confirm']) {
-                self::post_failed_pass();
+                self::postFailedPass();
                 return;
             }
 
@@ -122,7 +122,7 @@ class UserController
                 $user->save();
                 self::createSession($user_id);
             } else {
-                self::post_failed_user_or_email_exsite();
+                self::postFailedUserOrEmailExsite();
                 return;
             }
 
@@ -132,7 +132,7 @@ class UserController
         }
     }
 
-    public function login_post()
+    public function loginPost()
     {
         if (isset($_POST['submit'])) if ($_POST['submit'] == 'doLogin') {
             $user_data = array();
@@ -185,9 +185,9 @@ class UserController
         }
     }
 
-    public function change_password()
+    public function changePassword()
     {
-        if (isset($_POST['submit'])) if ($_POST['submit'] == 'doRegister') {
+        if (isset($_POST['submit'])) if ($_POST['submit'] == 'doChange') {
             $user_data = array();
             // check du mot de passe
             if (isset($_POST['password'])) {
@@ -240,12 +240,14 @@ class UserController
                 $render->render();
                 return;
             }
-            if (!self::checkIfUsernameExsite($_SESSION['username'])) {
-                if (password_verify($user_data['password-old'], User::select('password_hash')->where('user', '=', $_SESSION['username']))) {
-                    $user = User::find($_SESSION['username']);
+            if (!self::checkIfUsernameExsite(Authentication::getUsername())) {
+                if (password_verify($user_data['password-old'], User::select('password_hash')->where('user_id', '=', Authentication::getUserId())->first()->password_hash)) {
+                    $user = User::find(Authentication::getUserId());
                     $user->password_hash = password_hash($user_data['password'], PASSWORD_DEFAULT);
                     $user->save();
-                    self::logout();
+                    session_destroy();
+                    $render = new UserView(null, Selection::CHANGE_OK);
+                    $render->render();
                 } else {
                     $render = new UserView(null, Selection::CHANGE_BAD_PASSWORD);
                     $render->render();
@@ -255,9 +257,9 @@ class UserController
                 $render = new UserView(null, Selection::CHANGE_USER_ERROR);
                 $render->render();
                 return;
-
-
             }
+        } else {
+            GlobalView::bad_request();
         }
     }
 
@@ -291,25 +293,25 @@ class UserController
         }
     }
 
-    private static function post_failed()
+    private static function postFailed()
     {
         $v = new UserView(null, Selection::REGISTER_POST_FAILED);
         $v->render();
     }
 
-    private static function post_failed_email()
+    private static function postFailedEmail()
     {
         $v = new UserView(null, Selection::REGISTER_POST_FAILED);
         $v->render();
     }
 
-    private static function post_failed_pass()
+    private static function postFailedPass()
     {
         $v = new UserView(null, Selection::REGISTER_POST_FAILED);
         $v->render();
     }
 
-    private static function post_failed_user_or_email_exsite()
+    private static function postFailedUserOrEmailExsite()
     {
         $v = new UserView(null, Selection::REGISTER_POST_USER_OR_EMAIL_EXSITE);
         $v->render();
@@ -323,7 +325,7 @@ class UserController
 
     public function accountDelete()
     {
-        if (isset($_POST['submit'])) {
+        if (isset($_POST['submit'])) if ($_POST['submit'] == 'doDelete') {
             User::where('user_id', '=' , Authentication::getUserId())->delete();
             $v = new UserView(null, Selection::ACCOUNT_DELETE);
             $v->render();
@@ -338,14 +340,14 @@ class UserController
         if ($user_id != Authentication::ANONYMOUS) {
             $username = Authentication::getUsername();
             $email = User::select('email')->where('username', '=', $username)->first()->email;
-            $v = new UserView(array('username' => $username, 'email' => $email, 'gravatar' => $this->get_gravatar($email)), Selection::CHANGE_USER);
+            $v = new UserView(array('username' => $username, 'email' => $email, 'gravatar' => $this->getGravatar($email)), Selection::CHANGE_USER);
             $v->render();
         } else {
             GlobalView::unauthorized();
         }
     }
 
-    private function get_gravatar($email, $s = 80) {
+    private function getGravatar($email, $s = 80) {
         $url = 'https://www.gravatar.com/avatar/';
         $url .= md5(strtolower(trim($email)));
         $url .= "?s=$s&d=retro&r=g";

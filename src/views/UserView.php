@@ -78,7 +78,7 @@ BODY;
         <button type="submit" name="submit" value="doChange">Appliquer</button>
     </form>
     <form id="delete" method="post" action="/account/edit/delete">
-        <button type="submit" name="submit" value="doChange">Supprimer mon compte</button>
+        <button type="submit" name="submit" value="doDelete">Supprimer mon compte</button>
     </form>
 </div>
 
@@ -143,6 +143,14 @@ END;
         return $str;
     }
 
+    private function changeOk()
+    {
+        $str = <<<END
+<p>Le mot de passe a été mis à jour, reconnectez vous.</p>
+END;
+        return $str;
+    }
+
     public function render()
     {
         switch ($this->selecteur)
@@ -174,6 +182,9 @@ END;
                 break;
             case Selection::ACCOUNT_DELETE:
                 $this->content = $this->accountDelete();
+                break;
+            case Selection::CHANGE_OK:
+                $this->content  =$this->changeOk();
                 break;
             default:
                 $this->content = "Switch Constant Error";
