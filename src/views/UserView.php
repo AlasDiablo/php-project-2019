@@ -123,34 +123,34 @@ END;
                 break;
             case Selection::LOGIN_POST_FAILED:
             case Selection::REGISTER_POST_FAILED:
-                $this->content = "<p class=\"post-code\">Une erreur lors de la récupération des données saisies</p>";
+                $this->content = "<h3 class=\"post-code\">Une erreur lors de la récupération des données saisies</h3>";
                 break;
             case Selection::REGISTER_POST_SUCCESS:
-                $this->content = "<p class=\"post-code\">Vous êtes enregistré !</p>";
+                $this->content = "<h3 class=\"post-code\">Vous êtes enregistré !</h3>";
                 break;
             case Selection::REGISTER_POST_USER_OR_EMAIL_EXSITE:
-                $this->content = "<p class=\"post-code\">L'utilisateur ou l'email est déjà enregistré</p>";
+                $this->content = "<h3 class=\"post-code\">L'utilisateur ou l'email est déjà enregistré</h3>";
                 break;
             case Selection::LOGIN_POST_SUCCESS:
-                $this->content = "<p class=\"post-code\">Vous êtes connecté !</p>";
+                $this->content = "<h3 class=\"post-code\">Vous êtes connecté !</h3>";
                 break;
             case Selection::LOGIN_POST_USERPASS_WRONG:
-                $this->content = "<p class=\"post-code\">L'utilisateur ou le mot de passe sont erronés</p>";
+                $this->content = "<h3 class=\"post-code\">L'utilisateur ou le mot de passe sont erronés</h3>";
                 break;
             case Selection::LOGOUT:
-                $this->content = "<p class=\"post-code\">Vous êtes déconnecté !</p>";
+                $this->content = "<h3 class=\"post-code\">Vous êtes déconnecté !</h3>";
                 break;
             case Selection::CHANGE_USER:
                 $this->content = $this->accountChange($this->list['username'], $this->list['email'], $this->list['gravatar']);
                 break;
             case Selection::ACCOUNT_DELETE:
-                $this->content = "<p class=\"post-code\">Compte supprimé !</p>";
+                $this->content = "<h3 class=\"post-code\">Compte supprimé !</h3>";
                 break;
             case Selection::CHANGE_OK:
-                $this->content = "<p class=\"post-code\">Votre compte a été mis à jour, reconnectez vous.</p>";
+                $this->content = "<h3 class=\"post-code\">Votre compte a été mis à jour, reconnectez vous.</h3>";
                 break;
             case Selection::CHANGE_EMAIL_ERROR:
-                $this->content = "<p class=\"post-code\">Un probléme et survenue avec l'email donnée.</p>";
+                $this->content = "<h3 class=\"post-code\">Un probléme et survenue avec l'email donnée.</h3>";
                 break;
             default:
                 GlobalView::teapot();
