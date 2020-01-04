@@ -60,7 +60,7 @@ Code sous licence **AGPL-3.0**, lire la licence [ici](https://github.com/AlasDia
 + [ ] 13 - Supprimer une image d'un item
 + [x] **~~17 - Créer un compte~~** **[Pierre]**
 + [x] **~~18 - S'authentifier~~** **[Pierre]**
-+ [ ] ***19 - Modifier son compte*** ***[Pierre]***
++ [ ] **~~19 - Modifier son compte~~** **[Pierre]**
 + [ ] 22 - Créer une cagnotte sur un item
 + [ ] 23 - Participer à une cagnotte
 + [ ] ***24 - Uploader une image*** ***[Lucas]***
