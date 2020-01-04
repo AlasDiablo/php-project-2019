@@ -31,15 +31,15 @@ CONACT;
 
     private function displayOneList()
     {
-        $res = "<table><th>no</th><th>user_id</th><th>titre</th><th>description</th><th>expiration</th>";
-        foreach ($this->list as $lis)
+        $res = "</table>" . "<table><th>ID</th><th>liste_ID</th><th>nom</th><th>description</th><th>tarif</th>";
+        foreach ($this->list as $i)
         {
-            $res = <<<CONACT
+            $res = <<<RES
 $res
 <tr>
-<td>$lis->no</td><td>$lis->user_id</td><td>$lis->titre</td><td>$lis->description</td><td>$lis->expiration</td>
+<td>$i->id</td><td>$i->liste_id</td><td>$i->nom</td><td>$i->descr</td><td>$i->tarif</td>
 </tr>
-CONACT;
+RES;
         }
         return $res . "</table>";
     }
@@ -59,12 +59,12 @@ END;
     }
 
     private function share(){
-        $actual_link = "http://$_SERVER[HTTP_HOST]";
+        $link = "http://$_SERVER[HTTP_HOST]";
         $token = $this->list[0]['tokenPart'];
         $id = $this->list[0]['no'];
         $str =
             <<<END
-url: $actual_link/index.php/list/display?id=$id&token=$token<br>
+url: $link/index.php/list/display?id=$id&token=$token<br>
 END;
         return $str;
     }
