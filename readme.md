@@ -32,6 +32,13 @@ Code sous licence **AGPL-3.0**, lire la licence [ici](https://github.com/AlasDia
 
 ## Tâches à faire/en cours
 
+### Autres
+
++ [ ] ***Mise en pages***  ***[Pierre & Lucas]***
++ [ ] Responsive Web Design
++ [x] **~~Ajouter un avatar pour les utilisateurs~~** **[Pierre]**
++ [x] **~~I'm a teapot~~** **[Pierre & Lucas]**
+
 ### Niveau 1
 
 + [x] **~~1 - Afficher une liste de souhaits~~** **[unknown]**
