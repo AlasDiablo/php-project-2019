@@ -38,6 +38,7 @@ Code sous licence **AGPL-3.0**, lire la licence [ici](https://github.com/AlasDia
 + [ ] Responsive Web Design
 + [x] **~~Ajouter un avatar pour les utilisateurs~~ [Pierre]**
 + [x] **~~I'm a teapot~~ [Pierre & Lucas]**
++ [ ] ***Mise en corelation du code créer par chaqun [Pierre]***
 
 ### Niveau 1
 
