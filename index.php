@@ -92,10 +92,11 @@ $app->post('/list/:id/addItem/submit', function ($id) {
     $c->createItem($id);
 });
 
-$app->get('/list/share', function () {
+$app->get('/list/:id/share', function ($id) {
     $c = new ListController();
-    $c->share();
+    $c->share($id);
 });
+
 
 
 /*-----|items|-----*/

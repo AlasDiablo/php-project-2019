@@ -138,10 +138,10 @@ class ListController {
         $l->delete();
     }
 
-    public function share()
+    public function share($id)
     {
-        $id = filter_var($_GET['id'],FILTER_SANITIZE_SPECIAL_CHARS);
-        $l = Liste::where('no', '=', $id)->get();
+        $no = filter_var($id,FILTER_SANITIZE_SPECIAL_CHARS);
+        $l = Liste::where('no', '=', $no)->get();
         $v = new ListView($l, Selection::SHARE_LIST);
         $v->render();
     }
