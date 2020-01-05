@@ -14,32 +14,34 @@ class ListView
         $this->selecteur = $s;
     }
 
+    private function buildListTable($array)
+    {
+        $out = <<<END
+<table>
+    <th>titre</th>
+    <th>description</th>
+    <th>expiration</th>
+END;
+        foreach ($array as $values)
+        {
+            $out .= <<<END
+    <tr>
+        <td>$values->titre</td>
+        <td>$values->description</td>
+        <td>$values->expiration</td>
+    </tr>
+END;
+        }
+        return $out . '</table>';
+    }
+
     private function displayAllList()
     {
-        $res = "<h1>Mes listes</h1><table><th>no</th><th>user_id</th><th>titre</th><th>description</th><th>expiration</th>";
-        foreach ($this->list['myLists'] as $lis)
-        {
-            $res = <<<CONACT
-$res
-<tr>
-<td>$lis->no</td><td>$lis->user_id</td><td>$lis->titre</td><td>$lis->description</td><td>$lis->expiration</td>
-</tr>
-CONACT;
-        }
-        $res .= "</table>";
-
-        $res .= "<h1>Listes ou je participe</h1><table><th>no</th><th>user_id</th><th>titre</th><th>description</th><th>expiration</th>";
-        foreach ($this->list['participLists'] as $lis)
-        {
-            $res = <<<CONACT
-$res
-<tr>
-<td>$lis->no</td><td>$lis->user_id</td><td>$lis->titre</td><td>$lis->description</td><td>$lis->expiration</td>
-</tr>
-CONACT;
-        }
-
-        return $res . "</table>";
+        $res = '<h1>Mes listes</h1>';
+        $res .= $this->buildListTable($this->list['myLists']);
+        $res .= '<h1>Listes ou je participe</h1>';
+        $res .= $this->buildListTable($this->list['participLists']);
+        return $res;
     }
 
     private function displayOneList()
@@ -47,10 +49,13 @@ CONACT;
         $res = "</table>" . "<table><th>ID</th><th>liste_ID</th><th>nom</th><th>description</th><th>tarif</th>";
         foreach ($this->list as $i)
         {
-            $res = <<<RES
-$res
+            $res .= <<<RES
 <tr>
-<td>$i->id</td><td>$i->liste_id</td><td>$i->nom</td><td>$i->descr</td><td>$i->tarif</td>
+    <td>$i->id</td>
+    <td>$i->liste_id</td>
+    <td>$i->nom</td>
+    <td>$i->descr</td>
+    <td>$i->tarif</td>
 </tr>
 RES;
         }
@@ -61,11 +66,10 @@ RES;
         $str =
             <<<END
 <form id="formCreateList" method="POST" action="/index.php/list/create/submit">
-<input type="text" name="titre" placeholder="Titre de la liste">
-<input type="text" name="description" placeholder="Description de la liste">
-<input type="date" name="date" placeholder="Date d'expiration de la liste">
-
-<button type="submit" name ="valid_create_list" value="valid_f1">Valider</button>
+    <input type="text" name="titre" placeholder="Titre de la liste">
+    <input type="text" name="description" placeholder="Description de la liste">
+    <input type="date" name="date" placeholder="Date d'expiration de la liste">
+    <button type="submit" name ="valid_create_list" value="valid_f1">Valider</button>
 </form>
 END;
         return $str;
