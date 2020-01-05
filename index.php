@@ -59,7 +59,17 @@ $app->get('/list/:id', function ($id) {
 
 $app->get('/list/create', function () {
     $c = new ListController();
-    $c->listForm();
+    $c->listCreateForm();
+});
+
+$app->get('/list/:id/modify', function ($id) {
+    $c = new ListController();
+    $c->listModifyForm($id);
+});
+
+$app->post('/list/:id/modify/submit', function ($id) {
+    $c = new ListController();
+    $c->modifyList($id);
 });
 
 $app->post('/list/create/submit', function () {
@@ -69,7 +79,7 @@ $app->post('/list/create/submit', function () {
 
 $app->get('/list/:id/addItem', function ($id) {
     $c = new ItemController();
-    $c->ItemForm($id);
+    $c->ItemCreateForm($id);
 });
 
 $app->post('/list/:id/addItem/submit', function ($id) {

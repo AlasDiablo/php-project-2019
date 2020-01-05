@@ -85,9 +85,9 @@ class ListController {
         $v->render();
     }
 
-    public function listForm()
+    public function listCreateForm()
     {
-        $v = new ListView(null, Selection::FORM_LIST);
+        $v = new ListView(null, Selection::FORM_CREATE_LIST);
         $v->render();
     }
 
@@ -107,6 +107,28 @@ class ListController {
             }
         }
         $l->token = $token;
+        $l->save();
+    }
+
+    public function listModifyForm($id){
+        $i = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        $l = Liste::where('no', '=', $i)->get();
+        $v = new ListView($l, Selection::FORM_MODIFY_LIST);
+        $v->render();
+    }
+
+    public function modifyList($id){
+        $i = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        $l = Liste::where('no', '=', $i)->get();
+        if($_POST['titre'] != "") {
+            $l->titre = filter_var($_POST['titre'], FILTER_SANITIZE_SPECIAL_CHARS);
+        }
+        if($_POST['description'] != "") {
+            $l->description = filter_var($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS);
+        }
+        if($_POST['date'] != "") {
+            $l->expiration = filter_var($_POST['date'], FILTER_SANITIZE_SPECIAL_CHARS);
+        }
         $l->save();
     }
 

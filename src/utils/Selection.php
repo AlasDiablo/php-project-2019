@@ -8,12 +8,13 @@ class Selection
 {
     const ALL_LIST = 'ALL_LIST';
     const ID_LIST = 'ID_LIST';
-    const FORM_LIST = 'FORM_LIST';
+    const FORM_CREATE_LIST = 'FORM_CREATE_LIST';
+    const FORM_MODIFY_LIST = 'FORM_MODIFY_LIST';
     const SHARE_LIST = 'SHARE_LIST';
 
     const ALL_ITEM = 'ALL_ITEM';
     const ID_ITEM = 'ID_ITEM';
-    const FORM_ITEM = 'FORM_ITEM';
+    const FORM_CREATE_ITEM = 'FORM_CREATE_ITEM';
     const FORM_ITEM_RESERVE = 'FORM_ITEM_RESERVE';
     const FORM_ITEM_RESERVE_FAIL = 'FORM_ITEM_RESERVE_FAIL';
     const FORM_ITEM_RESERVE_SUCCESS = 'FORM_ITEM_RESERVE_SUCCESS';

@@ -99,6 +99,20 @@ END;
         return $str;
     }
 
+    private function formModifyList(){
+        $id = $this->list[0]['no'];
+        $str =
+            <<<END
+<form id="formModifyList" method="POST" action="/index.php/list/$id/modify/submit">
+    <input type="text" name="titre" placeholder="Titre de la liste">
+    <input type="text" name="description" placeholder="Description de la liste">
+    <input type="date" name="date" placeholder="Date d'expiration de la liste">
+    <button type="submit" name ="valid_modify_list" value="valid_f1">Valider</button>
+</form>
+END;
+        return $str;
+    }
+
     private function share(){
         $link = "http://$_SERVER[HTTP_HOST]";
         $token = $this->list[0]['tokenPart'];
@@ -120,8 +134,11 @@ END;
             case Selection::ID_LIST:
                 $this->content = $this->displayOneList();
                 break;
-            case Selection::FORM_LIST:
+            case Selection::FORM_CREATE_LIST:
                 $this->content = $this->formCreateList();
+                break;
+            case Selection::FORM_MODIFY_LIST:
+                $this->content = $this->formModifyList();
                 break;
             case Selection::SHARE_LIST:
                 $this->content = $this->share();

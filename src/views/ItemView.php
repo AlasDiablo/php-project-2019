@@ -103,7 +103,7 @@ END;
 <input type="text" name="description" placeholder="Description de l'item">
 <input type="number" step="0.01" name="prix" placeholder="Prix de l'item">
 <input type="url" name="url" placeholder="Lien site marchand">
-<button type="submit" name ="valid_create_list" value="valid_f1">Valider</button>
+<button type="submit" name ="valid_create_item" value="valid_f1">Valider</button>
 </form>
 END;
         return $str;
@@ -112,7 +112,7 @@ END;
     public function render()
     {
         switch ($this->selecteur) {
-            case Selection::FORM_ITEM:
+            case Selection::FORM_CREATE_ITEM:
                 $this->content = $this->htmlCreate();
                 break;
             case Selection::ALL_ITEM:

@@ -23,11 +23,11 @@ class ItemController
         $v->render();
     }
 
-    public function ItemForm($id)
+    public function ItemCreateForm($id)
     {
         $i = new Item();
         $i->liste_id = filter_var($id,FILTER_SANITIZE_NUMBER_INT);
-        $v = new ItemView($i, Selection::FORM_ITEM);
+        $v = new ItemView($i, Selection::FORM_CREATE_ITEM);
         $v->render();
     }
 
@@ -39,7 +39,7 @@ class ItemController
         if($_POST['url'] != ""){
             $i->url = filter_var($_POST['url'],FILTER_SANITIZE_URL);
         }
-        $i->liste_id = $id;
+        $i->liste_id = filter_var($id,FILTER_SANITIZE_NUMBER_INT);
         $i->save();
     }
 
