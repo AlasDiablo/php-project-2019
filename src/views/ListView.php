@@ -16,8 +16,8 @@ class ListView
 
     private function displayAllList()
     {
-        $res = "<table><th>no</th><th>user_id</th><th>titre</th><th>description</th><th>expiration</th>";
-        foreach ($this->list as $lis)
+        $res = "<h1>Mes listes</h1><table><th>no</th><th>user_id</th><th>titre</th><th>description</th><th>expiration</th>";
+        foreach ($this->list['myLists'] as $lis)
         {
             $res = <<<CONACT
 $res
@@ -26,6 +26,19 @@ $res
 </tr>
 CONACT;
         }
+        $res .= "</table>";
+
+        $res .= "<h1>Listes ou je participe</h1><table><th>no</th><th>user_id</th><th>titre</th><th>description</th><th>expiration</th>";
+        foreach ($this->list['participLists'] as $lis)
+        {
+            $res = <<<CONACT
+$res
+<tr>
+<td>$lis->no</td><td>$lis->user_id</td><td>$lis->titre</td><td>$lis->description</td><td>$lis->expiration</td>
+</tr>
+CONACT;
+        }
+
         return $res . "</table>";
     }
 

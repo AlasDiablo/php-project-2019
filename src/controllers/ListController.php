@@ -4,6 +4,7 @@ namespace mywishlist\controllers;
 
 use mywishlist\models\Item;
 use mywishlist\models\Liste;
+use mywishlist\models\Participant;
 use mywishlist\utils\Authentication;
 use mywishlist\utils\Selection;
 use mywishlist\views\GlobalView;
@@ -11,18 +12,22 @@ use mywishlist\views\ListView;
 
 class ListController {
 
+    /*
     public function allList()
     {
         $lists = Liste::all();
         $v = new ListView($lists, Selection::ALL_LIST);
         $v->render();
     }
+    */
 
     public function showMyList()
     {
         if (Authentication::getUserId() != Authentication::ANONYMOUS)
         {
-            $lists = Liste::where('user_id', '=', Authentication::getUserId())->get();
+            $mylists = Liste::where('user_id', '=', Authentication::getUserId())->get();
+            $participLists = Liste::whereIn('no', Participant::select('no')->where('user_id', '=', Authentication::getUserId())->get())->get();
+            $lists = array('myLists' => $mylists, 'participLists' => $participLists);
             (new ListView($lists, Selection::ALL_LIST))->render();
         }
         else
