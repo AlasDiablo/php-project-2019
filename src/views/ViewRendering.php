@@ -20,8 +20,7 @@ NAV;
         } else {
             $username = Authentication::getUsername();
             return <<<NAV
-<li><a href="/index.php/list/display/all">Listes</a></li>
-<li><a href="/index.php/item/display/all">Items</a></li>
+<li><a href="/index.php/account/mylists">Mes liste</a></li>
 <li><a href="/index.php/account/edit">Bonjour, $username</a></li>
 <li><a href="/index.php/account/logout">Se Deconnecter</a></li>
 NAV;

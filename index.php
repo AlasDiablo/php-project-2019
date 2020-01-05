@@ -111,6 +111,11 @@ $app->get('/account', function () {
     $c->account();
 });
 
+$app->get('/account/mylists', function () {
+    $c = new ListController();
+    $c->showMyList();
+});
+
 $app->get('/account/edit', function () {
     $c = new UserController();
     $c->accountEdit();
