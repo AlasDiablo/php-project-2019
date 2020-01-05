@@ -46,8 +46,26 @@ END;
 
     private function displayOneList()
     {
-        $res = "</table>" . "<table><th>ID</th><th>liste_ID</th><th>nom</th><th>description</th><th>tarif</th>";
-        foreach ($this->list as $i)
+        $res = '<div>';
+
+        foreach ($this->list['authors'] as $u)
+        {
+            $gravatar = $u['gravatar'];
+            $username = $u['username'];
+            $owner = '';
+            if ($u['owner'] == true) {
+                $owner = 'class="owner"';
+            }
+            $res .= <<<END
+<img alt="author" id="gravatar" $owner src="$gravatar"><label>$username</label><br>
+END;
+        }
+
+        $res .= '</div>';
+
+        $res .= "</table><table><th>ID</th><th>liste_ID</th><th>nom</th><th>description</th><th>tarif</th>";
+
+        foreach ($this->list['items'] as $i)
         {
             $res .= <<<RES
 <tr>

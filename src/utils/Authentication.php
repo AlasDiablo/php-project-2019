@@ -47,4 +47,14 @@ class Authentication
             return 0;
         }
     }
+
+    public static function getEmail()
+    {
+        if (self::getUserLevel() != self::ANONYMOUS)
+        {
+            return User::select('email')->where('user_id', '=', $_SESSION['user_id'])->first()->email;
+        } else {
+            return '';
+        }
+    }
 }

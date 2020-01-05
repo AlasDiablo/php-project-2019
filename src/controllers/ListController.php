@@ -5,7 +5,9 @@ namespace mywishlist\controllers;
 use mywishlist\models\Item;
 use mywishlist\models\Liste;
 use mywishlist\models\Participant;
+use mywishlist\models\User;
 use mywishlist\utils\Authentication;
+use mywishlist\utils\Gravatar;
 use mywishlist\utils\Selection;
 use mywishlist\views\GlobalView;
 use mywishlist\views\ListView;
@@ -36,10 +38,47 @@ class ListController {
         }
     }
 
-    public function oneList($id)
+    private function getAutohrList($list_id)
     {
-        $id = filter_var($id, FILTER_SANITIZE_SPECIAL_CHARS);
-        $l = Item::where('liste_id', '=', $id)->get();
+
+        $userOwner = User::where('user_id', '=', Liste::select('user_id')->where('no', '=', $list_id)->first()->user_id)->first();
+        $usernameOwner = $userOwner->username;
+        $gravatarOwner = Gravatar::getGravatar($userOwner->email);
+        $out = array(
+            array(
+                'username' => $usernameOwner,
+                'gravatar' => $gravatarOwner,
+                'owner' => true
+            )
+        );
+
+        $userParticip = User::whereIn('user_id', Participant::select('user_id')->where('no', '=', $list_id)->get())->get();
+        foreach ($userParticip as $user)
+        {
+            $username = $user->username;
+            $gravatar = Gravatar::getGravatar($user->email);
+            array_push(
+                $out,
+                array(
+                    'username' => $username,
+                    'gravatar' => $gravatar,
+                    'owner' => false
+                )
+            );
+        }
+
+        return $out;
+    }
+
+    public function oneList($id_list)
+    {
+        $id = filter_var($id_list, FILTER_SANITIZE_SPECIAL_CHARS);
+        $items = Item::where('liste_id', '=', $id)->get();
+
+        $authors = $this->getAutohrList($id);
+
+        $l = array('items' => $items, 'authors' => $authors);
+
         $v = new ListView($l, Selection::ID_LIST);
         $v->render();
     }
