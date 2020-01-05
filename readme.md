@@ -71,7 +71,7 @@ Code sous licence **AGPL-3.0**, lire la licence [ici](https://github.com/AlasDia
 + [ ] 22 - Créer une cagnotte sur un item
 + [ ] 23 - Participer à une cagnotte
 + [x] **~~24 - Uploader une image~~ [Lucas]**
-+ [ ] 25 - Créer un compte participant
++ [ ] ***25 - Créer un compte participant  [Pierre]***
 + [ ] 26 - Afficher la liste des créateurs
 + [x] **~~27 - Supprimer son compte~~ [Pierre]**
 + [ ] ***28 - Joindre des listes à son compte  [Pierre]***
