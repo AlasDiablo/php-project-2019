@@ -118,8 +118,8 @@ class ListController {
     }
 
     public function modifyList($id){
-        $i = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-        $l = Liste::where('no', '=', $i)->get();
+        $no = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        $l = Liste::where('no', '=', $no)->get();
         if($_POST['titre'] != "") {
             $l->titre = filter_var($_POST['titre'], FILTER_SANITIZE_SPECIAL_CHARS);
         }
@@ -130,6 +130,12 @@ class ListController {
             $l->expiration = filter_var($_POST['date'], FILTER_SANITIZE_SPECIAL_CHARS);
         }
         $l->save();
+    }
+
+    public function deleteList($id){
+        $no = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        $l = Liste::where('no', '=', $no)->get();
+        $l->delete();
     }
 
     public function share()

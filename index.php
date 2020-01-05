@@ -57,6 +57,11 @@ $app->get('/list/:id', function ($id) {
     $c->oneList($id);
 });
 
+$app->get('/list/:id/delete', function ($id) {
+    $c = new ListController();
+    $c->deleteList($id);
+});
+
 $app->get('/list/create', function () {
     $c = new ListController();
     $c->listCreateForm();
