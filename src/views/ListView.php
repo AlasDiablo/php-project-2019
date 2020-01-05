@@ -51,17 +51,19 @@ END;
     private function displayOneList()
     {
         $res = '<div id="authors">';
-
+        $i = 0;
         foreach ($this->list['authors'] as $u)
         {
+            if ($i != 0) $res .= '<br>';
+            $i++;
             $gravatar = $u['gravatar'];
             $username = $u['username'];
             $owner = '';
             if ($u['owner'] == true) {
-                $owner = 'class="owner"';
+                $owner = ' owner';
             }
             $res .= <<<END
-<img alt="author" id="gravatar" $owner src="$gravatar"><label>$username</label><br>
+<img alt="$username" class="gravatar$owner" src="$gravatar"><br><label>$username</label>
 END;
         }
 

@@ -87,7 +87,7 @@ BODY;
     {
         $str = <<<END
 <div id="edit">
-    <img id="gravatar" src="$gravatar" alt="gravatar"><br>
+    <img class="gravatar" src="$gravatar" alt="gravatar"><br>
     <a class="link" href="https://fr.gravatar.com">Changer mon Gravatar</a><br>
     <label id="username">Nom d'utilisateur :</label>
     <input id="username-value" type="text" value="$username" name="username" disabled="disabled"><br>
