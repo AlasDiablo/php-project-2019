@@ -52,9 +52,9 @@ $app->get('/list/display/all', function () {
     $c->allList();
 });
 
-$app->get('/list/display/', function () {
+$app->get('/list/:id', function ($id) {
     $c = new ListController();
-    $c->oneList();
+    $c->oneList($id);
 });
 
 $app->get('/list/create', function () {

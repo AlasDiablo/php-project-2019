@@ -36,9 +36,9 @@ class ListController {
         }
     }
 
-    public function oneList()
+    public function oneList($id)
     {
-        $id = filter_var($_GET['id'],FILTER_SANITIZE_SPECIAL_CHARS);
+        $id = filter_var($id, FILTER_SANITIZE_SPECIAL_CHARS);
         $l = Item::where('liste_id', '=', $id)->get();
         $v = new ListView($l, Selection::ID_LIST);
         $v->render();

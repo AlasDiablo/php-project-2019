@@ -26,7 +26,7 @@ END;
         {
             $out .= <<<END
     <tr>
-        <td>$values->titre</td>
+        <td><a href="/list/$values->no">$values->titre</a></td>
         <td>$values->description</td>
         <td>$values->expiration</td>
     </tr>
