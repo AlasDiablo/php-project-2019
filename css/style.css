@@ -59,13 +59,31 @@ label.css-label {
     user-select: none;
 }
 
-#edit {
+#myLists, #listsByOthers, #edit {
     border-radius: 12px;
     background: rgba(107, 161, 255, 0.51);
     color: darkslateblue;
     margin: 2% 6%;
     padding: 1%;
-    min-height: 420px;
+    width: 84%;
+    vertical-align: top;
+    display: inline-block;
+}
+
+#authors, #items {
+    display: inline-block;
+}
+
+#authors {
+    vertical-align: middle;
+}
+
+#items {
+    border-radius: 12px;
+    background: rgba(107, 161, 255, 0.51);
+    color: darkslateblue;
+    margin: 2% 6%;
+    padding: 1%;
     vertical-align: top;
     display: inline-block;
 }
@@ -75,9 +93,29 @@ label.css-label {
     width: 96px;
 }
 
-#gravatar-link {
+.link {
     text-decoration: none;
     color: blueviolet;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+    border-radius: 12px;
+}
+
+tr:nth-child(n){
+    background-color: rgba(115, 156, 255, 0.31)
+}
+
+th {
+    background-color: cornflowerblue;
+    color: white;
 }
 
 input[type=text], input[type=email], input[type=password] {
@@ -85,7 +123,7 @@ input[type=text], input[type=email], input[type=password] {
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 1px solid darkslateblue;
     border-radius: 4px;
     box-sizing: border-box;
 }

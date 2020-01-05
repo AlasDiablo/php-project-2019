@@ -14,14 +14,12 @@ use mywishlist\views\ListView;
 
 class ListController {
 
-    /*
     public function allList()
     {
         $lists = Liste::all();
         $v = new ListView($lists, Selection::ALL_LIST);
         $v->render();
     }
-    */
 
     public function showMyList()
     {
@@ -77,7 +75,11 @@ class ListController {
 
         $authors = $this->getAutohrList($id);
 
-        $l = array('items' => $items, 'authors' => $authors);
+        $l = array(
+            'items' => $items,
+            'authors' => $authors,
+            'title' => Liste::select('titre')->where('no', '=', $id)->first()->titre
+        );
 
         $v = new ListView($l, Selection::ID_LIST);
         $v->render();

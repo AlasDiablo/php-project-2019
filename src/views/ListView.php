@@ -18,15 +18,17 @@ class ListView
     {
         $out = <<<END
 <table>
-    <th>titre</th>
-    <th>description</th>
-    <th>expiration</th>
+    <tr>
+        <th>titre</th>
+        <th>description</th>
+        <th>expiration</th>
+    </tr>
 END;
         foreach ($array as $values)
         {
             $out .= <<<END
     <tr>
-        <td><a href="/list/$values->no">$values->titre</a></td>
+        <td><a class="link" href="/list/$values->no">$values->titre</a></td>
         <td>$values->description</td>
         <td>$values->expiration</td>
     </tr>
@@ -37,16 +39,18 @@ END;
 
     private function displayAllList()
     {
-        $res = '<h1>Mes listes</h1>';
+        $res = '<div id="myLists"><h1>Mes listes</h1>';
         $res .= $this->buildListTable($this->list['myLists']);
-        $res .= '<h1>Listes ou je participe</h1>';
+        $res .= '</div>';
+        $res .= '<div id="listsByOthers"><h1>Listes ou je participe</h1>';
         $res .= $this->buildListTable($this->list['participLists']);
+        $res .= '</div>';
         return $res;
     }
 
     private function displayOneList()
     {
-        $res = '<div>';
+        $res = '<div id="authors">';
 
         foreach ($this->list['authors'] as $u)
         {
@@ -63,21 +67,21 @@ END;
 
         $res .= '</div>';
 
-        $res .= "</table><table><th>ID</th><th>liste_ID</th><th>nom</th><th>description</th><th>tarif</th>";
+        $res .= '<div id="items">';
+        $title = $this->list['title'];
+        $res .= "<h1>$title</h1><table><tr><th>nom</th><th>description</th><th>tarif</th></tr>";
 
         foreach ($this->list['items'] as $i)
         {
             $res .= <<<RES
 <tr>
-    <td>$i->id</td>
-    <td>$i->liste_id</td>
     <td>$i->nom</td>
     <td>$i->descr</td>
     <td>$i->tarif</td>
 </tr>
 RES;
         }
-        return $res . "</table>";
+        return $res . "</div></table>";
     }
 
     private function formCreateList(){
