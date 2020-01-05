@@ -111,8 +111,8 @@ class ListController {
     }
 
     public function listModifyForm($id){
-        $i = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-        $l = Liste::where('no', '=', $i)->get();
+        $no = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        $l = Liste::where('no', '=', $no)->get();
         $v = new ListView($l, Selection::FORM_MODIFY_LIST);
         $v->render();
     }

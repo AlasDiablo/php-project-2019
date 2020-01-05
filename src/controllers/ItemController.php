@@ -43,6 +43,31 @@ class ItemController
         $i->save();
     }
 
+    public function ItemModifyForm($id){
+        $d = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        $i = Item::where('id', '=', $d)->get();
+        $v = new ItemView($i, Selection::FORM_MODIFY_ITEM);
+        $v->render();
+    }
+
+    public function modifyItem($id){
+        $d = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        $i = Item::where('id', '=', $d)->get();
+        if($_POST['nom'] != "") {
+            $i->nom = filter_var($_POST['nom'], FILTER_SANITIZE_SPECIAL_CHARS);
+        }
+        if($_POST['description'] != "") {
+            $i->descr = filter_var($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS);
+        }
+        if($_POST['prix'] != "") {
+            $i->tarif = filter_var($_POST['prix'], FILTER_SANITIZE_NUMBER_FLOAT);
+        }
+        if($_POST['url'] != ""){
+            $i->url = filter_var($_POST['url'],FILTER_SANITIZE_URL);
+        }
+        $i->save();
+    }
+
     public function reserveItem()
     {
         $IDitem=filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);

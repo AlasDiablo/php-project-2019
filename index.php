@@ -100,6 +100,16 @@ $app->get('/list/:id/share', function ($id) {
 
 
 /*-----|items|-----*/
+$app->get('/list/:no/item/:id/modify', function ($id) {
+    $c = new ItemController();
+    $c->ItemModifyForm($id);
+});
+
+$app->post('/list/:no/item/:id/modify/submit', function ($id) {
+    $c = new ItemController();
+    $c->modifyItem($id);
+});
+
 $app->get('/item/display/all', function () {
     $c = new ItemController();
     $c->allItems();

@@ -109,11 +109,30 @@ END;
         return $str;
     }
 
+    private function htmlModify(){
+        $no = $this->item->liste_id;
+        $id = $this->item[0]['id'];
+        $str =
+            <<<END
+<form id="formCreateItem" method="POST" action="/index.php/list/$no/item/$id/modify/submit">
+<input type="text" name="nom" placeholder="Nom de l'item">
+<input type="text" name="description" placeholder="Description de l'item">
+<input type="number" step="0.01" name="prix" placeholder="Prix de l'item">
+<input type="url" name="url" placeholder="Lien site marchand">
+<button type="submit" name ="valid_create_item" value="valid_f1">Valider</button>
+</form>
+END;
+        return $str;
+    }
+
     public function render()
     {
         switch ($this->selecteur) {
             case Selection::FORM_CREATE_ITEM:
                 $this->content = $this->htmlCreate();
+                break;
+            case Selection::FORM_MODIFY_ITEM:
+                $this->content = $this->htmlModify();
                 break;
             case Selection::ALL_ITEM:
                 $this->content = $this->htmlAllItem();
