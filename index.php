@@ -52,6 +52,11 @@ $app->get('/list/display/all', function () {
     $c->allList();
 });
 
+$app->get('/list/create', function () {
+    $c = new ListController();
+    $c->listCreateForm();
+});
+
 $app->get('/list/:id', function ($id) {
     $c = new ListController();
     $c->oneList($id);
@@ -60,11 +65,6 @@ $app->get('/list/:id', function ($id) {
 $app->get('/list/:id/delete', function ($id) {
     $c = new ListController();
     $c->deleteList($id);
-});
-
-$app->get('/list/create', function () {
-    $c = new ListController();
-    $c->listCreateForm();
 });
 
 $app->get('/list/:id/modify', function ($id) {
@@ -100,14 +100,19 @@ $app->get('/list/:id/share', function ($id) {
 
 
 /*-----|items|-----*/
-$app->get('/list/:no/item/:id/modify', function ($id) {
+$app->get('/list/:no/item/:id/modify', function ($no, $id) {
     $c = new ItemController();
     $c->ItemModifyForm($id);
 });
 
-$app->post('/list/:no/item/:id/modify/submit', function ($id) {
+$app->post('/list/:no/item/:id/modify/submit', function ($no, $id) {
     $c = new ItemController();
     $c->modifyItem($id);
+});
+
+$app->get('/list/:no/item/:id/delete', function ($no, $id) {
+    $c = new ItemController();
+    $c->deleteItem($id);
 });
 
 $app->get('/item/display/all', function () {

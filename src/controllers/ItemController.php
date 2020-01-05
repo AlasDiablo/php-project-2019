@@ -54,18 +54,24 @@ class ItemController
         $d = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         $i = Item::where('id', '=', $d)->get();
         if($_POST['nom'] != "") {
-            $i->nom = filter_var($_POST['nom'], FILTER_SANITIZE_SPECIAL_CHARS);
+            $i[0]->nom = filter_var($_POST['nom'], FILTER_SANITIZE_SPECIAL_CHARS);
         }
         if($_POST['description'] != "") {
-            $i->descr = filter_var($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS);
+            $i[0]->descr = filter_var($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS);
         }
         if($_POST['prix'] != "") {
-            $i->tarif = filter_var($_POST['prix'], FILTER_SANITIZE_NUMBER_FLOAT);
+            $i[0]->tarif = filter_var($_POST['prix'], FILTER_SANITIZE_NUMBER_FLOAT);
         }
         if($_POST['url'] != ""){
-            $i->url = filter_var($_POST['url'],FILTER_SANITIZE_URL);
+            $i[0]->url = filter_var($_POST['url'],FILTER_SANITIZE_URL);
         }
-        $i->save();
+        $i[0]->save();
+    }
+
+    public function deleteItem($id){
+        $d = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        $i = Item::where('id', '=', $d)->get();
+        $i[0]->delete();
     }
 
     public function reserveItem()
