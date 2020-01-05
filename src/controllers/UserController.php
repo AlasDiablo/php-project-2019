@@ -4,6 +4,7 @@
 namespace mywishlist\controllers;
 
 use mywishlist\utils\Authentication;
+use mywishlist\utils\Gravatar;
 use mywishlist\utils\Selection;
 use mywishlist\views\GlobalView;
 use mywishlist\views\UserView;
@@ -459,23 +460,10 @@ class UserController
         if ($user_id != Authentication::ANONYMOUS) {
             $username = Authentication::getUsername();
             $email = User::select('email')->where('username', '=', $username)->first()->email;
-            $v = new UserView(array('username' => $username, 'email' => $email, 'gravatar' => $this->getGravatar($email)), Selection::CHANGE_USER);
+            $v = new UserView(array('username' => $username, 'email' => $email, 'gravatar' => Gravatar::getGravatar($email)), Selection::CHANGE_USER);
             $v->render();
         } else {
             GlobalView::unauthorized();
         }
-    }
-
-    /**
-     * Implemantation des gravatar.
-     * @param $email string Email de l'utilisateurs.
-     * @param int $s int Tails de l'images (Par defaut 256 pixel de côté).
-     * @return string Urls du gravatar.
-     */
-    private function getGravatar($email, $s = 256) {
-        $url = 'https://www.gravatar.com/avatar/';
-        $url .= md5(strtolower(trim($email)));
-        $url .= "?s=$s&d=retro&r=g";
-        return $url;
     }
 }
