@@ -40,7 +40,7 @@ class UserView
 <div id="user-form">
     <div id="register-div" class="user-form">
         <h2>Creation d'un compte</h2>
-        <form method="post" action="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/account/register_post">
+        <form method="post" action="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/index.php/account/register_post">
             <label>Nom d'utilisateur :</label><br>
             <input type="text" name="username" required><br>
             <label>Email :</label><br>
@@ -54,7 +54,7 @@ class UserView
             
             
             <input type="checkbox" name="terms-of-use" value="iAgree" id="checkbox" class="css-checkbox" required/>
-			<label for="checkbox" class="css-label">J'ai lu et j'accepte la <a href="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/cgu">Clauses D'utilisation</a></label><br>
+			<label for="checkbox" class="css-label">J'ai lu et j'accepte la <a href="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/index.php/cgu">Clauses D'utilisation</a></label><br>
 			
             
             
@@ -63,7 +63,7 @@ class UserView
     </div>
     <div id="login-div" class="user-form">
         <h2>Connection a un compte</h2>
-        <form id="register" method="post" action="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/account/login_post">
+        <form id="register" method="post" action="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/index.php/account/login_post">
             <label>Nom d'utilisateur :</label><br>
             <input type="text" name="username" required><br>
             <label>Mot de passe :</label><br>
@@ -92,7 +92,7 @@ BODY;
     <label id="username">Nom d'utilisateur :</label>
     <input id="username-value" type="text" value="$username" name="username" disabled="disabled"><br>
     <br>
-    <form id="email-change" method="post" action="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/account/edit/email">
+    <form id="email-change" method="post" action="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/index.php/account/edit/email">
         <label>Email :</label>
         <input type="email" value="$email" name="old-email" disabled="disabled">
         <label>Nouvel email :</label>
@@ -102,7 +102,7 @@ BODY;
         <button type="submit" name="submit" value="doEmailChange">Appliquer</button>
     </form>
     <br>
-    <form id="password-change" method="post" action="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/account/edit/password">
+    <form id="password-change" method="post" action="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/index.php/account/edit/password">
         <label>Mot de passe :</label>
         <input type="password" name="password-old" required>
         <label>Nouveau mot de passe :</label>
@@ -112,7 +112,7 @@ BODY;
         <button type="submit" name="submit" value="doChange">Appliquer</button>
     </form>
     <br>
-    <form id="delete" method="post" action="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/account/edit/delete">
+    <form id="delete" method="post" action="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/index.php/account/edit/delete">
         <button id="delete-button" type="submit" name="submit" value="doDelete">Supprimer mon compte</button>
     </form>
 </div>

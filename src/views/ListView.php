@@ -28,7 +28,7 @@ END;
         {
             $out .= <<<END
     <tr>
-        <td><a class="link" href="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/list/$values->no">$values->titre</a></td>
+        <td><a class="link" href="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/index.php/list/$values->no">$values->titre</a></td>
         <td>$values->description</td>
         <td>$values->expiration</td>
     </tr>
@@ -41,7 +41,7 @@ END;
     {
         $res = '<div id="myLists"><h1>Mes listes</h1>';
         $res .= $this->buildListTable($this->list['myLists']);
-        $res .= "<button type=\"button\" onclick=\"window.location.href = 'https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/list/create';\" value=\"goToCreateList\">Créer un nouvelle liste</button>";
+        $res .= "<button type=\"button\" onclick=\"window.location.href = 'https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/index.php/list/create';\" value=\"goToCreateList\">Créer un nouvelle liste</button>";
         $res .= '</div>';
         $res .= '<div id="listsByOthers"><h1>Listes ou je participe</h1>';
         $res .= $this->buildListTable($this->list['participLists']);
@@ -85,7 +85,7 @@ END;
 RES;
         }
         $id = $this->list['id'];
-        $res .= "</table> <button type=\"button\" onclick=\"window.location.href = 'https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/list/$id/addItem';\" value=\"goToCreateList\">Créer un items</button>";
+        $res .= "</table> <button type=\"button\" onclick=\"window.location.href = 'https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/index.php/list/$id/addItem';\" value=\"goToCreateList\">Créer un items</button>";
         return $res . "</div>";
     }
 
@@ -94,7 +94,7 @@ RES;
             <<<END
 <div id="edit">
     <h1>Creation d'une liste</h1>
-    <form id="formCreateList" method="POST" action="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/list/create/submit">
+    <form id="formCreateList" method="POST" action="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/index.php/list/create/submit">
         <input type="text" name="titre" placeholder="Titre de la liste" required>
         <input type="text" name="description" placeholder="Description de la liste" required>
         <input type="date" name="date" placeholder="Date d'expiration de la liste" required>
@@ -111,7 +111,7 @@ END;
             <<<END
 <div id="edit">
     <h1>Modification d'une liste</h1>
-    <form id="formModifyList" method="POST" action="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/list/$id/modify/submit">
+    <form id="formModifyList" method="POST" action="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/index.php/list/$id/modify/submit">
         <input type="text" name="titre" placeholder="Titre de la liste" required>
         <input type="text" name="description" placeholder="Description de la liste" required>
         <input type="date" name="date" placeholder="Date d'expiration de la liste" required>

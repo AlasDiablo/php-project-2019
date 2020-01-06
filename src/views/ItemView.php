@@ -47,7 +47,7 @@ RES;
             return $res = <<<END
 $res
 </table>
-<form action="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/item/reserve/submit/$id" method="POST" enctype="multipart/form-data">
+<form action="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/index.php/item/reserve/submit/$id" method="POST" enctype="multipart/form-data">
 Réservation l'item :<br>
 Nom : <input type="text" name="nom_reserve_item"><br>
 Lien de l'image : <input type="file" name="image"><br>
@@ -64,7 +64,7 @@ END;
         $id=filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
         $str = 
 <<<END
-<form action="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/item/reserve/submit?id=$id" method="POST">
+<form action="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/index.php/item/reserve/submit?id=$id" method="POST">
 Item:$id<br>
 <input name = 'id_reserve_item' value=$id readonly="readonly"><br>
 Nom:
@@ -100,7 +100,7 @@ END;
             <<<END
 <div id="edit">
     <h1>Creation d'un item</h1>
-    <form id="formCreateItem" method="POST" action="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/list/$id/addItem/submit">
+    <form id="formCreateItem" method="POST" action="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/index.php/list/$id/addItem/submit">
         <input type="text" name="nom" placeholder="Nom de l'item" required>
         <input type="text" name="description" placeholder="Description de l'item" required>
         <input type="number" step="0.01" name="prix" placeholder="Prix de l'item" required>
@@ -117,7 +117,7 @@ END;
         $id = $this->item[0]['id'];
         $str =
             <<<END
-<form id="formModifyItem" method="POST" action="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/list/$no/item/$id/modify/submit">
+<form id="formModifyItem" method="POST" action="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/index.php/list/$no/item/$id/modify/submit">
 <input type="text" name="nom" placeholder="Nom de l'item">
 <input type="text" name="description" placeholder="Description de l'item">
 <input type="number" step="0.01" name="prix" placeholder="Prix de l'item">

@@ -13,16 +13,16 @@ class ViewRendering
         if (Authentication::getUserLevel() == Authentication::ANONYMOUS)
         {
             return <<<NAV
-<li><a href="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/list/display/all">Listes</a></li>
-<li><a href="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/item/display/all">Items</a></li>
-<li><a href="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/account">S'inscrire/Se Connecter</a></li>
+<li><a href="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/index.php/list/display/all">Listes</a></li>
+<li><a href="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/index.php/item/display/all">Items</a></li>
+<li><a href="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/index.php/account">S'inscrire/Se Connecter</a></li>
 NAV;
         } else {
             $username = Authentication::getUsername();
             return <<<NAV
-<li><a href="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/account/mylists">Mes liste</a></li>
-<li><a href="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/account/edit">Bonjour, $username</a></li>
-<li><a href="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/account/logout">Se Deconnecter</a></li>
+<li><a href="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/index.php/account/mylists">Mes liste</a></li>
+<li><a href="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/index.php/account/edit">Bonjour, $username</a></li>
+<li><a href="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/index.php/account/logout">Se Deconnecter</a></li>
 NAV;
         }
     }
@@ -36,13 +36,13 @@ NAV;
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>MyWishList$title</title>
-    <link href ="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/css/style.css" rel="stylesheet">
+    <link href ="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/index.php/css/style.css" rel="stylesheet">
 </head>
 <body>
     <header id="header">
         <div id="header-inner">	
             <div id="logo">
-                <h1><a href="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/">Wish<span>List</span></a></h1>
+                <h1><a href="https://webetu.iutnc.univ-lorraine.fr/~marcolet3u/php-project/index.php/">Wish<span>List</span></a></h1>
             </div>
             <div id="top-nav">
                 <ul>
