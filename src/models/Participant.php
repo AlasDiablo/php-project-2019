@@ -3,11 +3,12 @@
 
 namespace mywishlist\models;
 
+
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Participant extends Model
 {
-    protected $table = 'user';
+    protected $table = 'participant';
     protected $primaryKey = 'user_id';
     public $timestamps = false;
 }

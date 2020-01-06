@@ -4,20 +4,19 @@
 require_once './vendor/autoload.php';
 
 // Liste des tous les imports
-use mywishlist\controllers\ParticipationController;
 use \mywishlist\controllers\UserController;
+use \mywishlist\controllers\ListController;
+use \mywishlist\controllers\ItemController;
+use \mywishlist\views\AccueilView;
 use \Illuminate\Database\Capsule\Manager as DB;
-use \Slim\Slim as Slim;
-use \mywishlist\views\RenderHandler;
-use \mywishlist\utils\Registries;
-
-// Informations de connexion a la base de données
-$ini_file = parse_ini_file('src/conf/conf.ini');
+use mywishlist\views\GlobalView;
+use \Slim\Slim;
 
 // instance de la base de données
 $db = new DB();
 
 // ajout des informations pour se connecter à la base de données
+$ini_file = parse_ini_file('src/conf/conf.ini');
 $db->addConnection([
     'driver'    => $ini_file['driver'],
     'host'      => $ini_file['host'],
@@ -33,47 +32,158 @@ $db->addConnection([
 $db->setAsGlobal();
 $db->bootEloquent();
 
+// demerage d'un session
+session_start();
 
 // intance de slim qui a pour but de créer le rootage des urls
-$router = new Slim();
+$app = new Slim();
 
 
-
-// route de la racine
-$router->get(Registries::ROOT_PATH, function() {
-    $render = new RenderHandler(Registries::ROOT, null);
-    $render->render();
-})->name(Registries::ROOT);
-
-
-$router->get('/list/display/all', function () {
-    ParticipationController::displayAllLists();
-});
-$router->get('/item/display/all', function () {
-    ParticipationController::displayAllItems();
-});
-$router->get('/list/display/:id', function ($id) {
-    ParticipationController::displayList($id);
-});
-$router->get('/item/display/:id', function ($id) {
-    ParticipationController::displayItem($id);
-});
-$router->get('/item/reserve/:id', function ($id) {
-    ParticipationController::reserveItem($id);
-});
-$router->get('/item/reserve/submit/:id', function ($id) {
-    ParticipationController::reserveItemSubmit($id);
+/*-----|acceuil|-----*/
+$app->get('/', function () {
+    $v = new AccueilView();
+    $v->render();
 });
 
-$router->get(Registries::REGISTER_PATH, function () {
-    UserController::register();
-})->name(Registries::REGISTER);
 
-$router->post(Registries::REGISTER_POST_PATH, function () {
-    UserController::register_post();
-})->name(Registries::REGISTER_POST);
+/*-----|listes|-----*/
+$app->get('/list/display/all', function () {
+    $c = new ListController();
+    $c->allList();
+});
 
-// démarrage du routage des urls
-$router->run();
+$app->get('/list/create', function () {
+    $c = new ListController();
+    $c->listCreateForm();
+});
+
+$app->get('/list/:id', function ($id) {
+    $c = new ListController();
+    $c->oneList($id);
+});
+
+$app->get('/list/:id/delete', function ($id) {
+    $c = new ListController();
+    $c->deleteList($id);
+});
+
+$app->get('/list/:id/modify', function ($id) {
+    $c = new ListController();
+    $c->listModifyForm($id);
+});
+
+$app->post('/list/:id/modify/submit', function ($id) {
+    $c = new ListController();
+    $c->modifyList($id);
+});
+
+$app->post('/list/create/submit', function () {
+    $c = new ListController();
+    $c->createList();
+});
+
+$app->get('/list/:id/addItem', function ($id) {
+    $c = new ItemController();
+    $c->ItemCreateForm($id);
+});
+
+$app->post('/list/:id/addItem/submit', function ($id) {
+    $c = new ItemController();
+    $c->createItem($id);
+});
+
+$app->get('/list/:id/share', function ($id) {
+    $c = new ListController();
+    $c->share($id);
+});
 
 
+
+/*-----|items|-----*/
+$app->get('/list/:no/item/:id/modify', function ($no, $id) {
+    $c = new ItemController();
+    $c->ItemModifyForm($id);
+});
+
+$app->post('/list/:no/item/:id/modify/submit', function ($no, $id) {
+    $c = new ItemController();
+    $c->modifyItem($id);
+});
+
+$app->get('/list/:no/item/:id/delete', function ($no, $id) {
+    $c = new ItemController();
+    $c->deleteItem($id);
+});
+
+$app->get('/item/display/all', function () {
+    $c = new ItemController();
+    $c->allItems();
+});
+
+$app->get('/item/display/', function () {
+    $c = new ItemController();
+    $c->oneItem();
+});
+
+$app->get('/item/reserve/', function () {
+    $c = new ItemController();
+    $c->reserveItem();
+});
+
+$app->post('/item/reserve/submit', function () {
+    $c = new ItemController();
+    $c->reserveItemSubmit();
+});
+
+
+/*-----|comptes|-----*/
+$app->get('/account', function () {
+    $c = new UserController();
+    $c->account();
+});
+
+$app->get('/account/mylists', function () {
+    $c = new ListController();
+    $c->showMyList();
+});
+
+$app->get('/account/edit', function () {
+    $c = new UserController();
+    $c->accountEdit();
+});
+
+$app->post('/account/edit/password', function () {
+    $c = new UserController();
+    $c->changePassword();
+});
+
+$app->post('/account/edit/email', function () {
+    $c = new UserController();
+    $c->accountEmail();
+});
+
+$app->post('/account/edit/delete', function () {
+    $c = new UserController();
+    $c->accountDelete();
+});
+
+$app->get('/account/logout', function () {
+    $c = new UserController();
+    $c->logout();
+});
+
+$app->post('/account/register_post', function () {
+    $c = new UserController();
+    $c->registerPost();
+});
+
+$app->post('/account/login_post', function () {
+    $c = new UserController();
+    $c->loginPost();
+});
+
+$app->get('/account/teapot', function () {
+    GlobalView::teapot();
+});
+
+$app->run();
