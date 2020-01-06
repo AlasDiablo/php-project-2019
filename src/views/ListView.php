@@ -92,12 +92,15 @@ RES;
     private function formCreateList(){
         $str =
             <<<END
-<form id="formCreateList" method="POST" action="/index.php/list/create/submit">
-    <input type="text" name="titre" placeholder="Titre de la liste">
-    <input type="text" name="description" placeholder="Description de la liste">
-    <input type="date" name="date" placeholder="Date d'expiration de la liste">
-    <button type="submit" name ="valid_create_list" value="valid_f1">Valider</button>
-</form>
+<div id="edit">
+    <h1>Creation d'une liste</h1>
+    <form id="formCreateList" method="POST" action="/index.php/list/create/submit">
+        <input type="text" name="titre" placeholder="Titre de la liste" required>
+        <input type="text" name="description" placeholder="Description de la liste" required>
+        <input type="date" name="date" placeholder="Date d'expiration de la liste" required>
+        <button type="submit" name ="valid_create_list" value="valid_f1">Valider</button>
+    </form>
+</div>
 END;
         return $str;
     }
@@ -106,12 +109,16 @@ END;
         $id = $this->list[0]['no'];
         $str =
             <<<END
-<form id="formModifyList" method="POST" action="/index.php/list/$id/modify/submit">
-    <input type="text" name="titre" placeholder="Titre de la liste">
-    <input type="text" name="description" placeholder="Description de la liste">
-    <input type="date" name="date" placeholder="Date d'expiration de la liste">
-    <button type="submit" name ="valid_modify_list" value="valid_f1">Valider</button>
-</form>
+<div id="edit">
+    <h1>Modification d'une liste</h1>
+    <form id="formModifyList" method="POST" action="/index.php/list/$id/modify/submit">
+        <input type="text" name="titre" placeholder="Titre de la liste" required>
+        <input type="text" name="description" placeholder="Description de la liste" required>
+        <input type="date" name="date" placeholder="Date d'expiration de la liste" required>
+        <button type="submit" name ="valid_modify_list" value="valid_f1">Valider</button>
+    </form>
+</div>
+
 END;
         return $str;
     }
