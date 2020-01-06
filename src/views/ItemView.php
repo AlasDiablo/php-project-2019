@@ -3,6 +3,7 @@
 namespace mywishlist\views;
 
 use mywishlist\models\Item;
+use mywishlist\utils\Authentication;
 use mywishlist\utils\Selection;
 
 class ItemView
@@ -42,9 +43,8 @@ $res
 RES;
         }
         $p = Item::select('nomReserve', 'msgReserve')->where('id', 'like', $i->id)->first();
-        echo $p;
         // $id=filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
-        if($p->nomReserve == '' and $p->msgReserve == '') {
+        if($p->nomReserve == '' and $p->msgReserve == '' and Authentication::getUserId() != 0) {
             return $res .= <<<END
 </table>
 <form action="/index.php/item/reserve/submit/$i->id" method="POST" enctype="multipart/form-data">
