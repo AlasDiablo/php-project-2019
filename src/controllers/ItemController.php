@@ -3,6 +3,7 @@
 namespace mywishlist\controllers;
 
 use mywishlist\models\Item;
+use mywishlist\utils\Authentication;
 use mywishlist\views\ItemView;
 use mywishlist\utils\Selection;
 
@@ -15,8 +16,8 @@ class ItemController
         $v->render();
     }
 
-    public function oneItem() {
-        $id=filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
+    public function oneItem($id) {
+        $id=filter_var($id, FILTER_SANITIZE_SPECIAL_CHARS);
         $l = Item::where('id', '=', $id)->get();
         $v = new ItemView($l, Selection::ID_ITEM);
         $v->render();
@@ -96,11 +97,11 @@ class ItemController
         }
     }
 
-    public function reserveItemSubmit()
+    public function reserveItemSubmit($id)
     {
         if (isset($_POST['nom_reserve_item'])){ //&& !empty($_FILES["image"]["name"])) {
-            $id = filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
-            $name = filter_var($_POST['nom_reserve_item'], FILTER_SANITIZE_SPECIAL_CHARS);
+            // $id = filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
+            $msg = filter_var($_POST['nom_reserve_item'], FILTER_SANITIZE_SPECIAL_CHARS);
             //$targetDir = "C:\wamp64\www\uploads\\"; // TO-DO : Dégager le chemin absolu
             //$fileName = basename($_FILES["image"]["name"]);
             //$targetFilePath = $targetDir . $fileName;
@@ -120,8 +121,8 @@ class ItemController
                 return;
             }*/
             $ri = Item::where('id', '=', $id)->first();
-            $ri->nomReserve = $name;
-            //$ri->img = $image;
+            $ri->msgReserve = $msg;
+            $ri->nomReserve = Authentication::getUsername();
             $ri->save();
         } else {
             $v = new ItemView(null, Selection::FORM_ITEM_RESERVE_FAIL);

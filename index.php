@@ -45,13 +45,6 @@ $app->get('/', function () {
     $v->render();
 });
 
-
-/*-----|listes|-----*/
-$app->get('/list/display/all', function () {
-    $c = new ListController();
-    $c->allList();
-});
-
 $app->get('/list/create', function () {
     $c = new ListController();
     $c->listCreateForm();
@@ -115,14 +108,14 @@ $app->get('/list/:no/item/:id/delete', function ($no, $id) {
     $c->deleteItem($id);
 });
 
-$app->get('/item/display/all', function () {
+$app->get('/item/all', function () {
     $c = new ItemController();
     $c->allItems();
 });
 
-$app->get('/item/display/', function () {
+$app->get('/item/:id', function ($id) {
     $c = new ItemController();
-    $c->oneItem();
+    $c->oneItem($id);
 });
 
 $app->get('/item/reserve/', function () {
@@ -130,9 +123,9 @@ $app->get('/item/reserve/', function () {
     $c->reserveItem();
 });
 
-$app->post('/item/reserve/submit', function () {
+$app->post('/item/reserve/submit/:id', function ($id) {
     $c = new ItemController();
-    $c->reserveItemSubmit();
+    $c->reserveItemSubmit($id);
 });
 
 

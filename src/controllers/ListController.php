@@ -139,12 +139,6 @@ class ListController {
         $l[0]->save();
     }
 
-    public function deleteList($id){
-        $no = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-        $l = Liste::where('no', '=', $no)->get();
-        $l[0]->delete();
-    }
-
     public function share($id)
     {
         $no = filter_var($id,FILTER_SANITIZE_SPECIAL_CHARS);
