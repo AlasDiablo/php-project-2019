@@ -45,13 +45,6 @@ $app->get('/', function () {
     $v->render();
 });
 
-
-/*-----|listes|-----*/
-$app->get('/list/display/all', function () {
-    $c = new ListController();
-    $c->allList();
-});
-
 $app->get('/list/create', function () {
     $c = new ListController();
     $c->listCreateForm();
