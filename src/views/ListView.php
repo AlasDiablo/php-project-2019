@@ -72,7 +72,10 @@ END;
 
         $res .= '<div id="items">';
         $title = $this->list['title'];
-        $res .= "<h1>$title</h1><table><tr><th>nom</th><th>description</th><th>tarif</th></tr>";
+        $desc = $this->list['desc'];
+        $exp = $this->list['exp'];
+        $res .= "<h1>$title</h1><p>$desc</p><p>$exp</p>";
+        $res .= "<table><tr><th>nom</th><th>description</th><th>tarif</th></tr>";
 
         foreach ($this->list['items'] as $i)
         {
