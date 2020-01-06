@@ -2,7 +2,7 @@
 
 namespace mywishlist\views;
 
-use mywishlist\models\ReserveItem;
+use mywishlist\models\Item;
 use mywishlist\utils\Selection;
 
 class ItemView
@@ -37,11 +37,11 @@ RES;
             $res = <<<RES
 $res
 <tr>
-<td>$i->id</td><td>$i->liste_id</td><td>$i->nom</td><td>$i->descr</td><td>$i->tarif</td>
+<td>$i->id</td><td>$i->liste_id</td><td>$i->nom</td><td>$i->descr</td><td>$i->tarif</td><td>$i->nomReserve</td><td>$i->msgReserve</td>
 </tr>
 RES;
         }
-        $p = ReserveItem::select('id')->where('id', 'like', $i->id)->get();
+        $p = Item::select('id')->where('id', 'like', $i->id)->get();
         $id=filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
         if(empty($p[0]['id'])) {
             return $res = <<<END
@@ -64,7 +64,7 @@ END;
         $id=filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
         $str = 
 <<<END
-<form action="/index.php/item/reserve/submit/" method="POST">
+<form action="/index.php/item/reserve/submit?id=$id" method="POST">
 Item:$id<br>
 <input name = 'id_reserve_item' value=$id readonly="readonly"><br>
 Nom:

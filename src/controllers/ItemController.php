@@ -3,7 +3,6 @@
 namespace mywishlist\controllers;
 
 use mywishlist\models\Item;
-use mywishlist\models\ReserveItem;
 use mywishlist\views\ItemView;
 use mywishlist\utils\Selection;
 
@@ -41,6 +40,8 @@ class ItemController
         }
         $i->liste_id = filter_var($id,FILTER_SANITIZE_NUMBER_INT);
         $i->save();
+        header("Location: /index.php/list/$i->liste_id");
+        exit();
     }
 
     public function ItemModifyForm($id){
@@ -77,8 +78,8 @@ class ItemController
     public function reserveItem()
     {
         $IDitem=filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
-        $item = ReserveItem::select('id', 'name')->where('id', 'like', $IDitem)->get();
-        if(empty($item[0]['id']))
+        $item = Item::select('id', 'nomReserve')->where('id', 'like', $IDitem)->get();
+        if(empty($item[0]['nomReserve']))
         {
             $r = new ItemView(null, Selection::FORM_ITEM_RESERVE);
             $r->render();
@@ -89,16 +90,17 @@ class ItemController
         }
     }
 
-    public function reserveItemSubmit($id)
+    public function reserveItemSubmit()
     {
-        if (isset($_POST['nom_reserve_item']) && !empty($_FILES["image"]["name"])) {
+        if (isset($_POST['nom_reserve_item'])){ //&& !empty($_FILES["image"]["name"])) {
+            $id = filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
             $name = filter_var($_POST['nom_reserve_item'], FILTER_SANITIZE_SPECIAL_CHARS);
-            $targetDir = "C:\wamp64\www\uploads\\"; // TO-DO : Dégager le chemin absolu
-            $fileName = basename($_FILES["image"]["name"]);
-            $targetFilePath = $targetDir . $fileName;
-            $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
-            $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
-            if (in_array($fileType, $allowTypes)) {
+            //$targetDir = "C:\wamp64\www\uploads\\"; // TO-DO : Dégager le chemin absolu
+            //$fileName = basename($_FILES["image"]["name"]);
+            //$targetFilePath = $targetDir . $fileName;
+            //$fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+            //$allowTypes = array('jpg', 'png', 'jpeg', 'gif');
+            /*if (in_array($fileType, $allowTypes)) {
                 if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFilePath)) {
                     $image = $fileName;
                 } else {
@@ -110,11 +112,10 @@ class ItemController
                 $v = new ItemView(null, Selection::FORM_ITEM_RESERVE_FAIL);
                 $v->render();
                 return;
-            }
-            $ri = new ReserveItem();
-            $ri->id = $id;
-            $ri->name = $name;
-            $ri->image = $image;
+            }*/
+            $ri = Item::where('id', '=', $id)->first();
+            $ri->nomReserve = $name;
+            //$ri->img = $image;
             $ri->save();
         } else {
             $v = new ItemView(null, Selection::FORM_ITEM_RESERVE_FAIL);
