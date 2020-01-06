@@ -98,13 +98,16 @@ END;
         $id = $this->item->liste_id;
         $str =
             <<<END
-<form id="formCreateItem" method="POST" action="/index.php/list/$id/addItem/submit">
-<input type="text" name="nom" placeholder="Nom de l'item">
-<input type="text" name="description" placeholder="Description de l'item">
-<input type="number" step="0.01" name="prix" placeholder="Prix de l'item">
-<input type="url" name="url" placeholder="Lien site marchand">
-<button type="submit" name ="valid_create_item" value="valid_f1">Valider</button>
-</form>
+<div id="edit">
+    <h1>Creation d'un item</h1>
+    <form id="formCreateItem" method="POST" action="/index.php/list/$id/addItem/submit">
+        <input type="text" name="nom" placeholder="Nom de l'item" required>
+        <input type="text" name="description" placeholder="Description de l'item" required>
+        <input type="number" step="0.01" name="prix" placeholder="Prix de l'item" required>
+        <input type="url" name="url" placeholder="Lien site marchand">
+        <button type="submit" name ="valid_create_item" value="valid_f1">Valider</button>
+    </form>
+</div>
 END;
         return $str;
     }
