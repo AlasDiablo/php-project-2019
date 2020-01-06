@@ -93,6 +93,7 @@ class ListController {
 
     public function createList(){
         $l = new Liste();
+        $l->user_id = Authentication::getUserId();
         $l->titre = filter_var($_POST['titre'],FILTER_SANITIZE_SPECIAL_CHARS);
         $l->description = filter_var($_POST['description'],FILTER_SANITIZE_SPECIAL_CHARS);
         $l->expiration = filter_var($_POST['date'],FILTER_SANITIZE_SPECIAL_CHARS);
@@ -108,6 +109,8 @@ class ListController {
         }
         $l->token = $token;
         $l->save();
+        header("Location: /index.php/list/$l->no");
+        exit();
     }
 
     public function listModifyForm($id){
