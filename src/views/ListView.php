@@ -41,6 +41,7 @@ END;
     {
         $res = '<div id="myLists"><h1>Mes listes</h1>';
         $res .= $this->buildListTable($this->list['myLists']);
+        $res .= "<button type=\"button\" onclick=\"window.location.href = '/list/create';\" value=\"goToCreateList\">Créer un nouvelle liste</button>";
         $res .= '</div>';
         $res .= '<div id="listsByOthers"><h1>Listes ou je participe</h1>';
         $res .= $this->buildListTable($this->list['participLists']);
@@ -83,7 +84,9 @@ END;
 </tr>
 RES;
         }
-        return $res . "</div></table>";
+        $id = $this->list['id'];
+        $res .= "</table> <button type=\"button\" onclick=\"window.location.href = '/list/$id/addItem';\" value=\"goToCreateList\">Créer un items</button>";
+        return $res . "</div>";
     }
 
     private function formCreateList(){

@@ -78,7 +78,8 @@ class ListController {
         $l = array(
             'items' => $items,
             'authors' => $authors,
-            'title' => Liste::select('titre')->where('no', '=', $id)->first()->titre
+            'title' => Liste::select('titre')->where('no', '=', $id)->first()->titre,
+            'id' => $id_list
         );
 
         $v = new ListView($l, Selection::ID_LIST);
