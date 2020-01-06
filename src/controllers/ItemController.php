@@ -41,6 +41,8 @@ class ItemController
         }
         $i->liste_id = filter_var($id,FILTER_SANITIZE_NUMBER_INT);
         $i->save();
+        header("Location: /index.php/list/$i->liste_id");
+        exit();
     }
 
     public function ItemModifyForm($id){
