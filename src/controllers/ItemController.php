@@ -32,9 +32,15 @@ class ItemController
 
     public function createItem($id){
         $i = new Item();
-        $i->nom = filter_var($_POST['nom'],FILTER_SANITIZE_SPECIAL_CHARS);
-        $i->descr = filter_var($_POST['description'],FILTER_SANITIZE_SPECIAL_CHARS);
-        $i->tarif = filter_var($_POST['prix'],FILTER_SANITIZE_NUMBER_FLOAT);
+        if($_POST['nom'] != "") {
+            $i->nom = filter_var($_POST['nom'], FILTER_SANITIZE_SPECIAL_CHARS);
+        }
+        if($_POST['description'] != "") {
+            $i->descr = filter_var($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS);
+        }
+        if($_POST['prix'] != "") {
+            $i->tarif = filter_var($_POST['prix'], FILTER_SANITIZE_NUMBER_FLOAT);
+        }
         if($_POST['url'] != ""){
             $i->url = filter_var($_POST['url'],FILTER_SANITIZE_URL);
         }
