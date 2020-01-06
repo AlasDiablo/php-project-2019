@@ -149,6 +149,20 @@ class ListController {
     {
         $no = filter_var($id,FILTER_SANITIZE_SPECIAL_CHARS);
         $l = Liste::where('no', '=', $no)->get();
+        if(!isset($l[0]['tokenPart'])){
+            $token = bin2hex(random_bytes(16));
+            $bool = false;
+            while(!$bool) {
+                $value = Liste::where('tokenPart', '=', $token)->get();
+                if (count($value) == 0) {
+                    $bool = true;
+                } else {
+                    $token = bin2hex(random_bytes(16));
+                }
+            }
+            $l[0]->tokenPart = $token;
+            $l[0]->update();
+        }
         $v = new ListView($l, Selection::SHARE_LIST);
         $v->render();
     }
