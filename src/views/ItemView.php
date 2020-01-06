@@ -41,16 +41,15 @@ $res
 </tr>
 RES;
         }
-        $p = Item::select('id')->where('id', 'like', $i->id)->get();
-        $id=filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
-        if(empty($p[0]['id'])) {
-            return $res = <<<END
-$res
+        $p = Item::select('nomReserve', 'msgReserve')->where('id', 'like', $i->id)->first();
+        echo $p;
+        // $id=filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
+        if($p->nomReserve == '' and $p->msgReserve == '') {
+            return $res .= <<<END
 </table>
-<form action="/index.php/item/reserve/submit/$id" method="POST" enctype="multipart/form-data">
+<form action="/index.php/item/reserve/submit/$i->id" method="POST" enctype="multipart/form-data">
 Réservation l'item :<br>
-Nom : <input type="text" name="nom_reserve_item"><br>
-Lien de l'image : <input type="file" name="image"><br>
+Message de réservation : <input type="text" name="nom_reserve_item"><br>
 <input type="submit" name="valider">
 </form>
 END;
