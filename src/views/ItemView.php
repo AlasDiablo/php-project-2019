@@ -32,7 +32,8 @@ RES;
     }
 
     private function htmlIdList() {
-        $res = "<table><th>ID</th><th>liste_ID</th><th>nom</th><th>description</th><th>tarif</th>";
+        echo getcwd() . "/uploads/";
+        $res = "<table><th>ID</th><th>liste_ID</th><th>nom</th><th>description</th><th>tarif</th><th>Réservé par</th><th>Message de réservation</th>";
         foreach ($this->item as $i)
         {
             $res = <<<RES
@@ -42,11 +43,18 @@ $res
 </tr>
 RES;
         }
+        $res .= <<<RES
+<table>
+<form action="/index.php/item/upload/submit/$i->id" method="POST" enctype="multipart/form-data">
+Upload d'une image pour l'item : <input type="file" name="image">
+<input type="submit" name ="Uploader">
+</form><br>
+RES;
+
         $p = Item::select('nomReserve', 'msgReserve')->where('id', 'like', $i->id)->first();
         // $id=filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
         if($p->nomReserve == '' and $p->msgReserve == '' and Authentication::getUserId() != 0) {
             return $res .= <<<END
-</table>
 <form action="/index.php/item/reserve/submit/$i->id" method="POST" enctype="multipart/form-data">
 Réservation l'item :<br>
 Message de réservation : <input type="text" name="nom_reserve_item"><br>
@@ -58,7 +66,7 @@ END;
         }
     }
 
-    private function htmlReserve()
+/*    private function htmlReserve()
     {
         $id=filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
         $str = 
@@ -72,12 +80,12 @@ Nom:
 </form>
 END;
         return $str;
-    }
+    }*/
 
     private function htmlFail()
     {
         $str = <<<END
-<p> Une erreur est survenu, vérifiez que l'item n'est pas déjà réservé.
+<p> Une erreur est survenu, vérifiez que l'item n'est pas déjà réservé.</p>
 END;
 
         return $str;
@@ -86,12 +94,29 @@ END;
     private function htmlSuccess()
     {
         $str = <<<END
-<p> Item réservé avec succès !
+<p> Item réservé avec succès !</p>
 END;
 
         return $str;
     }
 
+    private function htmlUploadImageSuccess()
+    {
+        $str = <<<END
+<p>Image upload avec succès</p>
+END;
+        return $str;
+
+    }
+
+    private function htmlUploadImageError()
+    {
+        $str = <<<END
+<p>Une erreur a eu lieu lors de l'upload de l'image</p>
+END;
+        return $str;
+
+    }
 
     private function htmlCreate(){
         $id = $this->item->liste_id;
@@ -150,6 +175,12 @@ END;
                 break;
             case Selection::FORM_ITEM_RESERVE_SUCCESS:
                 $this->content = $this->htmlSuccess();
+                break;
+            case Selection::FORM_IMAGE_UPLOAD_FAIL:
+                $this->content = $this->htmlUploadImageError();
+                break;
+            case Selection::FORM_IMAGE_UPLOAD_SUCCESS:
+                $this->content = $this->htmlUploadImageSuccess();
                 break;
             default:
                 $this->content = "Switch Constant Error";

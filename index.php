@@ -128,6 +128,11 @@ $app->post('/item/reserve/submit/:id', function ($id) {
     $c->reserveItemSubmit($id);
 });
 
+$app->post('/item/upload/submit/:id', function ($id) {
+    $c = new ItemController();
+    $c->ajoutImage($id);
+});
+
 
 /*-----|comptes|-----*/
 $app->get('/account', function () {

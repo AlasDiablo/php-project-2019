@@ -99,27 +99,9 @@ class ItemController
 
     public function reserveItemSubmit($id)
     {
-        if (isset($_POST['nom_reserve_item'])){ //&& !empty($_FILES["image"]["name"])) {
-            // $id = filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
+
+        if (isset($_POST['nom_reserve_item'])){
             $msg = filter_var($_POST['nom_reserve_item'], FILTER_SANITIZE_SPECIAL_CHARS);
-            //$targetDir = "C:\wamp64\www\uploads\\"; // TO-DO : Dégager le chemin absolu
-            //$fileName = basename($_FILES["image"]["name"]);
-            //$targetFilePath = $targetDir . $fileName;
-            //$fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
-            //$allowTypes = array('jpg', 'png', 'jpeg', 'gif');
-            /*if (in_array($fileType, $allowTypes)) {
-                if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFilePath)) {
-                    $image = $fileName;
-                } else {
-                    $v = new ItemView(null, Selection::FORM_ITEM_RESERVE_FAIL);
-                    $v->render();
-                    return;
-                }
-            } else {
-                $v = new ItemView(null, Selection::FORM_ITEM_RESERVE_FAIL);
-                $v->render();
-                return;
-            }*/
             $ri = Item::where('id', '=', $id)->first();
             $ri->msgReserve = $msg;
             $ri->nomReserve = Authentication::getUsername();
@@ -131,5 +113,32 @@ class ItemController
         }
         $v = new ItemView(null, Selection::FORM_ITEM_RESERVE_SUCCESS);
         $v->render();
+    }
+
+    public function ajoutImage($id)
+    {
+        if (!empty($_FILES["image"]["name"]))
+        {
+            $targetDir = getcwd() . "/uploads/"; // TO-DO : Dégager le chemin absolu
+            $fileName = basename($_FILES["image"]["name"]);
+            $targetFilePath = $targetDir . $fileName;
+            $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+            $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
+            if (in_array($fileType, $allowTypes)) {
+                if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFilePath)) {
+                    $i = Item::where('id', '=', $id)->first();
+                    $i->img = $fileName;
+                    $i->save();
+                    $v = new ItemView(null, Selection::FORM_IMAGE_UPLOAD_SUCCESS);
+                    $v->render();
+                } else {
+                    $v = new ItemView(null, Selection::FORM_IMAGE_UPLOAD_FAIL);
+                    $v->render();
+                }
+            } else {
+                $v = new ItemView(null, Selection::FORM_ITEM_RESERVE_FAIL);
+                $v->render();
+            }
+        }
     }
 }
