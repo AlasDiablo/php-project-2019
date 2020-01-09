@@ -32,7 +32,6 @@ RES;
     }
 
     private function htmlIdList() {
-        echo getcwd() . "/uploads/";
         $res = "<table><th>ID</th><th>liste_ID</th><th>nom</th><th>description</th><th>tarif</th><th>Réservé par</th><th>Message de réservation</th>";
         foreach ($this->item as $i)
         {
@@ -43,6 +42,7 @@ $res
 </tr>
 RES;
         }
+
         $res .= <<<RES
 <table>
 <form action="/index.php/item/upload/submit/$i->id" method="POST" enctype="multipart/form-data">
@@ -52,18 +52,16 @@ Upload d'une image pour l'item : <input type="file" name="image">
 RES;
 
         $p = Item::select('nomReserve', 'msgReserve')->where('id', 'like', $i->id)->first();
-        // $id=filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
         if($p->nomReserve == '' and $p->msgReserve == '' and Authentication::getUserId() != 0) {
-            return $res .= <<<END
+            $res .= <<<END
 <form action="/index.php/item/reserve/submit/$i->id" method="POST" enctype="multipart/form-data">
 Réservation l'item :<br>
 Message de réservation : <input type="text" name="nom_reserve_item"><br>
 <input type="submit" name="valider">
 </form>
 END;
-        } else {
-            return $res . "</table>";
         }
+        return $res;
     }
 
 /*    private function htmlReserve()

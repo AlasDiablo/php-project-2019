@@ -119,9 +119,9 @@ class ItemController
     {
         if (!empty($_FILES["image"]["name"]))
         {
-            $targetDir = getcwd() . "/uploads/"; // TO-DO : Dégager le chemin absolu
+            $targetDir = realpath("uploads");
             $fileName = basename($_FILES["image"]["name"]);
-            $targetFilePath = $targetDir . $fileName;
+            $targetFilePath = $targetDir . DIRECTORY_SEPARATOR . $fileName;
             $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
             $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
             if (in_array($fileType, $allowTypes)) {
