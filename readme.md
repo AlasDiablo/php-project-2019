@@ -3,7 +3,7 @@
 ## C'est quoi ?
 
 MyWishList.app est un projet universitaire composé de :
-+ **Pierre Marcolet** *(AlasDiablo et lIotaMiu(Compte utilisé suite a des probléme sous windows))*
++ **Pierre Marcolet** *(AlasDiablo et lIotaMiu(Compte utilisé suite a des problèmes sous windows))*
 + **Lucas Burté** *(lucasburte)*
 + **Aurélien Rethiers** *(Aurel-11)*
 + **Émilien Visentini** *(Safyrus)*
@@ -14,31 +14,23 @@ MyWishList.app est un projet universitaire composé de :
 
 2) Après ceci faire la commande `composer install`, si vous ne l'avez pas, référez vous à [getcomposer.org](https://getcomposer.org/).
 
-3) dans sql vous aurais un dump(`base_de_donnée.sql`) sql pour mariaDB a executé pour créer la base de donnée demandé plus base
+3) Pour la création de la base de données, récupérez le fichier SQL situé dans le dossier 'sql' et éxécutez-le sur votre serveur MySQL/MariaDB
 
-4) Et pour finir l'installation créez un fichier `conf.ini` dans `src/conf/` et y insérez les données suivantes:
+4) Pour finir l'installation, créez un fichier `conf.ini` dans `src/conf/` et insérez les données suivantes:
     ```ini
     driver=VosDrivers
     username=VotreUsername
     password=VotreMotdepasse
     host=VotreIp
     database=VotreBaseDeDonnées
-    charset=VotreCharset(utf8 en priorité)
+    charset=utf-8
     ```
 
-## Droit et utilisation
+## Droits et utilisation
 
 Code sous licence **AGPL-3.0**, lire la licence [ici](https://github.com/AlasDiablo/php-project-2019/blob/master/LICENSE).
 
 ## Tâches à faire/en cours
-
-### Autres
-
-+ [x] ***Mise en pages [Pierre(Approfondissement du css) & Lucas(Ossatures principal)]***
-+ [ ] Responsive Web Design
-+ [x] **~~Ajouter un avatar pour les utilisateurs~~ [Pierre]**
-+ [x] **~~I'm a teapot~~ [Pierre & Lucas]**
-+ [ ] ***Mise en corelation du code créer par chaqun [Pierre]***
 
 ### Niveau 1
 
@@ -63,9 +55,9 @@ Code sous licence **AGPL-3.0**, lire la licence [ici](https://github.com/AlasDia
 
 ### Niveau 3
 
-+ [ ] 11 - Rajouter une image à un item
-+ [ ] 12 - Modifier une image d'un item
-+ [ ] 13 - Supprimer une image d'un item
++ [ ] **11 - Rajouter une image à un item [Lucas]**
++ [ ] **12 - Modifier une image d'un item [Lucas]**
++ [ ] **13 - Supprimer une image d'un item [Lucas]**
 + [x] **~~17 - Créer un compte~~ [Pierre]**
 + [x] **~~18 - S'authentifier~~ [Pierre]**
 + [x] **~~19 - Modifier son compte~~ [Pierre]**
@@ -76,3 +68,11 @@ Code sous licence **AGPL-3.0**, lire la licence [ici](https://github.com/AlasDia
 + [ ] **~~26 - Afficher la liste des créateurs~~  [Pierre]**
 + [x] **~~27 - Supprimer son compte~~ [Pierre]**
 + [ ] ***28 - Joindre des listes à son compte  [Pierre]***
+
+### Autres
+
++ [x] ***Mise en pages [Pierre (Approfondissement du css) & Lucas (Ossatures principal)]***
++ [ ] Responsive Web Design
++ [x] **~~Ajouter un avatar pour les utilisateurs~~ [Pierre]**
++ [x] **~~Gestion des erreurs HTTP~~ [Pierre & Lucas]**
++ [ ] ***Mise en corelation du code créer par chaqun [Pierre]***
