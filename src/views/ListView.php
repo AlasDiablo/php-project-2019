@@ -2,6 +2,7 @@
 
 namespace mywishlist\views;
 
+use mywishlist\utils\Authentication;
 use mywishlist\utils\Selection;
 
 class ListView
@@ -88,7 +89,10 @@ END;
 RES;
         }
         $id = $this->list['id'];
-        $res .= "</table> <button type=\"button\" onclick=\"window.location.href = '/list/$id/addItem';\" value=\"goToCreateList\">Créer un items</button>";
+        $res .= "</table>";
+        if ($this->list['authors'][0]['username'] == Authentication::getUsername()) {
+            $res .= "<button type=\"button\" onclick=\"window.location.href = '/list/$id/addItem';\" value=\"goToCreateList\">Créer un items</button>";
+        }
         return $res . "</div>";
     }
 

@@ -117,7 +117,7 @@ END;
     }
 
     private function htmlCreate(){
-        $id = $this->item->liste_id;
+        $id = $this->item;
         $str =
             <<<END
 <div id="edit">
