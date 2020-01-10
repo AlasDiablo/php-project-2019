@@ -9,7 +9,8 @@ class ListView
 
     protected $list, $selecteur, $content;
 
-    public function  __construct($l, $s){
+    public function  __construct($l, $s)
+    {
         $this->list = $l;
         $this->selecteur = $s;
     }
@@ -53,8 +54,7 @@ END;
     {
         $res = '<div id="authors">';
         $i = 0;
-        foreach ($this->list['authors'] as $u)
-        {
+        foreach ($this->list['authors'] as $u) {
             if ($i != 0) $res .= '<br>';
             $i++;
             $gravatar = $u['gravatar'];
@@ -75,24 +75,54 @@ END;
         $desc = $this->list['desc'];
         $exp = $this->list['exp'];
         $res .= "<h1>$title</h1><p>$desc</p><p>$exp</p>";
-        $res .= "<table><tr><th>nom</th><th>description</th><th>tarif</th></tr>";
+        $res .= "<table><tr><th>image</th><th>nom</th><th>reservation</th></tr>";
 
-        foreach ($this->list['items'] as $i)
-        {
-            $res .= <<<RES
+        foreach ($this->list['items'] as $i) {
+            if (isset($_COOKIE['wishlist_userID']) && $_COOKIE['wishlist_userID'] == $this->list['id']) {
+                if (!empty($i->nomReserve)) {
+                    $res .= <<<RES
 <tr>
-    <td>$i->nom</td>
-    <td>$i->descr</td>
-    <td>$i->tarif</td>
+    <td>$i->img</td>
+    <td><a href="/index.php/item/$i->id">$i->nom</a></td>
+    <td>oui</td>
 </tr>
 RES;
+                } else {
+                    $res .= <<<RES
+<tr>
+    <td>$i->img</td>
+    <td><a href="/index.php/item/$i->id">$i->nom</a></td>
+    <td>non</td>
+</tr>
+RES;
+                }
+            } else {
+                if (!empty($i->nomReserve)) {
+                    $res .= <<<RES
+<tr>
+    <td>$i->img</td>
+    <td><a href="/index.php/item/$i->id">$i->nom</a></td>
+    <td>$i->nomReserve</td>
+</tr>
+RES;
+                } else {
+                    $res .= <<<RES
+<tr>
+    <td>$i->img</td>
+    <td><a href="/index.php/item/$i->id">$i->nom</a></td>
+    <td>non</td>
+</tr>
+RES;
+                }
+            }
         }
         $id = $this->list['id'];
         $res .= "</table> <button type=\"button\" onclick=\"window.location.href = '/list/$id/addItem';\" value=\"goToCreateList\">Créer un items</button>";
         return $res . "</div>";
     }
 
-    private function formCreateList(){
+    private function formCreateList()
+    {
         $str =
             <<<END
 <div id="edit">
@@ -108,7 +138,8 @@ END;
         return $str;
     }
 
-    private function formModifyList(){
+    private function formModifyList()
+    {
         $id = $this->list[0]['no'];
         $str =
             <<<END
@@ -126,7 +157,8 @@ END;
         return $str;
     }
 
-    private function share(){
+    private function share()
+    {
         $link = "http://$_SERVER[HTTP_HOST]";
         $token = $this->list[0]['tokenPart'];
         $id = $this->list[0]['no'];
@@ -161,7 +193,7 @@ END;
                 break;
         }
 
-         $body = <<<END
+        $body = <<<END
 <div id="content">
     <div id="content-inner">
          $this->content
@@ -169,7 +201,5 @@ END;
 </div>
 END;
         ViewRendering::render($body);
-
     }
-
 }
