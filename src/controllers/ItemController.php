@@ -3,7 +3,9 @@
 namespace mywishlist\controllers;
 
 use mywishlist\models\Item;
+use mywishlist\models\Liste;
 use mywishlist\utils\Authentication;
+use mywishlist\views\GlobalView;
 use mywishlist\views\ItemView;
 use mywishlist\utils\Selection;
 
@@ -25,10 +27,15 @@ class ItemController
 
     public function ItemCreateForm($id)
     {
-        $i = new Item();
-        $i->liste_id = filter_var($id,FILTER_SANITIZE_NUMBER_INT);
-        $v = new ItemView($i, Selection::FORM_CREATE_ITEM);
-        $v->render();
+        $id_list = filter_var($id,FILTER_SANITIZE_NUMBER_INT);
+        $i = Liste::where('no', '=', $id_list)->first();
+        if ($i->user_id == Authentication::getUserId()) {
+            $v = new ItemView($i->no, Selection::FORM_CREATE_ITEM);
+            $v->render();
+        } else {
+            GlobalView::forbidden();
+        }
+
     }
 
     public function createItem($id){
