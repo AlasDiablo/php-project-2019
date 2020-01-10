@@ -4,16 +4,18 @@ namespace mywishlist\views;
 
 use mywishlist\utils\Authentication;
 use mywishlist\utils\Selection;
+use Slim\Slim;
 
 class ListView
 {
 
-    protected $list, $selecteur, $content;
+    protected $list, $selecteur, $content, $app;
 
     public function  __construct($l, $s)
     {
         $this->list = $l;
         $this->selecteur = $s;
+        $this->app =  $this->app = Slim::getInstance();
     }
 
     private function buildListTable($array)
@@ -28,9 +30,10 @@ class ListView
 END;
         foreach ($array as $values)
         {
+            $list = $this->app->urlFor('list', array('id' => $values->no));
             $out .= <<<END
     <tr>
-        <td><a class="link" href="/list/$values->no">$values->titre</a></td>
+        <td><a class="link" href=$list>$values->titre</a></td>
         <td>$values->description</td>
         <td>$values->expiration</td>
     </tr>
@@ -120,18 +123,18 @@ RES;
         $id = $this->list['id'];
         $res .= "</table>";
         if ($this->list['authors'][0]['username'] == Authentication::getUsername()) {
-            $res .= "<button type=\"button\" onclick=\"window.location.href = '/list/$id/addItem';\" value=\"goToCreateList\">Créer un items</button>";
+            $res .= "<button type=\"button\" onclick=\"window.location.href = '/list/$id/addItem';\" value=\"goToCreateList\">Créer un item</button>";
         }
         return $res . "</div>";
     }
 
-    private function formCreateList()
-    {
+    private function formCreateList(){
+        $createList = $this->app->urlFor('listCreateP');
         $str =
             <<<END
 <div id="edit">
     <h1>Creation d'une liste</h1>
-    <form id="formCreateList" method="POST" action="/index.php/list/create/submit">
+    <form id="formCreateList" method="POST" action=$createList>
         <input type="text" name="titre" placeholder="Titre de la liste" required>
         <input type="text" name="description" placeholder="Description de la liste" required>
         <input type="date" name="date" placeholder="Date d'expiration de la liste" required>
@@ -145,11 +148,12 @@ END;
     private function formModifyList()
     {
         $id = $this->list[0]['no'];
+        $modifyList = $this->app->urlFor('listModP', array('id' => $this->list->no));
         $str =
             <<<END
 <div id="edit">
     <h1>Modification d'une liste</h1>
-    <form id="formModifyList" method="POST" action="/index.php/list/$id/modify/submit">
+    <form id="formModifyList" method="POST" action=$modifyList>
         <input type="text" name="titre" placeholder="Titre de la liste" required>
         <input type="text" name="description" placeholder="Description de la liste" required>
         <input type="date" name="date" placeholder="Date d'expiration de la liste" required>

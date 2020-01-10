@@ -20,7 +20,7 @@ class ItemController
 
     public function oneItem($id) {
         $id=filter_var($id, FILTER_SANITIZE_SPECIAL_CHARS);
-        $l = Item::where('id', '=', $id)->get();
+        $l = Item::where('id', '=', $id)->first();
         $v = new ItemView($l, Selection::ID_ITEM);
         $v->render();
     }
@@ -35,7 +35,6 @@ class ItemController
         } else {
             GlobalView::forbidden();
         }
-
     }
 
     public function createItem($id){

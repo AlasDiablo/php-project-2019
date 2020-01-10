@@ -4,6 +4,7 @@
 namespace mywishlist\views;
 
 use mywishlist\utils\Selection;
+use Slim\Slim;
 
 /**
  * Class UserView, elle a pour but de gère l'affichage en rapport à l'utilisateur et c'est action liée à son compte.
@@ -16,8 +17,9 @@ class UserView
      * @var $list array Elle peut être nulle ou pas, elle sert juste à passer des paramètres à sertir rendu.
      * @var $content string Il sagit de tous le code html qui contient le contenues.
      * @var $selecteur string Il sagit de la variable contenant le type html a generé.
+     * @var $app Slim Instance de Slim.
      */
-    private $list, $selecteur, $content;
+    private $list, $selecteur, $content, $app;
 
     /**
      * UserView constructor.
@@ -28,6 +30,7 @@ class UserView
     {
         $this->list = $l;
         $this->selecteur = $s;
+        $this->app = Slim::getInstance();
     }
 
     /**
@@ -36,11 +39,13 @@ class UserView
      */
     private function accountRegisterAndLogin()
     {
+        $register = $this->app->urlFor('accountRegisterP');
+        $login = $this->app->urlFor('accountLoginP');
         return <<<BODY
 <div id="user-form">
     <div id="register-div" class="user-form">
         <h2>Creation d'un compte</h2>
-        <form method="post" action="/index.php/account/register_post">
+        <form method="post" action=$register>
             <label>Nom d'utilisateur :</label><br>
             <input type="text" name="username" required><br>
             <label>Email :</label><br>
@@ -63,7 +68,7 @@ class UserView
     </div>
     <div id="login-div" class="user-form">
         <h2>Connection a un compte</h2>
-        <form id="register" method="post" action="/index.php/account/login_post">
+        <form id="register" method="post" action=$login>
             <label>Nom d'utilisateur :</label><br>
             <input type="text" name="username" required><br>
             <label>Mot de passe :</label><br>
@@ -85,6 +90,8 @@ BODY;
      */
     private function accountChange($username, $email, $gravatar)
     {
+        $editEmail = $this->app->urlFor('accountEditEmailP');
+        $editPass = $this->app->urlFor('accountEditPassP');
         $str = <<<END
 <div id="edit">
     <img class="gravatar" src="$gravatar" alt="gravatar"><br>
@@ -92,7 +99,7 @@ BODY;
     <label id="username">Nom d'utilisateur :</label>
     <input id="username-value" type="text" value="$username" name="username" disabled="disabled"><br>
     <br>
-    <form id="email-change" method="post" action="/account/edit/email">
+    <form id="email-change" method="post" action=$editEmail>
         <label>Email :</label>
         <input type="email" value="$email" name="old-email" disabled="disabled">
         <label>Nouvel email :</label>
@@ -102,7 +109,7 @@ BODY;
         <button type="submit" name="submit" value="doEmailChange">Appliquer</button>
     </form>
     <br>
-    <form id="password-change" method="post" action="/account/edit/password">
+    <form id="password-change" method="post" action=$editPass>
         <label>Mot de passe :</label>
         <input type="password" name="password-old" required>
         <label>Nouveau mot de passe :</label>

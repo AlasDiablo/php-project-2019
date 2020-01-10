@@ -7,6 +7,7 @@ require_once './vendor/autoload.php';
 use \mywishlist\controllers\UserController;
 use \mywishlist\controllers\ListController;
 use \mywishlist\controllers\ItemController;
+use mywishlist\utils\PathsNames;
 use \mywishlist\views\AccueilView;
 use \Illuminate\Database\Capsule\Manager as DB;
 use mywishlist\views\GlobalView;
@@ -43,52 +44,52 @@ $app = new Slim();
 $app->get('/', function () {
     $v = new AccueilView();
     $v->render();
-});
+})->name('accueil');
 
 $app->get('/list/create', function () {
     $c = new ListController();
     $c->listCreateForm();
-});
+})->name('listcreate');
 
 $app->get('/list/:id', function ($id) {
     $c = new ListController();
     $c->oneList($id);
-});
+})->name('list');
 
 $app->get('/list/:id/delete', function ($id) {
     $c = new ListController();
     $c->deleteList($id);
-});
+})->name('listDel');
 
 $app->get('/list/:id/modify', function ($id) {
     $c = new ListController();
     $c->listModifyForm($id);
-});
+})->name('listMod');
 
 $app->post('/list/:id/modify/submit', function ($id) {
     $c = new ListController();
     $c->modifyList($id);
-});
+})->name('listModP');
 
 $app->post('/list/create/submit', function () {
     $c = new ListController();
     $c->createList();
-});
+})->name('listCreateP');
 
 $app->get('/list/:id/addItem', function ($id) {
     $c = new ItemController();
     $c->ItemCreateForm($id);
-});
+})->name('listAddItem');
 
 $app->post('/list/:id/addItem/submit', function ($id) {
     $c = new ItemController();
     $c->createItem($id);
-});
+})->name('listAddItemP');
 
 $app->get('/list/:id/share', function ($id) {
     $c = new ListController();
     $c->share($id);
-});
+})->name('listShare');
 
 
 
@@ -96,92 +97,92 @@ $app->get('/list/:id/share', function ($id) {
 $app->get('/list/:no/item/:id/modify', function ($no, $id) {
     $c = new ItemController();
     $c->ItemModifyForm($id);
-});
+})->name('modifyItemFromList');
 
 $app->post('/list/:no/item/:id/modify/submit', function ($no, $id) {
     $c = new ItemController();
     $c->modifyItem($id);
-});
+})->name('modifyItemFromListP');
 
 $app->get('/list/:no/item/:id/delete', function ($no, $id) {
     $c = new ItemController();
     $c->deleteItem($id);
-});
+})->name('deleteItemFromList');
 
 $app->get('/item/all', function () {
     $c = new ItemController();
     $c->allItems();
-});
+})->name('items');
 
 $app->get('/item/:id', function ($id) {
     $c = new ItemController();
     $c->oneItem($id);
-});
+})->name('item');
 
 $app->get('/item/reserve/', function () {
     $c = new ItemController();
     $c->reserveItem();
-});
+})->name('reserveItem');
 
 $app->post('/item/reserve/submit/:id', function ($id) {
     $c = new ItemController();
     $c->reserveItemSubmit($id);
-});
+})->name('reserveItemP');
 
 $app->post('/item/upload/submit/:id', function ($id) {
     $c = new ItemController();
     $c->ajoutImage($id);
-});
+})->name('imageUploadP');
 
 
 /*-----|comptes|-----*/
 $app->get('/account', function () {
     $c = new UserController();
     $c->account();
-});
+})->name('account');
 
 $app->get('/account/mylists', function () {
     $c = new ListController();
     $c->showMyList();
-});
+})->name('accountList');
 
 $app->get('/account/edit', function () {
     $c = new UserController();
     $c->accountEdit();
-});
+})->name('accountEdit');
 
 $app->post('/account/edit/password', function () {
     $c = new UserController();
     $c->changePassword();
-});
+})->name('accountEditPassP');
 
 $app->post('/account/edit/email', function () {
     $c = new UserController();
     $c->accountEmail();
-});
+})->name('accountEditEmailP');
 
 $app->post('/account/edit/delete', function () {
     $c = new UserController();
     $c->accountDelete();
-});
+})->name('accountDelP');
 
 $app->get('/account/logout', function () {
     $c = new UserController();
     $c->logout();
-});
+})->name('accountLogout');
 
 $app->post('/account/register_post', function () {
     $c = new UserController();
     $c->registerPost();
-});
+})->name('accountRegisterP');
 
 $app->post('/account/login_post', function () {
     $c = new UserController();
     $c->loginPost();
-});
+})->name('accountLoginP');
 
 $app->get('/account/teapot', function () {
     GlobalView::teapot();
-});
+})->name('teapot');
 
 $app->run();
