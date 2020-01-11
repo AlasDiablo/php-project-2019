@@ -118,7 +118,7 @@ END;
 
     private function htmlCreate(){
         $id = $this->item;
-        $createItem = $this->app->urlFor('listAddItemP', array('id' => $this->item->id));
+        $createItem = $this->app->urlFor('listAddItemP', array('id' => $id));
         $str =
             <<<END
 <div id="edit">

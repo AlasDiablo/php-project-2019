@@ -144,7 +144,7 @@ $app->get('/account', function () {
 $app->get('/account/mylists', function () {
     $c = new ListController();
     $c->showMyList();
-})->name('accountList');
+})->name('accountLists');
 
 $app->get('/account/edit', function () {
     $c = new UserController();
