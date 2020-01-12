@@ -30,7 +30,7 @@ class ItemController
         $id_list = filter_var($id,FILTER_SANITIZE_NUMBER_INT);
         $i = Liste::where('no', '=', $id_list)->first();
         if ($i->user_id == Authentication::getUserId()) {
-            $v = new ItemView($i->no, Selection::FORM_CREATE_ITEM);
+            $v = new ItemView($i, Selection::FORM_CREATE_ITEM);
             $v->render();
         } else {
             GlobalView::forbidden();
@@ -59,7 +59,7 @@ class ItemController
 
     public function ItemModifyForm($id){
         $d = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-        $i = Item::where('id', '=', $d)->get();
+        $i = Item::where('id', '=', $d)->first();
         $v = new ItemView($i, Selection::FORM_MODIFY_ITEM);
         $v->render();
     }

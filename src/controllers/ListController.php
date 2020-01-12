@@ -81,7 +81,7 @@ class ListController {
             'title' => Liste::select('titre')->where('no', '=', $id)->first()->titre,
             'desc' => Liste::select('description')->where('no', '=', $id)->first()->description,
             'exp' => Liste::select('expiration')->where('no', '=', $id)->first()->expiration,
-            'id' => $id_list
+            'id' => $id
         );
 
         $v = new ListView($l, Selection::ID_LIST);

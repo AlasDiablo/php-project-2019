@@ -117,8 +117,7 @@ END;
     }
 
     private function htmlCreate(){
-        $id = $this->item;
-        $createItem = $this->app->urlFor('listAddItemP', array('id' => $id));
+        $createItem = $this->app->urlFor('listAddItemP', array('id' => $this->item->liste_id));
         $str =
             <<<END
 <div id="edit">
@@ -140,11 +139,15 @@ END;
         $str =
             <<<END
 <form id="formModifyItem" method="POST" action=$modifyItem>
-<input type="text" name="nom" placeholder="Nom de l'item">
-<input type="text" name="description" placeholder="Description de l'item">
-<input type="number" step="0.01" name="prix" placeholder="Prix de l'item">
-<input type="url" name="url" placeholder="Lien site marchand">
-<button type="submit" name ="valid_modify_item" value="valid_f1">Valider</button>
+    <label for="nom"><b>Nom de l'item</b></label>
+    <input type="text" name="nom" value={$this->item->nom}>
+    <label for="description"><b>Description de l'item</b></label>
+    <input type="text" name="description" value={$this->item->descr}>
+    <label for="prix"><b>Prix de l'item</b></label>
+    <input type="number" step="0.01" name="prix" value={$this->item->tarif}>
+    <label for="url"><b>Lien site marchand</b></label>
+    <input type="url" name="url" value={$this->item->url}>
+    <button type="submit" name ="valid_modify_item" value="valid_f1">Valider</button>
 </form>
 END;
         return $str;

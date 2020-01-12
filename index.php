@@ -40,12 +40,14 @@ session_start();
 $app = new Slim();
 
 
-/*-----|acceuil|-----*/
+/*-----|accueil|-----*/
 $app->get('/', function () {
     $v = new AccueilView();
     $v->render();
 })->name('accueil');
 
+
+/*-----|listes|-----*/
 $app->get('/list/create', function () {
     $c = new ListController();
     $c->listCreateForm();

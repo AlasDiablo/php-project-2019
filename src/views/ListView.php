@@ -82,12 +82,13 @@ END;
         $res .= "<table><tr><th>image</th><th>nom</th><th>reservation</th></tr>";
 
         foreach ($this->list['items'] as $i) {
+            $modifyItem = $this->app->urlFor('modifyItemFromList', array('no' => $this->list['id'], 'id' => $i->id));
             if (isset($_COOKIE['wishlist_userID']) && $_COOKIE['wishlist_userID'] == $this->list['id']) {
                 if (!empty($i->nomReserve)) {
                     $res .= <<<RES
 <tr>
     <td>$i->img</td>
-    <td><a href="/index.php/item/$i->id">$i->nom</a></td>
+    <td><a href=$modifyItem>$i->nom</a></td>
     <td>oui</td>
 </tr>
 RES;
@@ -95,7 +96,7 @@ RES;
                     $res .= <<<RES
 <tr>
     <td>$i->img</td>
-    <td><a href="/index.php/item/$i->id">$i->nom</a></td>
+    <td><a href=$modifyItem>$i->nom</a></td>
     <td>non</td>
 </tr>
 RES;
@@ -105,7 +106,7 @@ RES;
                     $res .= <<<RES
 <tr>
     <td>$i->img</td>
-    <td><a href="/index.php/item/$i->id">$i->nom</a></td>
+    <td><a href=$modifyItem>$i->nom</a></td>
     <td>$i->nomReserve</td>
 </tr>
 RES;
@@ -113,7 +114,7 @@ RES;
                     $res .= <<<RES
 <tr>
     <td>$i->img</td>
-    <td><a href="/index.php/item/$i->id">$i->nom</a></td>
+    <td><a href=$modifyItem>$i->nom</a></td>
     <td>non</td>
 </tr>
 RES;
