@@ -117,16 +117,18 @@ END;
     }
 
     private function htmlCreate(){
-        $createItem = $this->app->urlFor('listAddItemP', array('id' => $this->item->liste_id));
+        $createItem = $this->app->urlFor('listAddItemP', array('id' => $this->item->no));
         $str =
             <<<END
 <div id="edit">
-    <h1>Creation d'un item</h1>
-    <form id="formCreateItem" method="POST" action=$createItem>
+    <h1>Création d'un item</h1>
+    <form id="formCreateItem" method="POST" action=$createItem enctype="multipart/form-data">
         <input type="text" name="nom" placeholder="Nom de l'item" required>
         <input type="text" name="description" placeholder="Description de l'item" required>
         <input type="number" step="0.01" name="prix" placeholder="Prix de l'item" required>
         <input type="url" name="url" placeholder="Lien site marchand">
+        <label for="image"><b>Upload d'une image pour l'item :</b></label>
+        <input type="file" name="image">
         <button type="submit" name ="valid_create_item" value="valid_f1">Valider</button>
     </form>
 </div>
@@ -138,7 +140,7 @@ END;
         $modifyItem = $this->app->urlFor('modifyItemFromListP', array('no' => $this->item->liste_id, 'id' => $this->item->id));
         $str =
             <<<END
-<form id="formModifyItem" method="POST" action=$modifyItem>
+<form id="formModifyItem" method="POST" action=$modifyItem enctype="multipart/form-data">
     <label for="nom"><b>Nom de l'item</b></label>
     <input type="text" name="nom" value={$this->item->nom}>
     <label for="description"><b>Description de l'item</b></label>
@@ -147,6 +149,8 @@ END;
     <input type="number" step="0.01" name="prix" value={$this->item->tarif}>
     <label for="url"><b>Lien site marchand</b></label>
     <input type="url" name="url" value={$this->item->url}>
+    <label for="image"><b>Upload d'une image pour l'item :</b></label>
+    <input type="file" name="image">
     <button type="submit" name ="valid_modify_item" value="valid_f1">Valider</button>
 </form>
 END;

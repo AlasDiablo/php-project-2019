@@ -51,6 +51,7 @@ class ItemController
         if($_POST['url'] != ""){
             $i->url = filter_var($_POST['url'],FILTER_SANITIZE_URL);
         }
+        $i->img = $this->ajoutImage();
         $i->liste_id = filter_var($id,FILTER_SANITIZE_NUMBER_INT);
         $i->save();
         header("Location: /index.php/list/$i->liste_id");
@@ -79,6 +80,7 @@ class ItemController
         if($_POST['url'] != ""){
             $i[0]->url = filter_var($_POST['url'],FILTER_SANITIZE_URL);
         }
+        $i[0]->img = $this->ajoutImage();
         $i[0]->save();
     }
 
@@ -121,7 +123,7 @@ class ItemController
         $v->render();
     }
 
-    public function ajoutImage($id)
+    public function ajoutImage()
     {
         if (!empty($_FILES["image"]["name"]))
         {
@@ -132,18 +134,16 @@ class ItemController
             $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
             if (in_array($fileType, $allowTypes)) {
                 if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFilePath)) {
-                    $i = Item::where('id', '=', $id)->first();
-                    $i->img = $fileName;
-                    $i->save();
-                    $v = new ItemView(null, Selection::FORM_IMAGE_UPLOAD_SUCCESS);
-                    $v->render();
+                    return $fileName;
                 } else {
                     $v = new ItemView(null, Selection::FORM_IMAGE_UPLOAD_FAIL);
                     $v->render();
+                    return;
                 }
             } else {
                 $v = new ItemView(null, Selection::FORM_ITEM_RESERVE_FAIL);
                 $v->render();
+                return;
             }
         }
     }
