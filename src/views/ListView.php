@@ -28,8 +28,7 @@ class ListView
         <th>expiration</th>
     </tr>
 END;
-        foreach ($array as $values)
-        {
+        foreach ($array as $values) {
             $list = $this->app->urlFor('list', array('id' => $values->no));
             $out .= <<<END
     <tr>
@@ -79,57 +78,90 @@ END;
         $desc = $this->list['desc'];
         $exp = $this->list['exp'];
         $res .= "<h1>$title</h1><p>$desc</p><p>$exp</p>";
-        $res .= "<table><tr><th>image</th><th>nom</th><th>reservation</th></tr>";
 
-        foreach ($this->list['items'] as $i) {
-            $modifyItem = $this->app->urlFor('modifyItemFromList', array('no' => $this->list['id'], 'id' => $i->id));
-            if (isset($_COOKIE['wishlist_userID']) && $_COOKIE['wishlist_userID'] == $this->list['id']) {
-                if (!empty($i->nomReserve)) {
-                    $res .= <<<RES
+        $date = date("Y-m-d");
+        if ($exp > $date) {
+            $res .= "<table><tr><th>image</th><th>nom</th><th>reservation</th></tr>";
+            foreach ($this->list['items'] as $i) {
+                $modifyItem = $this->app->urlFor('modifyItemFromList', array('no' => $this->list['id'], 'id' => $i->id));
+                if (isset($_COOKIE['wishlist_userID']) && $_COOKIE['wishlist_userID'] == $this->list['id']) {
+                    if (!empty($i->nomReserve)) {
+                        $res .= <<<RES
 <tr>
     <td>$i->img</td>
     <td><a href=$modifyItem>$i->nom</a></td>
     <td>oui</td>
 </tr>
 RES;
-                } else {
-                    $res .= <<<RES
+                    } else {
+                        $res .= <<<RES
 <tr>
     <td>$i->img</td>
     <td><a href=$modifyItem>$i->nom</a></td>
     <td>non</td>
 </tr>
 RES;
-                }
-            } else {
-                if (!empty($i->nomReserve)) {
-                    $res .= <<<RES
+                    }
+                } else {
+                    if (!empty($i->nomReserve)) {
+                        $res .= <<<RES
 <tr>
     <td>$i->img</td>
     <td><a href=$modifyItem>$i->nom</a></td>
     <td>$i->nomReserve</td>
 </tr>
 RES;
-                } else {
-                    $res .= <<<RES
+                    } else {
+                        $res .= <<<RES
 <tr>
     <td>$i->img</td>
     <td><a href=$modifyItem>$i->nom</a></td>
     <td>non</td>
 </tr>
 RES;
+                    }
                 }
             }
-        }
-        $id = $this->list['id'];
-        $res .= "</table>";
-        if ($this->list['authors'][0]['username'] == Authentication::getUsername()) {
-            $res .= "<button type=\"button\" onclick=\"window.location.href = '/list/$id/addItem';\" value=\"goToCreateList\">Créer un item</button>";
+            $id = $this->list['id'];
+            $res .= "</table>";
+            if ($this->list['authors'][0]['username'] == Authentication::getUsername()) {
+                $res .= "<button type=\"button\" onclick=\"window.location.href = '/list/$id/addItem';\" value=\"goToCreateList\">Créer un item</button>";
+            }
+        } else {
+            $res .= "<table><tr><th>image</th><th>nom</th><th>reservation</th><th>message</th></tr>";
+            foreach ($this->list['items'] as $i) {
+                $modifyItem = $this->app->urlFor('modifyItemFromList', array('no' => $this->list['id'], 'id' => $i->id));
+                if (!empty($i->nomReserve)) {
+                    $res .= <<<RES
+<tr>
+    <td>$i->img</td>
+    <td><a href=$modifyItem>$i->nom</a></td>
+    <td>$i->nomReserve</td>
+    <td>$i->msgReserve</td>
+</tr>
+RES;
+                } else {
+                    $res .= <<<RES
+<tr>
+    <td>$i->img</td>
+    <td><a href=$modifyItem>$i->nom</a></td>
+    <td></td>
+    <td></td>
+</tr>
+RES;
+                }
+            }
+            $id = $this->list['id'];
+            $res .= "</table>";
+            if ($this->list['authors'][0]['username'] == Authentication::getUsername()) {
+                $res .= "<button type=\"button\" onclick=\"window.location.href = '/list/$id/addItem';\" value=\"goToCreateList\">Créer un item</button>";
+            }
         }
         return $res . "</div>";
     }
 
-    private function formCreateList(){
+    private function formCreateList()
+    {
         $createList = $this->app->urlFor('listCreateP');
         $str =
             <<<END

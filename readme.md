@@ -45,11 +45,11 @@ Code sous licence **AGPL-3.0**, lire la licence [ici](https://github.com/AlasDia
 
 + [x] **~~4 - Ajouter un message avec sa réservation~~ [Lucas]**
 + [x] **~~5 - Ajouter un message sur une liste~~ [Lucas]**
-+ [x] **~~7 - Modifier les informations générales d'une de ses listes [Aurélien]~~**
-+ [x] **~~9 - Modifier un item [Aurélien]~~**
-+ [x] **~~10 - Supprimer un item [Aurélien]~~**
-+ [x] **15 - Consulter les réservations d'une de ses listes avant échéance [Emilien]**
-+ [ ] **16 - Consulter les réservations et messages d'une de ses listes après échéance [Emilien]**
++ [x] **~~7 - Modifier les informations générales d'une de ses listes~~ [Aurélien]**
++ [x] **~~9 - Modifier un item~~ [Aurélien]**
++ [x] **~~10 - Supprimer un item~~ [Aurélien]**
++ [x] **~~15 - Consulter les réservations d'une de ses listes avant échéance~~ [Emilien]**
++ [X] **~~16 - Consulter les réservations et messages d'une de ses listes après échéance~~ [Emilien]**
 + [ ] **20 - Rendre une liste publique [Aurélien]**
 + [ ] **21 - Afficher les listes de souhaits publiques [Aurélien]**
 
