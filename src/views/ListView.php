@@ -41,10 +41,43 @@ END;
         return $out . '</table>';
     }
 
+    private function buildMyListTable($array)
+    {
+        $out = <<<END
+<table>
+    <tr>
+        <th>titre</th>
+        <th>description</th>
+        <th>expiration</th>
+        <th>partage</th>
+    </tr>
+END;
+        foreach ($array as $values) {
+            $list = $this->app->urlFor('list', array('id' => $values->no));
+            $tokenPart = "";
+            if(empty($values->tokenPart))
+            {
+                $tokenPart = "<button type=\"button\" onclick=\"window.location.href = '/list/$values->no/share';\" value=\"goToShareList\">Partager la liste</button>";
+            }else {
+                $link = "http://$_SERVER[HTTP_HOST]";
+                $tokenPart = "$link/list/$values->no/$values->tokenPart<br>";
+            }
+            $out .= <<<END
+    <tr>
+        <td><a class="link" href=$list>$values->titre</a></td>
+        <td>$values->description</td>
+        <td>$values->expiration</td>
+        <td>$tokenPart</td>
+    </tr>
+END;
+        }
+        return $out . '</table>';
+    }
+
     private function displayAllList()
     {
         $res = '<div id="myLists"><h1>Mes listes</h1>';
-        $res .= $this->buildListTable($this->list['myLists']);
+        $res .= $this->buildMyListTable($this->list['myLists']);
         $res .= "<button type=\"button\" onclick=\"window.location.href = '/list/create';\" value=\"goToCreateList\">Créer un nouvelle liste</button>";
         $res .= '</div>';
         $res .= '<div id="listsByOthers"><h1>Listes ou je participe</h1>';

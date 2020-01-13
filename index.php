@@ -57,6 +57,10 @@ $app->get('/list/:id', function ($id) {
     $c = new ListController();
     $c->oneList($id);
 })->name('list');
+$app->get('/list/:id/:token', function ($id, $token) {
+    $c = new ListController();
+    $c->oneList($id);
+})->name('listToken');
 
 $app->get('/list/:id/delete', function ($id) {
     $c = new ListController();

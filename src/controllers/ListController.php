@@ -142,9 +142,9 @@ class ListController {
     public function share($id)
     {
         $no = filter_var($id,FILTER_SANITIZE_SPECIAL_CHARS);
-        $l = Liste::where('no', '=', $no)->get();
-        if(!isset($l[0]['tokenPart'])){
-            $token = bin2hex(random_bytes(16));
+        $l = Liste::where('no', '=', $no)->first();
+        if(!isset($l['tokenPart']) || empty($l['tokenPart'])){
+             $token = bin2hex(random_bytes(16));
             $bool = false;
             while(!$bool) {
                 $value = Liste::where('tokenPart', '=', $token)->get();
@@ -154,10 +154,9 @@ class ListController {
                     $token = bin2hex(random_bytes(16));
                 }
             }
-            $l[0]->tokenPart = $token;
-            $l[0]->update();
+            $l->tokenPart = $token;
+            $l->update();
         }
-        $v = new ListView($l, Selection::SHARE_LIST);
-        $v->render();
+        $this->showMyList();
     }
 }
