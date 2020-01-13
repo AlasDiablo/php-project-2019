@@ -144,12 +144,19 @@ class ListController {
         $no = filter_var($id,FILTER_SANITIZE_SPECIAL_CHARS);
         $l = Liste::where('no', '=', $no)->first();
         if(!isset($l['tokenPart']) || empty($l['tokenPart'])){
-             $token = bin2hex(random_bytes(16));
-            $bool = false;
-            while(!$bool) {
+            $token = bin2hex(random_bytes(16));
+            $bool1 = false;
+            while(!$bool1) {
                 $value = Liste::where('tokenPart', '=', $token)->get();
                 if (count($value) == 0) {
-                    $bool = true;
+                    while(!$bool1) {
+                        $value = Liste::where('token', '=', $token)->get();
+                        if (count($value) == 0) {
+                            $bool1 = true;
+                        } else {
+                            $token = bin2hex(random_bytes(16));
+                        }
+                    }
                 } else {
                     $token = bin2hex(random_bytes(16));
                 }
