@@ -60,7 +60,7 @@ END;
                 $tokenPart = "<button type=\"button\" onclick=\"window.location.href = '/list/$values->no/share';\" value=\"goToShareList\">Partager la liste</button>";
             }else {
                 $link = "http://$_SERVER[HTTP_HOST]";
-                $tokenPart = "$link/list/$values->no/$values->tokenPart<br>";
+                $tokenPart = "$link/.php/list/$values->no/$values->tokenPart<br>";
             }
             $out .= <<<END
     <tr>
@@ -231,18 +231,6 @@ END;
         return $str;
     }
 
-    private function share()
-    {
-        $link = "http://$_SERVER[HTTP_HOST]";
-        $token = $this->list[0]['tokenPart'];
-        $id = $this->list[0]['no'];
-        $str =
-            <<<END
-url: $link/index.php/list/display?id=$id&token=$token<br>
-END;
-        return $str;
-    }
-
     public function render()
     {
 
@@ -258,9 +246,6 @@ END;
                 break;
             case Selection::FORM_MODIFY_LIST:
                 $this->content = $this->formModifyList();
-                break;
-            case Selection::SHARE_LIST:
-                $this->content = $this->share();
                 break;
             default:
                 $this->content = "Switch Constant Error";
