@@ -8,6 +8,8 @@ class Selection
 {
     const ALL_LIST = 'ALL_LIST';
     const ID_LIST = 'ID_LIST';
+    const TOKEN_LIST_MODIFIABLE = 'TOKEN_LIST_MODIFIABLE';
+    const TOKEN_LIST = 'TOKEN_LIST';
     const FORM_CREATE_LIST = 'FORM_CREATE_LIST';
     const FORM_MODIFY_LIST = 'FORM_MODIFY_LIST';
     const SHARE_LIST = 'SHARE_LIST';

@@ -53,7 +53,7 @@ END;
         return $res;
     }
 
-    private function displayOneList()
+    private function displayOneList($modifiable)
     {
         $res = '<div id="authors">';
         $i = 0;
@@ -97,39 +97,79 @@ END;
                 $modifyItem = $this->app->urlFor('modifyItemFromList', array('no' => $this->list['id'], 'id' => $i->id));
                 if (isset($_COOKIE['wishlist_userID']) && $_COOKIE['wishlist_userID'] == $this->list['id']) {
                     if (!empty($i->nomReserve)) {
-                        $res .= <<<RES
+                        if ($modifiable) {
+                            $res .= <<<RES
 <tr>
     <td>$i->img</td>
     <td><a href=$modifyItem>$i->nom</a></td>
     <td>oui</td>
 </tr>
 RES;
+                        } else {
+                            $res .= <<<RES
+<tr>
+    <td>$i->img</td>
+    <td>$i->nom</a></td>
+    <td>oui</td>
+</tr>
+RES;
+                        }
                     } else {
-                        $res .= <<<RES
+                        if ($modifiable) {
+                            $res .= <<<RES
 <tr>
     <td>$i->img</td>
     <td><a href=$modifyItem>$i->nom</a></td>
     <td>non</td>
 </tr>
 RES;
+                        } else {
+                            $res .= <<<RES
+<tr>
+    <td>$i->img</td>
+    <td><a href=$modifyItem>$i->nom</a></td>
+    <td>non</td>
+</tr>
+RES;
+                        }
                     }
                 } else {
                     if (!empty($i->nomReserve)) {
-                        $res .= <<<RES
+                        if ($modifiable) {
+                            $res .= <<<RES
 <tr>
     <td>$i->img</td>
     <td><a href=$modifyItem>$i->nom</a></td>
     <td>$i->nomReserve</td>
 </tr>
 RES;
+                        } else {
+                            $res .= <<<RES
+<tr>
+    <td>$i->img</td>
+    <td>$i->nom</a></td>
+    <td>$i->nomReserve</td>
+</tr>
+RES;
+                        }
                     } else {
-                        $res .= <<<RES
+                        if ($modifiable) {
+                            $res .= <<<RES
 <tr>
     <td>$i->img</td>
     <td><a href=$modifyItem>$i->nom</a></td>
     <td>non</td>
 </tr>
 RES;
+                        } else {
+                            $res .= <<<RES
+<tr>
+    <td>$i->img</td>
+    <td>$i->nom</a></td>
+    <td>non</td>
+</tr>
+RES;
+                        }
                     }
                 }
             }
@@ -143,7 +183,8 @@ RES;
             foreach ($this->list['items'] as $i) {
                 $modifyItem = $this->app->urlFor('modifyItemFromList', array('no' => $this->list['id'], 'id' => $i->id));
                 if (!empty($i->nomReserve)) {
-                    $res .= <<<RES
+                    if ($modifiable) {
+                        $res .= <<<RES
 <tr>
     <td>$i->img</td>
     <td><a href=$modifyItem>$i->nom</a></td>
@@ -151,8 +192,28 @@ RES;
     <td>$i->msgReserve</td>
 </tr>
 RES;
+                    } else {
+                        $res .= <<<RES
+<tr>
+    <td>$i->img</td>
+    <td>$i->nom</a></td>
+    <td>$i->nomReserve</td>
+    <td>$i->msgReserve</td>
+</tr>
+RES;
+                    }
                 } else {
-                    $res .= <<<RES
+                    if ($modifiable) {
+                        $res .= <<<RES
+<tr>
+    <td>$i->img</td>
+    <td><a href=$modifyItem>$i->nom</a></td>
+    
+    <td></td>
+</tr>
+RES;
+                    } else {
+                        $res .= <<<RES
 <tr>
     <td>$i->img</td>
     <td><a href=$modifyItem>$i->nom</a></td>
@@ -160,10 +221,12 @@ RES;
     <td></td>
 </tr>
 RES;
+                    }
                 }
             }
             $id = $this->list['id'];
             $res .= "</table>";
+
             if ($this->list['authors'][0]['username'] == Authentication::getUsername()) {
                 $res .= "<button type=\"button\" onclick=\"window.location.href = '/list/$id/addItem';\" value=\"goToCreateList\">Créer un item</button>";
             }
@@ -216,8 +279,11 @@ END;
             case Selection::ALL_LIST:
                 $this->content = $this->displayAllList();
                 break;
-            case Selection::ID_LIST:
-                $this->content = $this->displayOneList();
+            case Selection::TOKEN_LIST_MODIFIABLE:
+                $this->content = $this->displayOneList(true);
+                break;
+            case Selection::TOKEN_LIST:
+                $this->content = $this->displayOneList(false);
                 break;
             case Selection::FORM_CREATE_LIST:
                 $this->content = $this->formCreateList();

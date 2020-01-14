@@ -53,9 +53,9 @@ $app->get('/list/create', function () {
     $c->listCreateForm();
 })->name('listcreate');
 
-$app->get('/list/:id', function ($id) {
+$app->get('/list/:t', function ($token) {
     $c = new ListController();
-    $c->oneList($id);
+    $c->oneList($token);
 })->name('list');
 
 $app->get('/list/:id/delete', function ($id) {

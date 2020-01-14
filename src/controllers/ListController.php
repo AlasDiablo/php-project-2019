@@ -68,25 +68,48 @@ class ListController {
         return $out;
     }
 
-    public function oneList($id_list)
+    public function oneList($token)
     {
-        $id = filter_var($id_list, FILTER_SANITIZE_SPECIAL_CHARS);
-        $items = Item::where('liste_id', '=', $id)->get();
+        $t = filter_var($token, FILTER_SANITIZE_SPECIAL_CHARS);
+        if (Liste::where('token', '=', $t)->first()) {
 
-        $authors = $this->getAutohrList($id);
+            $id = Liste::where('token', '=', $t)->first()->no;
+            $items = Item::where('liste_id', '=', $id)->get();
 
-        $l = array(
-            'items' => $items,
-            'authors' => $authors,
-            'title' => Liste::select('titre')->where('no', '=', $id)->first()->titre,
-            'desc' => Liste::select('description')->where('no', '=', $id)->first()->description,
-            'exp' => Liste::select('expiration')->where('no', '=', $id)->first()->expiration,
-            'tokenPart' => Liste::select('tokenPart')->where('no', '=', $id)->first()->tokenPart,
-            'id' => $id
-        );
+            $authors = $this->getAutohrList($id);
 
-        $v = new ListView($l, Selection::ID_LIST);
-        $v->render();
+            $l = array(
+                'items' => $items,
+                'authors' => $authors,
+                'title' => Liste::select('titre')->where('no', '=', $id)->first()->titre,
+                'desc' => Liste::select('description')->where('no', '=', $id)->first()->description,
+                'exp' => Liste::select('expiration')->where('no', '=', $id)->first()->expiration,
+                'tokenPart' => Liste::select('tokenPart')->where('no', '=', $id)->first()->tokenPart,
+                'id' => $id
+            );
+
+            $v = new ListView($l, Selection::TOKEN_LIST_MODIFIABLE);
+            $v->render();
+        } elseif (Liste::where('tokenPart', '=', $t)->first()) {
+
+            $id = Liste::where('tokenPart', '=', $t)->first()->no;
+            $items = Item::where('liste_id', '=', $id)->get();
+
+            $authors = $this->getAutohrList($id);
+
+            $l = array(
+                'items' => $items,
+                'authors' => $authors,
+                'title' => Liste::select('titre')->where('no', '=', $id)->first()->titre,
+                'desc' => Liste::select('description')->where('no', '=', $id)->first()->description,
+                'exp' => Liste::select('expiration')->where('no', '=', $id)->first()->expiration,
+                'tokenPart' => Liste::select('tokenPart')->where('no', '=', $id)->first()->tokenPart,
+                'id' => $id
+            );
+
+            $v = new ListView($l, Selection::TOKEN_LIST);
+            $v->render();
+        }
     }
 
     public function listCreateForm()
