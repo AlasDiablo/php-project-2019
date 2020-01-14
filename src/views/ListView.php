@@ -72,7 +72,7 @@ END;
                 $out .= "<tr><td>$value->img</td><td><a class='link' href='$url'>$value->nom</a></td><td>$value->nomReserve</td><td>$value->msgReserve</td></tr>";
             }
         }
-        return $out;
+        return $out . "</table>";
     }
 
     private function displayOneList($modifiable)

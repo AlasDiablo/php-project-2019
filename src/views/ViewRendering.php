@@ -62,9 +62,9 @@ NAV;
             <div class="clr"></div>
         </div>
     </header>
-
+    
     $body
-
+    
     <footer id="footer">
         <div id="footer-inner">
             <p>Copyright - MyWishList Project - Lucas BURTÉ, Pierre MARCOLET, Emilien VISENTINI, Aurélien RETHIERS</p>
@@ -72,6 +72,7 @@ NAV;
             <div class="clr"></div>
         </div>
     </footer>
+    
 </body>
 </html>
 HTML;
