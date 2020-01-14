@@ -81,6 +81,7 @@ class ListController {
             'title' => Liste::select('titre')->where('no', '=', $id)->first()->titre,
             'desc' => Liste::select('description')->where('no', '=', $id)->first()->description,
             'exp' => Liste::select('expiration')->where('no', '=', $id)->first()->expiration,
+            'tokenPart' => Liste::select('tokenPart')->where('no', '=', $id)->first()->tokenPart,
             'id' => $id
         );
 
@@ -164,6 +165,6 @@ class ListController {
             $l->tokenPart = $token;
             $l->update();
         }
-        $this->showMyList();
+        $this->oneList($id);
     }
 }

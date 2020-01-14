@@ -41,43 +41,10 @@ END;
         return $out . '</table>';
     }
 
-    private function buildMyListTable($array)
-    {
-        $out = <<<END
-<table>
-    <tr>
-        <th>titre</th>
-        <th>description</th>
-        <th>expiration</th>
-        <th>partage</th>
-    </tr>
-END;
-        foreach ($array as $values) {
-            $list = $this->app->urlFor('list', array('id' => $values->no));
-            $tokenPart = "";
-            if(empty($values->tokenPart))
-            {
-                $tokenPart = "<button type=\"button\" onclick=\"window.location.href = '/list/$values->no/share';\" value=\"goToShareList\">Partager la liste</button>";
-            }else {
-                $link = "http://$_SERVER[HTTP_HOST]";
-                $tokenPart = "$link/.php/list/$values->no/$values->tokenPart<br>";
-            }
-            $out .= <<<END
-    <tr>
-        <td><a class="link" href=$list>$values->titre</a></td>
-        <td>$values->description</td>
-        <td>$values->expiration</td>
-        <td>$tokenPart</td>
-    </tr>
-END;
-        }
-        return $out . '</table>';
-    }
-
     private function displayAllList()
     {
         $res = '<div id="myLists"><h1>Mes listes</h1>';
-        $res .= $this->buildMyListTable($this->list['myLists']);
+        $res .= $this->buildListTable($this->list['myLists']);
         $res .= "<button type=\"button\" onclick=\"window.location.href = '/list/create';\" value=\"goToCreateList\">Créer un nouvelle liste</button>";
         $res .= '</div>';
         $res .= '<div id="listsByOthers"><h1>Listes ou je participe</h1>';
@@ -110,7 +77,18 @@ END;
         $title = $this->list['title'];
         $desc = $this->list['desc'];
         $exp = $this->list['exp'];
+        $id = $this->list['id'];
+        $tokPart = $this->list['tokenPart'];
         $res .= "<h1>$title</h1><p>$desc</p><p>$exp</p>";
+        $tokenPart = "";
+        if(empty($tokPart))
+        {
+            $tokenPart = "<button type=\"button\" onclick=\"window.location.href = '/list/$id/share';\" value=\"goToShareList\">Partager la liste</button>";
+        }else {
+            $link = "http://$_SERVER[HTTP_HOST]";
+            $tokenPart = "<p>lien de partage: $link/.php/list/$id/$tokPart</p>";
+        }
+        $res .= $tokenPart;
 
         $date = date("Y-m-d");
         if ($exp > $date) {
