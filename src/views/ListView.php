@@ -110,10 +110,10 @@ END;
         $res .= "<button type=\"button\" onclick=\"window.location.href = '$urlShare'\" value=\"goToShareList\">Partager la liste</button>";
 
         if ($modifiable) {
-            if ($exp <= date('Y-m-d')) $array = array('p' => false, 'exp' => false, 'token' => $this->list['token']);
+            if (date_create_from_format('Y-m-d', $exp) <= date('Y-m-d', time())) $array = array('p' => false, 'exp' => false, 'token' => $this->list['token']);
             else $array = array('p' => false, 'exp' => true, 'token' => $this->list['token']);
         } else {
-            if ($exp <= date('Y-m-d')) $array = array('p' => true, 'exp' => false, 'token' => $this->list['token']);
+            if (date_create_from_format('Y-m-d', $exp) <= date('Y-m-d', time())) $array = array('p' => true, 'exp' => false, 'token' => $this->list['token']);
             else $array = array('p' => true, 'exp' => true, 'token' => $this->list['token']);
         }
 
