@@ -105,7 +105,14 @@ class ListController {
         while(!$bool) {
             $value = Liste::where('token', '=', $token)->get();
             if (count($value) == 0) {
-                $bool = true;
+                while(!$bool) {
+                    $value = Liste::where('tokenPart', '=', $token)->get();
+                    if (count($value) == 0) {
+                        $bool = true;
+                    } else {
+                        $token = bin2hex(random_bytes(16));
+                    }
+                }
             } else {
                 $token = bin2hex(random_bytes(16));
             }
