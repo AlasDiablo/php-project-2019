@@ -34,12 +34,12 @@ Code sous licence **AGPL-3.0**, lire la licence [ici](https://github.com/AlasDia
 
 ### Niveau 1
 
-+ [ ] ***1 - Afficher une liste de souhaits [Emilien, (Lucas & Pierre)(fix)]***
++ [ ] ***1 - Afficher une liste de souhaits [Emilien]***
 + [x] **~~2 - Afficher un item d'une liste~~ [Aurélien]**
-+ [ ] ***3 - Réserver un item [Emilien, Pierre(fix)]***
++ [ ] ***3 - Réserver un item [Emilien]***
 + [x] **~~6 - Créer une liste~~ [Aurélien]**
 + [x] **~~8 - Ajouter des items~~ [Aurélien]**
-+ [ ] ***14 - Partager une liste [Emilien, Pierre(fix)]***
++ [ ] ***14 - Partager une liste [Emilien]***
 
 ### Niveau 2
 
@@ -76,3 +76,4 @@ Code sous licence **AGPL-3.0**, lire la licence [ici](https://github.com/AlasDia
 + [x] **~~Ajouter un avatar pour les utilisateurs~~ [Pierre]**
 + [x] **~~Gestion des erreurs HTTP~~ [Pierre & Lucas]**
 + [ ] ***Mise en corelation du code créer par chaqun [Pierre]***
++ [ ] ***Corrections de bugs majeurs/failles de sécurité [Pierre & Lucas]***
