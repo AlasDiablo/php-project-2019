@@ -88,14 +88,10 @@ $app->post('/list/:id/addItem/submit', function ($id) {
     $c->createItem($id);
 })->name('listAddItemP');
 
-$app->get('/list/:id/share', function ($id) {
+$app->get('/list/:token/share', function ($token) {
     $c = new ListController();
-    $c->share($id);
+    $c->share($token);
 })->name('listShare');
-$app->get('/list/:id/:token', function ($id, $token) {
-    $c = new ListController();
-    $c->oneList($id);
-})->name('listToken');
 
 
 

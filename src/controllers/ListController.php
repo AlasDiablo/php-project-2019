@@ -84,6 +84,7 @@ class ListController {
                 'title' => Liste::select('titre')->where('no', '=', $id)->first()->titre,
                 'desc' => Liste::select('description')->where('no', '=', $id)->first()->description,
                 'exp' => Liste::select('expiration')->where('no', '=', $id)->first()->expiration,
+                'token' => $token,
                 'tokenPart' => Liste::select('tokenPart')->where('no', '=', $id)->first()->tokenPart,
                 'id' => $id
             );
@@ -103,6 +104,7 @@ class ListController {
                 'title' => Liste::select('titre')->where('no', '=', $id)->first()->titre,
                 'desc' => Liste::select('description')->where('no', '=', $id)->first()->description,
                 'exp' => Liste::select('expiration')->where('no', '=', $id)->first()->expiration,
+                'token' => $token,
                 'tokenPart' => Liste::select('tokenPart')->where('no', '=', $id)->first()->tokenPart,
                 'id' => $id
             );

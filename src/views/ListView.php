@@ -54,6 +54,27 @@ END;
         return $res;
     }
 
+
+    private function buildItemList($item, $args): string
+    {
+        if (!$args['exp']) $out = "<table><tr><th>Image</th><th>Nom</th><th>Status de la reservation</th></tr>";
+        else $out = "<table><tr><th>Image</th><th>Nom</th><th>Reservation par</th><th>Message</th></tr>";
+        foreach ($item as $key => $value)
+        {
+            if (!$args['p']) $url = $this->app->urlFor('modifyItemFromList', array('token' => $args['token'], $value->id));
+            else $url = "link do not existe for now =_=";
+
+            if (!$args['exp'] && !$args['p']){
+                if (!empty($value->nomReserve)) $resv = "Reservé";
+                else $resv = "Non réservé";
+                $out .= "<tr><td>$value->img</td><td><a class='link' href='$url'>$value->nom</a></td><td>$resv</td></tr>";
+            } else {
+                $out .= "<tr><td>$value->img</td><td><a class='link' href='$url'>$value->nom</a></td><td>$value->nomReserve</td><td>$value->msgReserve</td></tr>";
+            }
+        }
+        return $out;
+    }
+
     private function displayOneList($modifiable)
     {
         $res = '<div id="authors">';
@@ -78,159 +99,24 @@ END;
         $title = $this->list['title'];
         $desc = $this->list['desc'];
         $exp = $this->list['exp'];
-        $id = $this->list['id'];
         $tokPart = $this->list['tokenPart'];
         $res .= "<h1>$title</h1><p>$desc</p><p>$exp</p>";
         if(empty($tokPart))
         {
-            $tokenPart = "<button type=\"button\" onclick=\"window.location.href = '/list/$id/share';\" value=\"goToShareList\">Partager la liste</button>";
+            $urlShare = $this->app->urlFor('listShare', array('token' => $this->list['token']));
         }else {
-            $link = "http://$_SERVER[HTTP_HOST]";
-            $tokenPart = "<p>lien de partage: $link/.php/list/$id/$tokPart</p>";
+            $urlShare = $this->app->urlFor('list', array('token' => $this->list['tokenPart']));
         }
-        $res .= $tokenPart;
+        $res .= "<button type=\"button\" onclick=\"window.location.href = '$urlShare'\" value=\"goToShareList\">Partager la liste</button>";
 
-        $date = date("Y-m-d");
-        if ($exp > $date) {
-            $res .= "<table><tr><th>image</th><th>nom</th><th>reservation</th></tr>";
-            foreach ($this->list['items'] as $i) {
-                $modifyItem = $this->app->urlFor('modifyItemFromList', array('no' => $this->list['id'], 'id' => $i->id));
-                if (isset($_COOKIE['wishlist_userID']) && $_COOKIE['wishlist_userID'] == $this->list['id']) {
-                    if (!empty($i->nomReserve)) {
-                        if ($modifiable) {
-                            $res .= <<<RES
-<tr>
-    <td>$i->img</td>
-    <td><a href=$modifyItem>$i->nom</a></td>
-    <td>oui</td>
-</tr>
-RES;
-                        } else {
-                            $res .= <<<RES
-<tr>
-    <td>$i->img</td>
-    <td>$i->nom</a></td>
-    <td>oui</td>
-</tr>
-RES;
-                        }
-                    } else {
-                        if ($modifiable) {
-                            $res .= <<<RES
-<tr>
-    <td>$i->img</td>
-    <td><a href=$modifyItem>$i->nom</a></td>
-    <td>non</td>
-</tr>
-RES;
-                        } else {
-                            $res .= <<<RES
-<tr>
-    <td>$i->img</td>
-    <td><a href=$modifyItem>$i->nom</a></td>
-    <td>non</td>
-</tr>
-RES;
-                        }
-                    }
-                } else {
-                    if (!empty($i->nomReserve)) {
-                        if ($modifiable) {
-                            $res .= <<<RES
-<tr>
-    <td>$i->img</td>
-    <td><a href=$modifyItem>$i->nom</a></td>
-    <td>$i->nomReserve</td>
-</tr>
-RES;
-                        } else {
-                            $res .= <<<RES
-<tr>
-    <td>$i->img</td>
-    <td>$i->nom</a></td>
-    <td>$i->nomReserve</td>
-</tr>
-RES;
-                        }
-                    } else {
-                        if ($modifiable) {
-                            $res .= <<<RES
-<tr>
-    <td>$i->img</td>
-    <td><a href=$modifyItem>$i->nom</a></td>
-    <td>non</td>
-</tr>
-RES;
-                        } else {
-                            $res .= <<<RES
-<tr>
-    <td>$i->img</td>
-    <td>$i->nom</a></td>
-    <td>non</td>
-</tr>
-RES;
-                        }
-                    }
-                }
-            }
-            $id = $this->list['id'];
-            $res .= "</table>";
-            if ($this->list['authors'][0]['username'] == Authentication::getUsername()) {
-                $res .= "<button type=\"button\" onclick=\"window.location.href = '/list/$id/addItem';\" value=\"goToCreateList\">Créer un item</button>";
-            }
+        if ($modifiable) {
+            if ($exp <= date('Y-m-d')) $res .= $this->buildItemList($this->list['items'], array('p' => false, 'exp' => false, 'token' => $this->list['token']));
+            else $res .= $this->buildItemList($this->list['items'], array('p' => false, 'exp' => true, 'token' => $this->list['token']));
         } else {
-            $res .= "<table><tr><th>image</th><th>nom</th><th>reservation</th><th>message</th></tr>";
-            foreach ($this->list['items'] as $i) {
-                $modifyItem = $this->app->urlFor('modifyItemFromList', array('no' => $this->list['id'], 'id' => $i->id));
-                if (!empty($i->nomReserve)) {
-                    if ($modifiable) {
-                        $res .= <<<RES
-<tr>
-    <td>$i->img</td>
-    <td><a href=$modifyItem>$i->nom</a></td>
-    <td>$i->nomReserve</td>
-    <td>$i->msgReserve</td>
-</tr>
-RES;
-                    } else {
-                        $res .= <<<RES
-<tr>
-    <td>$i->img</td>
-    <td>$i->nom</a></td>
-    <td>$i->nomReserve</td>
-    <td>$i->msgReserve</td>
-</tr>
-RES;
-                    }
-                } else {
-                    if ($modifiable) {
-                        $res .= <<<RES
-<tr>
-    <td>$i->img</td>
-    <td><a href=$modifyItem>$i->nom</a></td>
-    
-    <td></td>
-</tr>
-RES;
-                    } else {
-                        $res .= <<<RES
-<tr>
-    <td>$i->img</td>
-    <td><a href=$modifyItem>$i->nom</a></td>
-    <td></td>
-    <td></td>
-</tr>
-RES;
-                    }
-                }
-            }
-            $id = $this->list['id'];
-            $res .= "</table>";
-
-            if ($this->list['authors'][0]['username'] == Authentication::getUsername()) {
-                $res .= "<button type=\"button\" onclick=\"window.location.href = '/list/$id/addItem';\" value=\"goToCreateList\">Créer un item</button>";
-            }
+            if ($exp <= date('Y-m-d')) $res .= $this->buildItemList($this->list['items'], array('p' => true, 'exp' => false, 'token' => $this->list['token']));
+            else $res .= $this->buildItemList($this->list['items'], array('p' => true, 'exp' => true, 'token' => $this->list['token']));
         }
+
         return $res . "</div>";
     }
 
