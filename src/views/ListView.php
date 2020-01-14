@@ -110,12 +110,14 @@ END;
         $res .= "<button type=\"button\" onclick=\"window.location.href = '$urlShare'\" value=\"goToShareList\">Partager la liste</button>";
 
         if ($modifiable) {
-            if ($exp <= date('Y-m-d')) $res .= $this->buildItemList($this->list['items'], array('p' => false, 'exp' => false, 'token' => $this->list['token']));
-            else $res .= $this->buildItemList($this->list['items'], array('p' => false, 'exp' => true, 'token' => $this->list['token']));
+            if ($exp <= date('Y-m-d')) $array = array('p' => false, 'exp' => false, 'token' => $this->list['token']);
+            else $array = array('p' => false, 'exp' => true, 'token' => $this->list['token']);
         } else {
-            if ($exp <= date('Y-m-d')) $res .= $this->buildItemList($this->list['items'], array('p' => true, 'exp' => false, 'token' => $this->list['token']));
-            else $res .= $this->buildItemList($this->list['items'], array('p' => true, 'exp' => true, 'token' => $this->list['token']));
+            if ($exp <= date('Y-m-d')) $array = array('p' => true, 'exp' => false, 'token' => $this->list['token']);
+            else $array = array('p' => true, 'exp' => true, 'token' => $this->list['token']);
         }
+
+        $res .= $this->buildItemList($this->list['items'], $array);
 
         return $res . "</div>";
     }
