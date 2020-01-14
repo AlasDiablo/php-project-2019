@@ -75,5 +75,5 @@ Code sous licence **AGPL-3.0**, lire la licence [ici](https://github.com/AlasDia
 + [ ] Responsive Web Design
 + [x] **~~Ajouter un avatar pour les utilisateurs~~ [Pierre]**
 + [x] **~~Gestion des erreurs HTTP~~ [Pierre & Lucas]**
-+ [ ] ***Mise en corelation du code créer par chaqun [Pierre]***
++ [ ] ***Mise en corelation du code créer par chaqun [Pierre & Lucas]***
 + [ ] ***Corrections de bugs majeurs/failles de sécurité [Pierre & Lucas]***
