@@ -53,7 +53,7 @@ $app->get('/list/create', function () {
     $c->listCreateForm();
 })->name('listcreate');
 
-$app->get('/list/:t', function ($token) {
+$app->get('/list/:token', function ($token) {
     $c = new ListController();
     $c->oneList($token);
 })->name('list');

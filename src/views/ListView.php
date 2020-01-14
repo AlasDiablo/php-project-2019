@@ -18,7 +18,7 @@ class ListView
         $this->app =  $this->app = Slim::getInstance();
     }
 
-    private function buildListTable($array)
+    private function buildListTable($array, bool $edit)
     {
         $out = <<<END
 <table>
@@ -29,10 +29,11 @@ class ListView
     </tr>
 END;
         foreach ($array as $values) {
-            $list = $this->app->urlFor('list', array('id' => $values->no));
+            if ($edit) $link = $this->app->urlFor('list', array('token' => $values->token));
+            else $link = $this->app->urlFor('list', array('id' => $values->tokenPart));
             $out .= <<<END
     <tr>
-        <td><a class="link" href=$list>$values->titre</a></td>
+        <td><a class="link" href=$link>$values->titre</a></td>
         <td>$values->description</td>
         <td>$values->expiration</td>
     </tr>
@@ -44,11 +45,11 @@ END;
     private function displayAllList()
     {
         $res = '<div id="myLists"><h1>Mes listes</h1>';
-        $res .= $this->buildListTable($this->list['myLists']);
+        $res .= $this->buildListTable($this->list['myLists'], true);
         $res .= "<button type=\"button\" onclick=\"window.location.href = '/list/create';\" value=\"goToCreateList\">Créer un nouvelle liste</button>";
         $res .= '</div>';
         $res .= '<div id="listsByOthers"><h1>Listes ou je participe</h1>';
-        $res .= $this->buildListTable($this->list['participLists']);
+        $res .= $this->buildListTable($this->list['participLists'], false);
         $res .= '</div>';
         return $res;
     }
@@ -80,7 +81,6 @@ END;
         $id = $this->list['id'];
         $tokPart = $this->list['tokenPart'];
         $res .= "<h1>$title</h1><p>$desc</p><p>$exp</p>";
-        $tokenPart = "";
         if(empty($tokPart))
         {
             $tokenPart = "<button type=\"button\" onclick=\"window.location.href = '/list/$id/share';\" value=\"goToShareList\">Partager la liste</button>";
