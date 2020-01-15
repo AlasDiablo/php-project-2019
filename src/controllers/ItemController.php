@@ -3,6 +3,7 @@
 namespace mywishlist\controllers;
 
 use DateTime;
+use Exception;
 use mywishlist\models\Item;
 use mywishlist\models\Liste;
 use mywishlist\models\Participant;
@@ -14,35 +15,54 @@ use Slim\Slim;
 
 class ItemController
 {
-
+    /**
+     * @var Slim|null instance de slim pour pouvoir créer des url
+     */
     private $app;
 
+    /**
+     * ItemController constructor.
+     * Utilisé pour recuperais l'intance de slim
+     */
     public function __construct()
     {
         $this->app = Slim::getInstance();
     }
 
-    public function oneItem($id) {
+    /**
+     * Fonction utilisé pour affiché un item en particulé
+     * @param $id int reference de l'item
+     */
+    public function showItemInfo($id)
+    {
         $id=filter_var($id, FILTER_SANITIZE_SPECIAL_CHARS);
         $l = Item::where('id', '=', $id)->first();
         $v = new ItemView($l, Selection::ID_ITEM);
         $v->render();
     }
 
-    public function ItemCreateForm($token)
+    /**
+     * Fonction qui permette d'affiché le formulaire d'ajouté d'item dans une list
+     * @param $token string token qui est associer a un liste
+     * @throws Exception lié a la date
+     */
+    public function createItemForm($token)
     {
         $list = Liste::where('token', '=', $token)->first();
-        if (empty($list)) {
+        if (empty($list))
+        {
             GlobalView::forbidden();
             return;
         }
         $exp = DateTime::createFromFormat('Y-m-d', $list->expiration);
         $now = new DateTime('now');
-        if ($exp <= $now) {
+        if ($exp <= $now)
+        {
             GlobalView::forbidden();
             return;
         }
-        if ($list->user_id == Authentication::getUserId()) {
+        if ($list->user_id == Authentication::getUserId())
+        {
             $v = new ItemView($list, Selection::FORM_CREATE_ITEM);
             $v->render();
         } else {
@@ -50,24 +70,33 @@ class ItemController
         }
     }
 
-    public function createItem($token){
-        $t = filter_var($token, FILTER_SANITIZE_NUMBER_INT);
+    /**
+     * Fonction qui permette d'ajouté un item a un list, est de l'instancié dans le system
+     * @param $token string token qui est associer a un liste
+     */
+    public function createItem($token)
+    {
         $l = Liste::where('token', '=', $token)->first();
-        if(!isset($l->no)){
+        if(!isset($l->no))
+        {
             GlobalView::forbidden();
             return;
         }
         $i = new Item();
-        if($_POST['nom'] != "") {
+        if($_POST['nom'] != "")
+        {
             $i->nom = filter_var($_POST['nom'], FILTER_SANITIZE_SPECIAL_CHARS);
         }
-        if($_POST['description'] != "") {
+        if($_POST['description'] != "")
+        {
             $i->descr = filter_var($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS);
         }
-        if($_POST['prix'] != "") {
+        if($_POST['prix'] != "")
+        {
             $i->tarif = filter_var($_POST['prix'], FILTER_SANITIZE_NUMBER_FLOAT);
         }
-        if($_POST['url'] != ""){
+        if($_POST['url'] != "")
+        {
             $i->url = filter_var($_POST['url'],FILTER_SANITIZE_URL);
         }
         $i->img = $this->ajoutImage();
@@ -78,11 +107,20 @@ class ItemController
         exit();
     }
 
-    public function ItemManageForm($token, $item){
+    /**
+     * Fonction qui donne les formulaire associer a un item (modification et resservation)
+     * @param $token string token qui est associer a un liste
+     * @param $item string id de l'item qui doit etre mis en avent
+     * @throws Exception lié a la date
+     */
+    public function manageItemForm($token, $item)
+    {
         $list = Liste::where('token', '=', $token)->first();
-        if (!isset($list->no)) {
+        if (!isset($list->no))
+        {
             $list = Liste::where('tokenPart', '=', $token)->first();
-            if(!isset($list->no)) {
+            if(!isset($list->no))
+            {
                 GlobalView::bad_request();
                 return;
             }
@@ -92,15 +130,18 @@ class ItemController
 
         $exp = DateTime::createFromFormat('Y-m-d', $list->expiration);
         $now = new DateTime('now');
-        if ($exp <= $now) {
+        if ($exp <= $now)
+        {
             GlobalView::forbidden();
             return;
         }
 
-        if ($token == $list->token) {
+        if ($token == $list->token)
+        {
             $v = new ItemView($item, Selection::FORM_MODIFY_ITEM_MANAGE);
             $v->render();
-        } elseif ($token == $list->tokenPart) {
+        } elseif ($token == $list->tokenPart)
+        {
             $v = new ItemView($item, Selection::FORM_MODIFY_ITEM_PART);
             $v->render();
         } else {
@@ -108,24 +149,34 @@ class ItemController
         }
     }
 
-    public function modifyItem($token, $id){
-        $t = filter_var($token, FILTER_SANITIZE_NUMBER_INT);
+    /**
+     * Fonction qui modifie un item côté system
+     * @param $token string token qui est associer a un liste
+     * @param $item string id de l'item qui doit etre mis en avent
+     */
+    public function modifyItem($token, $item)
+    {
         $l = Liste::where('token', '=', $token)->first();
-        if(!isset($l->no)){
+        if(!isset($l->no))
+        {
             GlobalView::forbidden();
             return;
         }
-        $i = Item::where('id', '=', $id)->first();
-        if($_POST['nom'] != "") {
+        $i = Item::where('id', '=', $item)->first();
+        if($_POST['nom'] != "")
+        {
             $i->nom = filter_var($_POST['nom'], FILTER_SANITIZE_SPECIAL_CHARS);
         }
-        if($_POST['description'] != "") {
+        if($_POST['description'] != "")
+        {
             $i->descr = filter_var($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS);
         }
-        if($_POST['prix'] != "") {
+        if($_POST['prix'] != "")
+        {
             $i->tarif = filter_var($_POST['prix'], FILTER_SANITIZE_NUMBER_FLOAT);
         }
-        if($_POST['url'] != ""){
+        if($_POST['url'] != "")
+        {
             $i->url = filter_var($_POST['url'],FILTER_SANITIZE_URL);
         }
         $i->img = $this->ajoutImage();
@@ -135,26 +186,38 @@ class ItemController
         exit();
     }
 
-    public function deleteItem($token, $id){
+    /**
+     * Fonction qui supprime un item côté system
+     * @param $token string token qui est associer a un liste
+     * @param $item string id de l'item qui doit etre mis en avent
+     */
+    public function deleteItem($token, $item)
+    {
 
         $l = Liste::where('token', '=', $token)->first();
-        if (!isset($l->no)) {
+        if (!isset($l->no))
+        {
             GlobalView::forbidden();
             return;
         }
-        $i = Item::where('id', '=', $id)->first();
+        $i = Item::where('id', '=', $item)->first();
         $i->delete();
         $url = $this->app->urlFor('list', array('token' => $token));
         header("Location: $url");
         exit();
     }
 
-    public function reserveItemSubmit($id)
+    /**
+     * Fonction qui reseve un item côté system
+     * @param $item string id de l'item qui doit etre mis en avent
+     */
+    public function reserveItemSubmit($item)
     {
 
-        if (isset($_POST['nom_reserve_item'])){
+        if (isset($_POST['nom_reserve_item']))
+        {
             $msg = filter_var($_POST['nom_reserve_item'], FILTER_SANITIZE_SPECIAL_CHARS);
-            $ri = Item::where('id', '=', $id)->first();
+            $ri = Item::where('id', '=', $item)->first();
             $ri->msgReserve = $msg;
             $ri->nomReserve = Authentication::getUsername();
             $ri->save();
@@ -171,6 +234,10 @@ class ItemController
         $v->render();
     }
 
+    /**
+     * Fonction qui permé d'ajouté une image côté system
+     * @return string|void arret de la fonction en cas de rendut
+     */
     public function ajoutImage()
     {
         if (!empty($_FILES["image"]["name"]))
@@ -180,8 +247,10 @@ class ItemController
             $targetFilePath = $targetDir . DIRECTORY_SEPARATOR . $fileName;
             $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
             $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
-            if (in_array($fileType, $allowTypes)) {
-                if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFilePath)) {
+            if (in_array($fileType, $allowTypes))
+            {
+                if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFilePath))
+                {
                     return $fileName;
                 } else {
                     $v = new ItemView(null, Selection::FORM_IMAGE_UPLOAD_FAIL);

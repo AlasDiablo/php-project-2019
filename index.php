@@ -7,7 +7,6 @@ require_once './vendor/autoload.php';
 use \mywishlist\controllers\UserController;
 use \mywishlist\controllers\ListController;
 use \mywishlist\controllers\ItemController;
-use mywishlist\utils\PathsNames;
 use \mywishlist\views\AccueilView;
 use \Illuminate\Database\Capsule\Manager as DB;
 use mywishlist\views\GlobalView;
@@ -86,7 +85,7 @@ $app->post('/list/create/submit', function () {
 
 $app->get('/list/:token/addItem', function ($token) {
     $c = new ItemController();
-    $c->ItemCreateForm($token);
+    $c->createItemForm($token);
 })->name('listAddItem');
 
 $app->post('/list/:token/addItem/submit', function ($token) {
@@ -104,7 +103,7 @@ $app->get('/list/:token/share', function ($token) {
 /*-----|items|-----*/
 $app->get('/list/:token/:item/manage', function ($token, $item) {
     $c = new ItemController();
-    $c->ItemManageForm($token, $item);
+    $c->manageItemForm($token, $item);
 })->name('manageItemFromList');
 
 $app->post('/list/:token/:item/manage/submit', function ($token, $item) {
@@ -119,7 +118,7 @@ $app->get('/list/:token/:item/delete', function ($token, $item) {
 
 $app->get('/item/:id', function ($id) {
     $c = new ItemController();
-    $c->oneItem($id);
+    $c->showItemInfo($id);
 })->name('item');
 
 
