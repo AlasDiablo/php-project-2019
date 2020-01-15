@@ -170,6 +170,8 @@ class ListController {
             $l[0]->expiration = filter_var($_POST['date'], FILTER_SANITIZE_SPECIAL_CHARS);
         }
         $l[0]->save();
+        header("Location: /index.php/list/$l->no");
+        exit();
     }
 
     public function share($id)
