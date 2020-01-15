@@ -3,14 +3,30 @@
 namespace mywishlist\views;
 
 use DateTime;
+use Exception;
 use mywishlist\utils\Selection;
 use Slim\Slim;
 
+/**
+ * Class ListView, vue qui a pour but de gerais affichage avec tous se qui est en raport avec les list
+ * @package mywishlist\views
+ */
 class ListView
 {
 
+    /**
+     * @var $list mixed liste d'item, simple item ou autre, a pour but de trenferais des information
+     * @var $selecteur string la fonction a appelé pour la generation de la page html
+     * @var $content string variable contenant l'html generais
+     * @var $app Slim variable contenent un instance de slim
+     */
     protected $list, $selecteur, $content, $app;
 
+    /**
+     * ItemView constructor.
+     * @param $l mixed liste de liste, list simple ou autre, a pour but de trenferais des information
+     * @param $s string la fonction a appelé pour la generation de la page html
+     */
     public function  __construct($l, $s)
     {
         $this->list = $l;
@@ -18,6 +34,12 @@ class ListView
         $this->app = Slim::getInstance();
     }
 
+    /**
+     * Fonction qui a pour but de generais une partie de l'affichage, dans ce cas affiché des liste
+     * @param $array array liste des valeurs a affiché
+     * @param bool $edit condition du lien d'accées
+     * @return string html genais
+     */
     private function buildListTable($array, bool $edit)
     {
         $out = <<<END
@@ -28,7 +50,8 @@ class ListView
         <th>expiration</th>
     </tr>
 END;
-        foreach ($array as $values) {
+        foreach ($array as $values)
+        {
             if ($edit) $link = $this->app->urlFor('list', array('token' => $values->token));
             else $link = $this->app->urlFor('list', array('token' => $values->tokenPart));
             $out .= <<<END
@@ -42,7 +65,11 @@ END;
         return $out . '</table>';
     }
 
-    private function displayAllList()
+    /**
+     * Fonction qui a pour but d'affiché tous les liste que je posséde et que j'ai participé
+     * @return string html geneais
+     */
+    private function displayMyLists()
     {
         $res = '<div id="myLists"><h1>Mes listes</h1>';
         $res .= $this->buildListTable($this->list['myLists'], true);
@@ -54,14 +81,24 @@ END;
         return $res;
     }
 
-    private function displayPublicList() {
+    /**
+     * Fonction qui a pour but d'affiché tous les liste public
+     * @return string html generais
+     */
+    private function displayPublicList()
+    {
         $res = '<div id="listsByOthers"><h1>listes public</h1>';
         $res .= $this->buildListTable($this->list, false);
         $res .= '</div>';
         return $res;
     }
 
-
+    /**
+     * Fonction qui a pour but de genrais l'affichage des items d'un listes
+     * @param $item array liste d'items
+     * @param $args array argument d'afficage
+     * @return string html genrais
+     */
     private function buildItemList($item, $args): string
     {
         $targetDir = "/uploads";
@@ -74,7 +111,8 @@ END;
         {
             $url = $this->app->urlFor('manageItemFromList', array('token' => $args['token'], 'item' => $value->id));
             $editable = (!empty($value->nomReserve) || $args['exp']) ? 'disabled' : '';
-            if (!$args['exp'] && !$args['p']){
+            if (!$args['exp'] && !$args['p'])
+            {
                 if (!empty($value->nomReserve)) $resv = "Reservé";
                 else $resv = "Non réservé";
                 $out .= "<tr><td><img src=\"$targetDir/$value->img\" alt=\"$value->img\" class='img'></td><td>$value->nom</td><td>$resv</td>";
@@ -89,17 +127,25 @@ END;
         return $out . "</table>";
     }
 
-    private function displayOneList($modifiable)
+    /**
+     * Fonction qui affiche un liste en details
+     * @param $modifiable bool les permisstion de l'utilisateurs pour pouvoir adapté l'affichage
+     * @return string html generais
+     * @throws Exception lié a la date
+     */
+    private function displayListContent($modifiable)
     {
         $res = '<div id="authors">';
         $i = 0;
-        foreach ($this->list['authors'] as $u) {
+        foreach ($this->list['authors'] as $u)
+        {
             if ($i != 0) $res .= '<br>';
             $i++;
             $gravatar = $u['gravatar'];
             $username = $u['username'];
             $owner = '';
-            if ($u['owner'] == true) {
+            if ($u['owner'] == true)
+            {
                 $owner = ' owner';
             }
             $res .= <<<END
@@ -116,7 +162,8 @@ END;
         $tokPart = $this->list['tokenPart'];
         $res .= "<h1>$title</h1><p>$desc</p><p>$exp</p>";
 
-        if ($modifiable) {
+        if ($modifiable)
+        {
 
             $urlEdit = $this->app->urlFor('listMod', array('token' => $this->list['token']));
 
@@ -126,7 +173,7 @@ END;
             {
                 $urlShare = $this->app->urlFor('listShare', array('token' => $this->list['token']));
                 $res .= "<button type=\"button\" onclick=\"window.location.href = '$urlShare'\" value=\"goToShareList\">Generé un lien de partage</button>";
-            }else {
+            } else {
                 $urlShare = $_SERVER['SERVER_NAME'] . $this->app->urlFor('list', array('token' => $this->list['tokenPart']));
                 $res .= <<<SHARE
 <input type="text" value="$urlShare" id="share">
@@ -155,13 +202,13 @@ function copy_post() {
 }
 </script>
 SHARE;
-
             }
         }
 
         $exp = DateTime::createFromFormat('Y-m-d', $exp);
         $now = new DateTime('now');
-        if ($modifiable) {
+        if ($modifiable)
+        {
             if ($exp >= $now) $array = array('p' => false, 'exp' => false, 'token' => $this->list['token']);
             else $array = array('p' => false, 'exp' => true, 'token' => $this->list['token']);
         } else {
@@ -171,7 +218,8 @@ SHARE;
 
         $res .= $this->buildItemList($this->list['items'], $array);
 
-        if ($modifiable && $exp >= $now) {
+        if ($modifiable && $exp >= $now)
+        {
             $url = $this->app->urlFor('listAddItem', array('token' => $this->list['token']));
             $res .= "<button type=\"button\" onclick=\"window.location.href = '$url'\" value=\"goToShareList\">Ajouter un item</button>";
         }
@@ -179,6 +227,10 @@ SHARE;
         return $res . "</div>";
     }
 
+    /**
+     * Fonction qui affiche le formulaire de creation de liste
+     * @return string html generais
+     */
     private function formCreateList()
     {
         $createList = $this->app->urlFor('listCreateP');
@@ -199,6 +251,10 @@ END;
         return $str;
     }
 
+    /**
+     * Fonction qui permmette d'affiché le formulaire de modification de liste
+     * @return string html genrais
+     */
     private function formModifyList()
     {
         $modifyList = $this->app->urlFor('listModP', array('id' => $this->list->no));
@@ -218,18 +274,23 @@ END;
 END;
     }
 
+    /**
+     * Fonction appéle pour faire le rendu
+     * @throws Exception lié au exception precadament optenue
+     */
     public function render()
     {
 
-        switch ($this->selecteur) {
+        switch ($this->selecteur)
+        {
             case Selection::ALL_LIST:
-                $this->content = $this->displayAllList();
+                $this->content = $this->displayMyLists();
                 break;
             case Selection::TOKEN_LIST_MODIFIABLE:
-                $this->content = $this->displayOneList(true);
+                $this->content = $this->displayListContent(true);
                 break;
             case Selection::TOKEN_LIST:
-                $this->content = $this->displayOneList(false);
+                $this->content = $this->displayListContent(false);
                 break;
             case Selection::LIST_PUBLIC:
                 $this->content = $this->displayPublicList();

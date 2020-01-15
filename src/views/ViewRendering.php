@@ -6,9 +6,17 @@ namespace mywishlist\views;
 use mywishlist\utils\Authentication;
 use Slim\Slim;
 
+/**
+ * Class ViewRendering, class qui ajout le footer, header, css, etc. au code html genrais pas les vue
+ * @package mywishlist\views
+ */
 class ViewRendering
 {
 
+    /**
+     * Foncrion permetnent d'optenir le code html des lien clicable en fonction de l'utilisateurs
+     * @return string html genrais
+     */
     private static function getTopNav()
     {
         $app = Slim::getInstance();
@@ -34,6 +42,11 @@ NAV;
         }
     }
 
+    /**
+     * Fonction appelé pour faire le rendu final
+     * @param string $body html a mettre en forme
+     * @param string $title titre de la page (optionel)
+     */
     public static function render(string $body, string $title = "")
     {
         $app = Slim::getInstance();
