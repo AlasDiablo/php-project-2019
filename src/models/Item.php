@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Item, Modele utilisé pour interagire avec la base de donnée
+ * Classe Item, modèle utilisé pour intéragir avec la base de données
  * @package mywishlist\models
  */
 class Item extends Model
@@ -27,8 +27,8 @@ class Item extends Model
     public $timestamps = false;
 
     /**
-     * Fonction utilisé pour les clé etrengers
-     * @return Collection list des clé etrangers
+     * Fonction utiliséd pour les clés étrangères
+     * @return Collection listes des clés étrangères
      */
     public function liste_id()
     {

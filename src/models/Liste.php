@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Class Liste, Modele utilisé pour interagire avec la base de donnée
+ * Classe Liste, modèle utilisé pour intéragir avec la base de données
  * @package mywishlist\models
  */
 class Liste extends Model
@@ -28,7 +28,7 @@ class Liste extends Model
     public $timestamps = false;
 
     /**
-     * Fonction utilisé pour les relation avec les autre modeles
+     * Fonction utilisée pour les relations avec les autres modèles
      * @return Model|BelongsTo|object|null
      */
     public function no()

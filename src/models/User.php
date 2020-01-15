@@ -5,7 +5,7 @@ namespace mywishlist\models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class User, Modele utilisé pour interagire avec la base de donnée
+ * Classe User, modele utilisé pour intéragir avec la base de données
  * @package mywishlist\models
  */
 class User extends Model
