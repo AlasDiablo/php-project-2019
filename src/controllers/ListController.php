@@ -134,7 +134,15 @@ class ListController {
         $l->titre = filter_var($_POST['titre'],FILTER_SANITIZE_SPECIAL_CHARS);
         $l->description = filter_var($_POST['description'],FILTER_SANITIZE_SPECIAL_CHARS);
         $l->expiration = filter_var($_POST['date'],FILTER_SANITIZE_SPECIAL_CHARS);
-        $l->statut =
+        if (isset($_POST['public'])){
+            if($_POST['public'] == 'oui') {
+                $l->statut = 1;
+            }else{
+                $l->statut = 0;
+            }
+        } else{
+            $l->statut = 0;
+        }
         $generated_token = bin2hex(random_bytes(16));
         $loop = true;
         while($loop) {
