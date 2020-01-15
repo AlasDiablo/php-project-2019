@@ -31,7 +31,7 @@ class ListView
 END;
         foreach ($array as $values) {
             if ($edit) $link = $this->app->urlFor('list', array('token' => $values->token));
-            else $link = $this->app->urlFor('list', array('id' => $values->tokenPart));
+            else $link = $this->app->urlFor('list', array('token' => $values->tokenPart));
             $out .= <<<END
     <tr>
         <td><a class="link" href=$link>$values->titre</a></td>
@@ -102,14 +102,16 @@ END;
         $exp = $this->list['exp'];
         $tokPart = $this->list['tokenPart'];
         $res .= "<h1>$title</h1><p>$desc</p><p>$exp</p>";
-        if(empty($tokPart))
-        {
-            $urlShare = $this->app->urlFor('listShare', array('token' => $this->list['token']));
-        }else {
-            $urlShare = $this->app->urlFor('list', array('token' => $this->list['tokenPart']));
-        }
-        $res .= "<button type=\"button\" onclick=\"window.location.href = '$urlShare'\" value=\"goToShareList\">Partager la liste</button>";
 
+        if ($modifiable) {
+            if(empty($tokPart))
+            {
+                $urlShare = $this->app->urlFor('listShare', array('token' => $this->list['token']));
+            }else {
+                $urlShare = $this->app->urlFor('list', array('token' => $this->list['tokenPart']));
+            }
+            $res .= "<button type=\"button\" onclick=\"window.location.href = '$urlShare'\" value=\"goToShareList\">Partager la liste</button>";
+        }
 
         $exp = DateTime::createFromFormat('Y-m-d', $exp);
         $now = new DateTime('now');
