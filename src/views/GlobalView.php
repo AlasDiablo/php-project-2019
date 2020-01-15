@@ -1,11 +1,16 @@
 <?php
 
-
 namespace mywishlist\views;
 
-
+/**
+ * Class GlobalView, vue utilisé pour faire le rendu des code d'erreur http
+ * @package mywishlist\views
+ */
 class GlobalView
 {
+    /**
+     * code d'erreur 403, accé non autoris"
+     */
     public static function forbidden()
     {
         $content = <<<HTML
@@ -15,9 +20,12 @@ class GlobalView
 </div>
 HTML;
         header('HTTP/1.1 403 Forbidden', true, 403);
-    ViewRendering::render($content, ' - Forbidden');
+        ViewRendering::render($content, ' - Forbidden');
     }
 
+    /**
+     * code d'erreur 401, accé non autorié sans authentification
+     */
     public static function unauthorized()
     {
         $content = <<<HTML
@@ -30,6 +38,9 @@ HTML;
         ViewRendering::render($content, ' - Unauthorized');
     }
 
+    /**
+     * code d'erreur 400, le client a demandé un truc qui est erroné
+     */
     public static function bad_request()
     {
         $content = <<<HTML
@@ -42,6 +53,9 @@ HTML;
         ViewRendering::render($content, ' - Bad Request');
     }
 
+    /**
+     * code d'erreur 418, I'm a teapot
+     */
     public static function teapot()
     {
         $content = <<<HTML
