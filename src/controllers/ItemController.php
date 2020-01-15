@@ -82,12 +82,16 @@ class ItemController
         }
         $i[0]->img = $this->ajoutImage();
         $i[0]->save();
+        header("Location: /index.php/list/$l->no");
+        exit();
     }
 
     public function deleteItem($id){
         $d = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         $i = Item::where('id', '=', $d)->get();
         $i[0]->delete();
+        header("Location: /index.php/list/$l->no");
+        exit();
     }
 
     public function reserveItem()
