@@ -403,3 +403,8 @@ button[type=submit], button[type=button]:hover {
     font-size: 0;
     line-height: 0;
 }
+
+.img {
+    max-width: 75px;
+    max-height: 75px;
+}

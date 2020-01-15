@@ -64,10 +64,11 @@ END;
 
     private function buildItemList($item, $args): string
     {
-        if (!$args['exp'] && !$args['p']) $out = "<table><tr><th>Image</th><th>Nom</th><th>Status de la reservation</th>";
-        else $out = "<table><tr><th>Image</th><th>Nom</th><th>Reservation par</th><th>Message</th>";
+        $targetDir = "/uploads";
+        if (!$args['exp'] && !$args['p']) $out = "<table><tr><th>Image</th><th>Nom</th><th>Statut de la réservation</th>";
+        else $out = "<table><tr><th>Image</th><th>Nom</th><th>Réservation par</th><th>Message</th>";
         if (!$args['p']) $out .= '<th>Modifier l\'item</th></tr>';
-        else $out .= '<th>Reservé l\'item</th></tr>';
+        else $out .= '<th>Réserver l\'item</th></tr>';
 
         foreach ($item as $key => $value)
         {
@@ -76,12 +77,12 @@ END;
             if (!$args['exp'] && !$args['p']){
                 if (!empty($value->nomReserve)) $resv = "Reservé";
                 else $resv = "Non réservé";
-                $out .= "<tr><td>$value->img</td><td>$value->nom</td><td>$resv</td>";
-                $out .= "<td><button type='button' onclick=\"window.location.href = '$url';\" value=\"goToCreateList\" $editable>Modifer l'item</button></td>";
+                $out .= "<tr><td><img src=\"$targetDir/$value->img\" alt=\"$value->img\" class='img'></td><td>$value->nom</td><td>$resv</td>";
+                $out .= "<td><button type='button' onclick=\"window.location.href = '$url';\" value=\"goToCreateList\" $editable>Modifier l'item</button></td>";
                 $out .= "</tr>";
             } else {
-                $out .= "<tr><td>$value->img</td><td>$value->nom</td><td>$value->nomReserve</td><td>$value->msgReserve</td>";
-                $out .= "<td><button type='button' onclick=\"window.location.href = '$url';\" value=\"goToCreateList\" $editable>Reservé l'item</button></td>";
+                $out .= "<tr><td><img src=\"$value->img\" alt=\"$value->img\" class='img'></td><td>$value->nom</td><td>$value->nomReserve</td><td>$value->msgReserve</td>";
+                $out .= "<td><button type='button' onclick=\"window.location.href = '$url';\" value=\"goToCreateList\" $editable>Réserver l'item</button></td>";
                 $out .= "</tr>";
             }
         }
@@ -127,7 +128,7 @@ END;
 
 <div class="tooltip">
     <button type="button" onclick="copy()" onmouseout="copy_post()">
-      <span id="tooltip_text">Copié dans le pres-papier</span>
+      <span id="tooltip_text">Copier dans le press-papier</span>
       Copié le lien
     </button>
 </div>
@@ -167,7 +168,7 @@ SHARE;
 
         if ($modifiable && $exp >= $now) {
             $url = $this->app->urlFor('listAddItem', array('token' => $this->list['token']));
-            $res .= "<button type=\"button\" onclick=\"window.location.href = '$url'\" value=\"goToShareList\">Ajouté un item</button>";
+            $res .= "<button type=\"button\" onclick=\"window.location.href = '$url'\" value=\"goToShareList\">Ajouter un item</button>";
         }
 
         return $res . "</div>";
