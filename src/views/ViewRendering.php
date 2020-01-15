@@ -7,15 +7,15 @@ use mywishlist\utils\Authentication;
 use Slim\Slim;
 
 /**
- * Class ViewRendering, class qui ajout le footer, header, css, etc. au code html genrais pas les vue
+ * Classe ViewRendering, classe qui ajoute le footer, header, css, etc au code html généré pas les vues
  * @package mywishlist\views
  */
 class ViewRendering
 {
 
     /**
-     * Foncrion permetnent d'optenir le code html des lien clicable en fonction de l'utilisateurs
-     * @return string html genrais
+     * Fonction permettant d'obtenir le code html des liens cliquable en fonction de l'utilisateur
+     * @return string html généré
      */
     private static function getTopNav()
     {
@@ -43,9 +43,9 @@ NAV;
     }
 
     /**
-     * Fonction appelé pour faire le rendu final
-     * @param string $body html a mettre en forme
-     * @param string $title titre de la page (optionel)
+     * Fonction appelée pour faire le rendu final
+     * @param string $body html à mettre en forme
+     * @param string $title titre de la page (optionnel)
      */
     public static function render(string $body, string $title = "")
     {

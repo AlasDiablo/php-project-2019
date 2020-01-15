@@ -8,24 +8,24 @@ use mywishlist\utils\Selection;
 use Slim\Slim;
 
 /**
- * Class ListView, vue qui a pour but de gerais affichage avec tous se qui est en raport avec les list
+ * Classe ListView, vue qui a pour but de générer l'affichage avec tout se qui est en rapport avec les listes
  * @package mywishlist\views
  */
 class ListView
 {
 
     /**
-     * @var $list mixed liste d'item, simple item ou autre, a pour but de trenferais des information
-     * @var $selecteur string la fonction a appelé pour la generation de la page html
-     * @var $content string variable contenant l'html generais
-     * @var $app Slim variable contenent un instance de slim
+     * @var $list mixed liste de liste, simple liste ou autre, a pour but de transférer des informations
+     * @var $selecteur string la fonction à appeler pour la génération de la page html
+     * @var $content string variable contenant l'html généré
+     * @var $app Slim variable contenant un instance de slim
      */
     protected $list, $selecteur, $content, $app;
 
     /**
      * ItemView constructor.
-     * @param $l mixed liste de liste, list simple ou autre, a pour but de trenferais des information
-     * @param $s string la fonction a appelé pour la generation de la page html
+     * @param $l mixed liste de liste, liste simple ou autre, a pour but de transférer des informations
+     * @param $s string la fonction à appeler pour la génération de la page html
      */
     public function  __construct($l, $s)
     {
@@ -35,10 +35,10 @@ class ListView
     }
 
     /**
-     * Fonction qui a pour but de generais une partie de l'affichage, dans ce cas affiché des liste
-     * @param $array array liste des valeurs a affiché
-     * @param bool $edit condition du lien d'accées
-     * @return string html genais
+     * Fonction qui a pour but de générer une partie de l'affichage, dans ce cas affichage des listes
+     * @param $array array liste des valeurs à afficher
+     * @param bool $edit condition du lien d'accès
+     * @return string html généré
      */
     private function buildListTable($array, bool $edit)
     {
@@ -66,8 +66,8 @@ END;
     }
 
     /**
-     * Fonction qui a pour but d'affiché tous les liste que je posséde et que j'ai participé
-     * @return string html geneais
+     * Fonction qui a pour but d'afficher toutes les listes que l'utilisateur possède ou auxquelles il participe
+     * @return string html généré
      */
     private function displayMyLists()
     {
@@ -82,8 +82,8 @@ END;
     }
 
     /**
-     * Fonction qui a pour but d'affiché tous les liste public
-     * @return string html generais
+     * Fonction qui a pour but d'afficher toutes les listes publiques
+     * @return string html généré
      */
     private function displayPublicList()
     {
@@ -94,10 +94,10 @@ END;
     }
 
     /**
-     * Fonction qui a pour but de genrais l'affichage des items d'un listes
+     * Fonction qui a pour but de générer l'affichage des items d'une liste
      * @param $item array liste d'items
-     * @param $args array argument d'afficage
-     * @return string html genrais
+     * @param $args array argument d'affichage
+     * @return string html généré
      */
     private function buildItemList($item, $args): string
     {
@@ -129,9 +129,9 @@ END;
 
     /**
      * Fonction qui affiche un liste en details
-     * @param $modifiable bool les permisstion de l'utilisateurs pour pouvoir adapté l'affichage
-     * @return string html generais
-     * @throws Exception lié a la date
+     * @param $modifiable bool les permissions de l'utilisateur pour pouvoir adapter l'affichage
+     * @return string html généré
+     * @throws Exception liée à la date d'expiration
      */
     private function displayListContent($modifiable)
     {
@@ -228,8 +228,8 @@ SHARE;
     }
 
     /**
-     * Fonction qui affiche le formulaire de creation de liste
-     * @return string html generais
+     * Fonction qui affiche le formulaire de création de liste
+     * @return string html généré
      */
     private function formCreateList()
     {
@@ -252,8 +252,8 @@ END;
     }
 
     /**
-     * Fonction qui permmette d'affiché le formulaire de modification de liste
-     * @return string html genrais
+     * Fonction qui permmet d'afficher le formulaire de modification de liste
+     * @return string html généré
      */
     private function formModifyList()
     {
@@ -275,8 +275,8 @@ END;
     }
 
     /**
-     * Fonction appéle pour faire le rendu
-     * @throws Exception lié au exception precadament optenue
+     * Fonction appélee pour faire le rendu
+     * @throws Exception liée aux exceptions précédemment obtenue
      */
     public function render()
     {
