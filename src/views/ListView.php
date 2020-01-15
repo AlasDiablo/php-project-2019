@@ -54,6 +54,13 @@ END;
         return $res;
     }
 
+    private function displayPublicList() {
+        $res = '<div id="listsByOthers"><h1>listes public</h1>';
+        $res .= $this->buildListTable($this->list, false);
+        $res .= '</div>';
+        return $res;
+    }
+
 
     private function buildItemList($item, $args): string
     {
@@ -217,6 +224,9 @@ END;
                 break;
             case Selection::TOKEN_LIST:
                 $this->content = $this->displayOneList(false);
+                break;
+            case Selection::LIST_PUBLIC:
+                $this->content = $this->displayPublicList();
                 break;
             case Selection::FORM_CREATE_LIST:
                 $this->content = $this->formCreateList();

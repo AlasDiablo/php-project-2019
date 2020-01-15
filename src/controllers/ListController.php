@@ -2,6 +2,7 @@
 
 namespace mywishlist\controllers;
 
+use DateTime;
 use mywishlist\models\Item;
 use mywishlist\models\Liste;
 use mywishlist\models\Participant;
@@ -216,5 +217,20 @@ class ListController {
         $url = $this->app->urlFor('list', array('token' => $token));
         header("Location: $url");
         exit();
+    }
+
+    public function listPublic()
+    {
+        $lists = Liste::where('statut', '=', 1)->orderBy('expiration', 'desc')->get();
+        $publicList = array();
+        foreach ($lists as $list) {
+            $exp = DateTime::createFromFormat('Y-m-d', $list->expiration);
+            $now = new DateTime('now');
+            if ($exp <= $now && !empty($list->tokenPart)) {
+                array_push($publicList, $list);
+            }
+        }
+        $v = new ListView($publicList, Selection::LIST_PUBLIC);
+        $v->render();
     }
 }

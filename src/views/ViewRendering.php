@@ -12,8 +12,7 @@ class ViewRendering
     private static function getTopNav()
     {
         $app = Slim::getInstance();
-        $items = $app->urlFor('items');
-        $lists = $app->urlFor('list');
+        $lists = $app->urlFor('listPublic');
         $account = $app->urlFor('account');
         $accountLists = $app->urlFor('accountLists');
         $accountEdit = $app->urlFor('accountEdit');
@@ -21,13 +20,13 @@ class ViewRendering
         if (Authentication::getUserLevel() == Authentication::ANONYMOUS)
         {
             return <<<NAV
-<li><a href=$lists>Listes</a></li>
-<li><a href=$items>Items</a></li>
+<li><a href=$lists>Listes public</a></li>
 <li><a href=$account>S'inscrire/Se Connecter</a></li>
 NAV;
         } else {
             $username = Authentication::getUsername();
             return <<<NAV
+<li><a href=$lists>Listes public</a></li>
 <li><a href=$accountLists>Mes listes</a></li>
 <li><a href=$accountEdit>Bonjour, $username</a></li>
 <li><a href=$accountLogout>Se Deconnecter</a></li>

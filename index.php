@@ -48,6 +48,12 @@ $app->get('/', function () {
 
 
 /*-----|listes|-----*/
+
+$app->get('/list/public', function () {
+    $c = new ListController();
+    $c->listPublic();
+})->name('listPublic');
+
 $app->get('/list/create', function () {
     $c = new ListController();
     $c->listCreateForm();
