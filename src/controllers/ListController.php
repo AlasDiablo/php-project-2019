@@ -135,26 +135,20 @@ class ListController {
         $l->description = filter_var($_POST['description'],FILTER_SANITIZE_SPECIAL_CHARS);
         $l->expiration = filter_var($_POST['date'],FILTER_SANITIZE_SPECIAL_CHARS);
         $l->statut =
-        $token = bin2hex(random_bytes(16));
-        $bool = false;
-        while(!$bool) {
-            $value = Liste::where('token', '=', $token)->get();
-            if (count($value) == 0) {
-                while(!$bool) {
-                    $value = Liste::where('tokenPart', '=', $token)->get();
-                    if (count($value) == 0) {
-                        $bool = true;
-                    } else {
-                        $token = bin2hex(random_bytes(16));
-                    }
-                }
-            } else {
-                $token = bin2hex(random_bytes(16));
+        $generated_token = bin2hex(random_bytes(16));
+        $loop = true;
+        while($loop) {
+            $checkToken = Liste::where('token', '=', $generated_token)->first();
+            $checkTokenPart = Liste::where('tokenPart', '=', $generated_token)->first();
+            if (!isset($checkToken->no) && !isset($checkTokenPart->no)) {
+                $loop = false;
+            }  else {
+                $generated_token = bin2hex(random_bytes(16));
             }
         }
-        $l->token = $token;
+        $l->token = $generated_token;
         $l->save();
-        $url = $this->app->urlFor('list',array('token' => $token));
+        $url = $this->app->urlFor('list',array('token' => $generated_token));
         header("Location: $url");
         exit();
     }
