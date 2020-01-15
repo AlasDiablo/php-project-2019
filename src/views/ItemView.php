@@ -20,20 +20,6 @@ class ItemView
         $this->app = Slim::getInstance();
     }
 
-    private function htmlAllItem() {
-        $res = "<table><th>ID</th><th>liste_ID</th><th>nom</th><th>description</th><th>tarif</th>";
-        foreach ($this->item as $i)
-        {
-            $res = <<<RES
-$res
-<tr>
-<td>$i->id</td><td>$i->liste_id</td><td>$i->nom</td><td>$i->descr</td><td>$i->tarif</td>
-</tr>
-RES;
-        }
-        return $res . "</table>";
-    }
-
     private function htmlIdList() { //TO-DO : Dégager ce nom de fonction peu explicite
         $imageUpload = $this->app->urlFor('imageUploadP', array('id' => $this->item->id));
         $itemReserve = $this->app->urlFor('reserveItemP', array('id' => $this->item->id));
@@ -176,14 +162,8 @@ END;
             case Selection::FORM_MODIFY_ITEM_PART:
                 $this->content = $this->manageItemForm(false);
                 break;
-            case Selection::ALL_ITEM:
-                $this->content = $this->htmlAllItem();
-                break;
             case Selection::ID_ITEM:
                 $this->content = $this->htmlIdList();
-                break;
-            case Selection::FORM_ITEM_RESERVE:
-                $this->content = $this->htmlReserve();
                 break;
             case Selection::FORM_ITEM_RESERVE_FAIL:
                 $this->content = $this->htmlFail();

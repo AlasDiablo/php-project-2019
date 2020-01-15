@@ -22,12 +22,6 @@ class ItemController
         $this->app = Slim::getInstance();
     }
 
-    public function allItems() {
-        $items = Item::all();
-        $v = new ItemView($items, Selection::ALL_ITEM);
-        $v->render();
-    }
-
     public function oneItem($id) {
         $id=filter_var($id, FILTER_SANITIZE_SPECIAL_CHARS);
         $l = Item::where('id', '=', $id)->first();
@@ -153,21 +147,6 @@ class ItemController
         $url = $this->app->urlFor('list', array('token' => $token));
         header("Location: $url");
         exit();
-    }
-
-    public function reserveItem()
-    {
-        $IDitem=filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
-        $item = Item::select('id', 'nomReserve')->where('id', 'like', $IDitem)->get();
-        if(empty($item[0]['nomReserve']))
-        {
-            $r = new ItemView(null, Selection::FORM_ITEM_RESERVE);
-            $r->render();
-        }else{
-            $l = Item::where('id', '=', $IDitem)->get();
-            $v = new ItemView($l, Selection::ID_ITEM);
-            $v->render();
-        }
     }
 
     public function reserveItemSubmit($id)
