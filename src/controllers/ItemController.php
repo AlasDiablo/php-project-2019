@@ -13,16 +13,20 @@ use mywishlist\views\ItemView;
 use mywishlist\utils\Selection;
 use Slim\Slim;
 
+/**
+ * Class ItemController, elle a pour but de gérer toutes les actions faites sur les items.
+ * @package mywishlist\controllers
+ */
 class ItemController
 {
     /**
-     * @var Slim|null instance de slim pour pouvoir créer des url
+     * @var Slim|null instance de slim pour pouvoir créer des urls
      */
     private $app;
 
     /**
      * ItemController constructor.
-     * Utilisé pour recuperais l'intance de slim
+     * Utilisé pour récupérer l'instance de slim
      */
     public function __construct()
     {
@@ -30,8 +34,8 @@ class ItemController
     }
 
     /**
-     * Fonction utilisé pour affiché un item en particulé
-     * @param $id int reference de l'item
+     * Fonction utilisée pour afficher un item en particulier
+     * @param $id int référence de l'item
      */
     public function showItemInfo($id)
     {
@@ -42,9 +46,9 @@ class ItemController
     }
 
     /**
-     * Fonction qui permette d'affiché le formulaire d'ajouté d'item dans une list
-     * @param $token string token qui est associer a un liste
-     * @throws Exception lié a la date
+     * Fonction qui permet d'afficher le formulaire pour l'ajout d'item dans une liste
+     * @param $token string token qui est associé à une liste
+     * @throws Exception liée à la date d'expiration
      */
     public function createItemForm($token)
     {
@@ -71,8 +75,8 @@ class ItemController
     }
 
     /**
-     * Fonction qui permette d'ajouté un item a un list, est de l'instancié dans le system
-     * @param $token string token qui est associer a un liste
+     * Fonction qui permet d'ajouter un item à une liste, et de l'instancier dans le système
+     * @param $token string token qui est associé à une liste
      */
     public function createItem($token)
     {
@@ -108,10 +112,10 @@ class ItemController
     }
 
     /**
-     * Fonction qui donne les formulaire associer a un item (modification et resservation)
-     * @param $token string token qui est associer a un liste
-     * @param $item string id de l'item qui doit etre mis en avent
-     * @throws Exception lié a la date
+     * Fonction qui donne les formulaires associés à un item (modification et réservation)
+     * @param $token string token qui est associé à une liste
+     * @param $item string id de l'item qui doit être mis en avant
+     * @throws Exception liée à la date d'expiration
      */
     public function manageItemForm($token, $item)
     {
@@ -150,9 +154,9 @@ class ItemController
     }
 
     /**
-     * Fonction qui modifie un item côté system
-     * @param $token string token qui est associer a un liste
-     * @param $item string id de l'item qui doit etre mis en avent
+     * Fonction qui modifie un item côté serveur
+     * @param $token string token qui est associé à une liste
+     * @param $item string id de l'item qui doit être mis en avant
      */
     public function modifyItem($token, $item)
     {
@@ -187,9 +191,9 @@ class ItemController
     }
 
     /**
-     * Fonction qui supprime un item côté system
-     * @param $token string token qui est associer a un liste
-     * @param $item string id de l'item qui doit etre mis en avent
+     * Fonction qui supprimme un item côté serveur
+     * @param $token string token qui est associé à une liste
+     * @param $item string id de l'item qui doit être mis en avant
      */
     public function deleteItem($token, $item)
     {
@@ -208,8 +212,8 @@ class ItemController
     }
 
     /**
-     * Fonction qui reseve un item côté system
-     * @param $item string id de l'item qui doit etre mis en avent
+     * Fonction qui réserve un item côté serveur
+     * @param $item string id de l'item qui doit être mis en avant
      */
     public function reserveItemSubmit($item)
     {
@@ -235,8 +239,8 @@ class ItemController
     }
 
     /**
-     * Fonction qui permé d'ajouté une image côté system
-     * @return string|void arret de la fonction en cas de rendut
+     * Fonction qui permet d'ajouter une image côté serveur
+     * @return string|void arrêt de la fonction en cas de rendu
      */
     public function ajoutImage()
     {

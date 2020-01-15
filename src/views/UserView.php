@@ -7,7 +7,7 @@ use mywishlist\utils\Selection;
 use Slim\Slim;
 
 /**
- * Class UserView, elle a pour but de gérer l'affichage en rapport à l'utilisateur et les actions liées à son compte.
+ * Classe UserView, elle a pour but de gérer l'affichage en rapport à l'utilisateur et les actions liées à son compte.
  * @package mywishlist\views
  */
 class UserView

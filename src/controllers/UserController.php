@@ -11,7 +11,7 @@ use mywishlist\views\UserView;
 use mywishlist\models\User;
 
 /**
- * Class UserController, Elle a pour but de gérer toutes les actions faites par les utilisateurs.
+ * Classe UserController, elle a pour but de gérer toutes les actions faites par les utilisateurs.
  * @package mywishlist\controllers
  */
 class UserController
