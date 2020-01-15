@@ -169,6 +169,8 @@ SHARE;
         <input type="text" name="titre" placeholder="Titre de la liste" required>
         <input type="text" name="description" placeholder="Description de la liste" required>
         <input type="date" name="date" placeholder="Date d'expiration de la liste" required>
+        <input type="checkbox" name="public" value="oui" id="checkbox" class="css-checkbox" required/>
+			<label for="checkbox" class="css-label">Rendre le liste publique ? </label><br>
         <button type="submit" name ="valid_create_list" value="valid_f1">Valider</button>
     </form>
 </div>
@@ -186,6 +188,8 @@ END;
         <input type="text" name="titre" placeholder="Titre de la liste" required>
         <input type="text" name="description" placeholder="Description de la liste" required>
         <input type="date" name="date" placeholder="Date d'expiration de la liste" required>
+        <input type="checkbox" name="public" value="oui" id="checkbox" class="css-checkbox" required/>
+			<label for="checkbox" class="css-label">Rendre le liste publique ? </label><br>
         <button type="submit" name ="valid_modify_list" value="valid_f1">Valider</button>
     </form>
 </div>

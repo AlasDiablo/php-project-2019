@@ -134,6 +134,7 @@ class ListController {
         $l->titre = filter_var($_POST['titre'],FILTER_SANITIZE_SPECIAL_CHARS);
         $l->description = filter_var($_POST['description'],FILTER_SANITIZE_SPECIAL_CHARS);
         $l->expiration = filter_var($_POST['date'],FILTER_SANITIZE_SPECIAL_CHARS);
+        $l->statut =
         $token = bin2hex(random_bytes(16));
         $bool = false;
         while(!$bool) {
