@@ -14,7 +14,7 @@ use mywishlist\utils\Selection;
 use Slim\Slim;
 
 /**
- * Class ItemController, elle a pour but de gérer toutes les actions faites sur les items.
+ * Classe ItemController, elle a pour but de gérer toutes les actions faites sur les items.
  * @package mywishlist\controllers
  */
 class ItemController
