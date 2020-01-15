@@ -57,17 +57,25 @@ END;
 
     private function buildItemList($item, $args): string
     {
-        if (!$args['exp']) $out = "<table><tr><th>Image</th><th>Nom</th><th>Status de la reservation</th></tr>";
-        else $out = "<table><tr><th>Image</th><th>Nom</th><th>Reservation par</th><th>Message</th></tr>";
+        if (!$args['exp']) $out = "<table><tr><th>Image</th><th>Nom</th><th>Status de la reservation</th>";
+        else $out = "<table><tr><th>Image</th><th>Nom</th><th>Reservation par</th><th>Message</th>";
+        if ($args['p']) $out .= '<th>Modifier l\'item</th></tr>';
+        else $out .= '<th>Reservé l\'item</th></tr>';
+
         foreach ($item as $key => $value)
         {
             $url = $this->app->urlFor('manageItemFromList', array('token' => $args['token'], 'item' => $value->id));
+            $editable = (!empty($value->nomReserve) || $args['exp']) ? 'disabled' : '';
             if (!$args['exp'] && !$args['p']){
                 if (!empty($value->nomReserve)) $resv = "Reservé";
                 else $resv = "Non réservé";
-                $out .= "<tr><td>$value->img</td><td><a class='link' href='$url'>$value->nom</a></td><td>$resv</td></tr>";
+                $out .= "<tr><td>$value->img</td><td>$value->nom</td><td>$resv</td>";
+                $out .= "<td><button type='button' onclick=\"window.location.href = '$url';\" value=\"goToCreateList\" $editable>Modifer l'item</button></td>";
+                $out .= "</tr>";
             } else {
-                $out .= "<tr><td>$value->img</td><td><a class='link' href='$url'>$value->nom</a></td><td>$value->nomReserve</td><td>$value->msgReserve</td></tr>";
+                $out .= "<tr><td>$value->img</td><td>$value->nom</td><td>$value->nomReserve</td><td>$value->msgReserve</td>";
+                $out .= "<td><button type='button' onclick=\"window.location.href = '$url';\" value=\"goToCreateList\" $editable>Reservé l'item</button></td>";
+                $out .= "</tr>";
             }
         }
         return $out . "</table>";
