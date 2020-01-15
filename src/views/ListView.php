@@ -153,10 +153,8 @@ END;
 
     private function formModifyList()
     {
-        $id = $this->list[0]['no'];
         $modifyList = $this->app->urlFor('listModP', array('id' => $this->list->no));
-        $str =
-            <<<END
+        return <<<END
 <div id="edit">
     <h1>Modification d'une liste</h1>
     <form id="formModifyList" method="POST" action=$modifyList>
@@ -168,7 +166,6 @@ END;
 </div>
 
 END;
-        return $str;
     }
 
     public function render()
