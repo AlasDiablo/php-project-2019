@@ -67,30 +67,30 @@ class ItemController
 
     public function modifyItem($id){
         $d = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-        $i = Item::where('id', '=', $d)->get();
+        $i = Item::where('id', '=', $d)->first();
         if($_POST['nom'] != "") {
-            $i[0]->nom = filter_var($_POST['nom'], FILTER_SANITIZE_SPECIAL_CHARS);
+            $i->nom = filter_var($_POST['nom'], FILTER_SANITIZE_SPECIAL_CHARS);
         }
         if($_POST['description'] != "") {
-            $i[0]->descr = filter_var($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS);
+            $i->descr = filter_var($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS);
         }
         if($_POST['prix'] != "") {
-            $i[0]->tarif = filter_var($_POST['prix'], FILTER_SANITIZE_NUMBER_FLOAT);
+            $i->tarif = filter_var($_POST['prix'], FILTER_SANITIZE_NUMBER_FLOAT);
         }
         if($_POST['url'] != ""){
-            $i[0]->url = filter_var($_POST['url'],FILTER_SANITIZE_URL);
+            $i->url = filter_var($_POST['url'],FILTER_SANITIZE_URL);
         }
-        $i[0]->img = $this->ajoutImage();
-        $i[0]->save();
-        header("Location: /index.php/list/$l->no");
+        $i->img = $this->ajoutImage();
+        $i->save();
+        header("Location: /index.php/list/$i->liste_id");
         exit();
     }
 
     public function deleteItem($id){
         $d = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-        $i = Item::where('id', '=', $d)->get();
-        $i[0]->delete();
-        header("Location: /index.php/list/$l->no");
+        $i = Item::where('id', '=', $d)->first();
+        $i->delete();
+        header("Location: /index.php/list/$i->liste_id");
         exit();
     }
 
