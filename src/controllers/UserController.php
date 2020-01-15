@@ -18,7 +18,7 @@ class UserController
 {
 
     /**
-     * Fonction appellée lors de la déconnexion de l'utlisateurs
+     * Fonction appellée lors de la déconnexion de l'utlisateur
      */
     public function logout()
     {
@@ -28,7 +28,7 @@ class UserController
     }
 
     /**
-     * Fonction appellée après que l'utilisateur est cliqué sur le bouton 'Créer mon compte', elle a donc pour but de créer le compte de l'utilisateur.
+     * Fonction appellée après que l'utilisateur ait cliqué sur le bouton 'Créer mon compte', elle a donc pour but de créer le compte de l'utilisateur.
      */
     public function registerPost()
     {
@@ -158,7 +158,7 @@ class UserController
     }
 
     /**
-     * Fonction appellée après que l'utilisateur est cliqué sur le bouton 'Se connecter', elle a donc pour but de connecter l'utilisateur.
+     * Fonction appellée après que l'utilisateur ait cliqué sur le bouton 'Se connecter', elle a donc pour but de connecter l'utilisateur.
      */
     public function loginPost()
     {
@@ -216,7 +216,7 @@ class UserController
     }
 
     /**
-     * Fonction appellée après que l'utilisateur est cliqué sur le bouton qui est lié au changement de son mot de passe, elle a donc pour but de changer le mot de passe de l'utilisateur.
+     * Fonction appellée après que l'utilisateur ait cliqué sur le bouton qui est lié au changement de son mot de passe, elle a donc pour but de changer le mot de passe de l'utilisateur.
      */
     public function changePassword()
     {
@@ -297,7 +297,7 @@ class UserController
     }
 
     /**
-     * Fonction appellée après que l'utilisateur est cliqué sur le bouton qui est lié au changement de son email, elle a donc pour but de changer l'email de l'utilisateur.
+     * Fonction appellée après que l'utilisateur ait cliqué sur le bouton qui est lié au changement de son email, elle a donc pour but de changer l'email de l'utilisateur.
      */
     public function accountEmail()
     {
