@@ -47,7 +47,13 @@ class ItemController
         }
     }
 
-    public function createItem($id){
+    public function createItem($token){
+        $t = filter_var($token, FILTER_SANITIZE_NUMBER_INT);
+        $l = Liste::where('token', '=', $token)->first();
+        if(!isset($l->no)){
+            GlobalView::forbidden();
+            return;
+        }
         $i = new Item();
         if($_POST['nom'] != "") {
             $i->nom = filter_var($_POST['nom'], FILTER_SANITIZE_SPECIAL_CHARS);
@@ -62,7 +68,7 @@ class ItemController
             $i->url = filter_var($_POST['url'],FILTER_SANITIZE_URL);
         }
         $i->img = $this->ajoutImage();
-        $i->liste_id = filter_var($id,FILTER_SANITIZE_NUMBER_INT);
+        $i->liste_id = Liste::where('token','=',$t)->first();
         $i->save();
         header("Location: /index.php/list/$i->liste_id");
         exit();
@@ -98,9 +104,14 @@ class ItemController
         }
     }
 
-    public function modifyItem($id){
-        $d = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-        $i = Item::where('id', '=', $d)->first();
+    public function modifyItem($token, $id){
+        $t = filter_var($token, FILTER_SANITIZE_NUMBER_INT);
+        $l = Liste::where('token', '=', $token)->first();
+        if(!isset($l->no)){
+            GlobalView::forbidden();
+            return;
+        }
+        $i = Item::where('id', '=', $id)->first();
         if($_POST['nom'] != "") {
             $i->nom = filter_var($_POST['nom'], FILTER_SANITIZE_SPECIAL_CHARS);
         }
@@ -115,7 +126,8 @@ class ItemController
         }
         $i->img = $this->ajoutImage();
         $i->save();
-        header("Location: /index.php/list/$i->liste_id");
+        $url = $this->app->urlFor('list',array('token' => $token));
+        header("Location: $url");
         exit();
     }
 
