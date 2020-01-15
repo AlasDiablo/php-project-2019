@@ -3,13 +3,13 @@
 namespace mywishlist\views;
 
 /**
- * Class AccueilView, vue de la page d'accueil
+ * Classe AccueilView, vue de la page d'accueil
  * @package mywishlist\views
  */
 class AccueilView
 {
     /**
-     * Foncttion utilisé pour faire le rendu
+     * Fonction utilisée pour faire le rendu
      */
     public function render()
     {

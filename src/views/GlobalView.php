@@ -3,13 +3,13 @@
 namespace mywishlist\views;
 
 /**
- * Class GlobalView, vue utilisé pour faire le rendu des code d'erreur http
+ * Classe GlobalView, vue utilisée pour faire le rendu des codes d'erreurs http
  * @package mywishlist\views
  */
 class GlobalView
 {
     /**
-     * code d'erreur 403, accé non autoris"
+     * code d'erreur 403, accès non autorisé
      */
     public static function forbidden()
     {
@@ -24,7 +24,7 @@ HTML;
     }
 
     /**
-     * code d'erreur 401, accé non autorié sans authentification
+     * code d'erreur 401, accès non autorisé sans authentification
      */
     public static function unauthorized()
     {
