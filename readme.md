@@ -90,3 +90,4 @@ Code sous licence **AGPL-3.0**, lire la licence [ici](https://github.com/AlasDia
 + [x] **~~Gestion des erreurs HTTP~~ [Pierre & Lucas]**
 + [x] **~~Mise en correlation du code créer par chacun~~ [Pierre & Lucas]**
 + [x] **~~Corrections de bugs majeurs/failles de sécurité~~ [Pierre & Lucas]**
++ [X] **~~Création du set de donnée sur webetu~~ [Emilien]**
