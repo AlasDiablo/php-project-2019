@@ -96,15 +96,15 @@ $app->get('/list/:token/share', function ($token) {
 
 
 /*-----|items|-----*/
-$app->get('/list/:no/item/:id/modify', function ($no, $id) {
+$app->get('/list/:token/:item/manage', function ($token, $item) {
     $c = new ItemController();
-    $c->ItemModifyForm($id);
-})->name('modifyItemFromList');
+    $c->ItemManageForm($token, $item);
+})->name('manageItemFromList');
 
-$app->post('/list/:no/item/:id/modify/submit', function ($no, $id) {
+$app->post('/list/:token/:item/manage/submit', function ($token, $item) {
     $c = new ItemController();
-    $c->modifyItem($id);
-})->name('modifyItemFromListP');
+    $c->modifyItem($token, $item);
+})->name('manageItemFromListP');
 
 $app->get('/list/:no/item/:id/delete', function ($no, $id) {
     $c = new ItemController();

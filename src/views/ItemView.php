@@ -137,11 +137,12 @@ END;
         return $str;
     }
 
-    private function htmlModify(){
-        $modifyItem = $this->app->urlFor('modifyItemFromListP', array('no' => $this->item->liste_id, 'id' => $this->item->id));
+    private function manageItemForm($managable): string {
+        $modifyItem = $this->app->urlFor('manageItemFromListP', array('no' => $this->item->liste_id, 'id' => $this->item->id));
         $itemReserve = $this->app->urlFor('reserveItemP', array('id' => $this->item->id));
-        $str =
-            <<<END
+        if ($managable) {
+            $str =
+                <<<END
 <h1>Modification de l'item :</h1>
 <form id="formModifyItem" method="POST" action=$modifyItem enctype="multipart/form-data">
     <label for="nom"><b>Nom de l'item</b></label>
@@ -157,10 +158,11 @@ END;
     <button type="submit" name ="valid_modify_item" value="valid_f1">Valider</button>
 </form>
 END;
-        $p = Item::select('nomReserve', 'msgReserve')->where('id', 'like', $this->item->id)->first();
-        $createurID = Liste::select('user_id')->where('no', '=', $this->item->liste_id)->first();
-        if($p->nomReserve == '' and $p->msgReserve == '' and Authentication::getUserId() != 0 and Authentication::getUserId() != $createurID->user_id) {
-            $str .= <<<END
+        } else {
+            $p = Item::select('nomReserve', 'msgReserve')->where('id', 'like', $this->item->id)->first();
+            $createurID = Liste::select('user_id')->where('no', '=', $this->item->liste_id)->first();
+            if($p->nomReserve == '' and $p->msgReserve == '' and Authentication::getUserId() != 0 and Authentication::getUserId() != $createurID->user_id) {
+                $str = <<<END
 <form id="formModifyItem" action=$itemReserve method="POST">
 <h1>Réservation l'item :</h1>
 <label for ="Message de réservation : "><b>Message de réservation : </b></label>
@@ -168,6 +170,7 @@ END;
 <button type="submit" name ="valid_reserve_item" value="valid_res">Valider</button>
 </form>
 END;
+            }
         }
         return $str;
     }
@@ -178,8 +181,11 @@ END;
             case Selection::FORM_CREATE_ITEM:
                 $this->content = $this->htmlCreate();
                 break;
-            case Selection::FORM_MODIFY_ITEM:
-                $this->content = $this->htmlModify();
+            case Selection::FORM_MODIFY_ITEM_MANAGE:
+                $this->content = $this->manageItemForm(true);
+                break;
+            case Selection::FORM_MODIFY_ITEM_PART:
+                $this->content = $this->manageItemForm(false);
                 break;
             case Selection::ALL_ITEM:
                 $this->content = $this->htmlAllItem();

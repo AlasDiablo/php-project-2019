@@ -61,9 +61,7 @@ END;
         else $out = "<table><tr><th>Image</th><th>Nom</th><th>Reservation par</th><th>Message</th></tr>";
         foreach ($item as $key => $value)
         {
-            if (!$args['p']) $url = $this->app->urlFor('modifyItemFromList', array('token' => $args['token'], $value->id));
-            else $url = "link do not existe for now =_=";
-
+            $url = $this->app->urlFor('manageItemFromList', array('token' => $args['token'], 'item' => $value->id));
             if (!$args['exp'] && !$args['p']){
                 if (!empty($value->nomReserve)) $resv = "Reservé";
                 else $resv = "Non réservé";
@@ -113,10 +111,10 @@ END;
 <input type="text" value="$urlShare" id="share">
 
 <div class="tooltip">
-<button onclick="copy()" onmouseout="copy_post()">
-  <span id="tooltip_text">Copié dans le pres-papier</span>
-  Copié le lien
-  </button>
+    <button type="button" onclick="copy()" onmouseout="copy_post()">
+      <span id="tooltip_text">Copié dans le pres-papier</span>
+      Copié le lien
+    </button>
 </div>
 
 <script>

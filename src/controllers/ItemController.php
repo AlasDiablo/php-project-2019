@@ -68,11 +68,34 @@ class ItemController
         exit();
     }
 
-    public function ItemModifyForm($id){
-        $d = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-        $i = Item::where('id', '=', $d)->first();
-        $v = new ItemView($i, Selection::FORM_MODIFY_ITEM);
-        $v->render();
+    public function ItemManageForm($token, $item){
+        $list = Liste::where('token', '=', $token)->first();
+        if (!isset($list->no)) {
+            $list = Liste::where('tokenPart', '=', $token)->first();
+            if(!isset($list->no)) {
+                GlobalView::bad_request();
+                return;
+            }
+        }
+        $item = Item::where('id', '=', $item)->first();
+
+
+        $exp = DateTime::createFromFormat('Y-m-d', $list->expiration);
+        $now = new DateTime('now');
+        if ($exp <= $now) {
+            GlobalView::forbidden();
+            return;
+        }
+
+        if ($token == $list->token) {
+            $v = new ItemView($item, Selection::FORM_MODIFY_ITEM_MANAGE);
+            $v->render();
+        } elseif ($token == $list->tokenPart) {
+            $v = new ItemView($item, Selection::FORM_MODIFY_ITEM_PART);
+            $v->render();
+        } else {
+            GlobalView::forbidden();
+        }
     }
 
     public function modifyItem($id){
