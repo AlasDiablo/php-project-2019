@@ -117,6 +117,11 @@ END;
         $res .= "<h1>$title</h1><p>$desc</p><p>$exp</p>";
 
         if ($modifiable) {
+
+            $urlEdit = $this->app->urlFor('listMod', array('token' => $this->list['token']));
+
+            $res .= "<button type=\"button\" onclick=\"window.location.href = '$urlEdit'\" value=\"goToShareList\">Modifier la liste</button>";
+
             if(empty($tokPart))
             {
                 $urlShare = $this->app->urlFor('listShare', array('token' => $this->list['token']));
