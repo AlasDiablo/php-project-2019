@@ -3,6 +3,7 @@
 namespace mywishlist\controllers;
 
 use DateTime;
+use Exception;
 use mywishlist\models\Item;
 use mywishlist\models\Liste;
 use mywishlist\models\Participant;
@@ -14,22 +15,30 @@ use mywishlist\views\GlobalView;
 use mywishlist\views\ListView;
 use Slim\Slim;
 
-class ListController {
+/**
+ * Class ListController, Elle a pour but de gérer toutes les actions faites sur les liste.
+ * @package mywishlist\controllers
+ */
+class ListController
+{
 
+    /**
+     * @var Slim|null instance de slim pour pouvoir créer des url
+     */
     private $app;
 
+    /**
+     * ItemController constructor.
+     * Utilisé pour recuperais l'intance de slim
+     */
     public function __construct()
     {
         $this->app = Slim::getInstance();
     }
 
-    public function allList()
-    {
-        $lists = Liste::all();
-        $v = new ListView($lists, Selection::ALL_LIST);
-        $v->render();
-    }
-
+    /**
+     * Fonction applé pour affiché les list de l'utilisé
+     */
     public function showMyList()
     {
         if (Authentication::getUserId() != Authentication::ANONYMOUS)
@@ -45,6 +54,11 @@ class ListController {
         }
     }
 
+    /**
+     * Fonction utilisé pour optenir tous les participend d'un liste
+     * @param $list_id int id de la list
+     * @return array table contenant les participent
+     */
     private function getAutohrList($list_id)
     {
 
@@ -77,10 +91,15 @@ class ListController {
         return $out;
     }
 
-    public function oneList($token)
+    /**
+     * Fonction utilisé pour affiché un list en particulié
+     * @param $token string token associer a la list
+     */
+    public function showListContent($token)
     {
         $t = filter_var($token, FILTER_SANITIZE_SPECIAL_CHARS);
-        if (Liste::where('token', '=', $t)->first()) {
+        if (Liste::where('token', '=', $t)->first())
+        {
 
             $id = Liste::where('token', '=', $t)->first()->no;
             $items = Item::where('liste_id', '=', $id)->get();
@@ -123,33 +142,44 @@ class ListController {
         }
     }
 
-    public function listCreateForm()
+    /**
+     * Fonction appelé pour affiché le formulaire de creation de liste
+     */
+    public function createListForm()
     {
         $v = new ListView(null, Selection::FORM_CREATE_LIST);
         $v->render();
     }
 
+    /**
+     * Fonction appelé pour créer un liste côté system
+     * @throws Exception erreur lié au random bytes
+     */
     public function createList(){
         $l = new Liste();
         $l->user_id = Authentication::getUserId();
         $l->titre = filter_var($_POST['titre'],FILTER_SANITIZE_SPECIAL_CHARS);
         $l->description = filter_var($_POST['description'],FILTER_SANITIZE_SPECIAL_CHARS);
         $l->expiration = filter_var($_POST['date'],FILTER_SANITIZE_SPECIAL_CHARS);
-        if (isset($_POST['public'])){
-            if($_POST['public'] == 'oui') {
+        if (isset($_POST['public']))
+        {
+            if($_POST['public'] == 'oui')
+            {
                 $l->statut = 1;
-            }else{
+            } else {
                 $l->statut = 0;
             }
-        } else{
+        } else {
             $l->statut = 0;
         }
         $generated_token = bin2hex(random_bytes(16));
         $loop = true;
-        while($loop) {
+        while($loop)
+        {
             $checkToken = Liste::where('token', '=', $generated_token)->first();
             $checkTokenPart = Liste::where('tokenPart', '=', $generated_token)->first();
-            if (!isset($checkToken->no) && !isset($checkTokenPart->no)) {
+            if (!isset($checkToken->no) && !isset($checkTokenPart->no))
+            {
                 $loop = false;
             }  else {
                 $generated_token = bin2hex(random_bytes(16));
@@ -162,24 +192,36 @@ class ListController {
         exit();
     }
 
-    public function listModifyForm($id){
-        $no = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+    /**
+     * Fonction qui affiche le formulaire de modification de list
+     * @param $token string token associer a la list
+     */
+    public function modifyListForm($token)
+    {
+        $no = filter_var($token, FILTER_SANITIZE_NUMBER_INT);
         $l = Liste::where('no', '=', $no)->first();
         $v = new ListView($l, Selection::FORM_MODIFY_LIST);
         $v->render();
     }
 
-    public function modifyList($id){
-        $no = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+    /**
+     * Fonction qui modifi la list côté system
+     * @param $token string token associer a la list
+     */
+    public function modifyList($token){
+        $no = filter_var($token, FILTER_SANITIZE_NUMBER_INT);
         $l = Liste::where('no', '=', $no)->first();
 
-        if($_POST['titre'] != "") {
+        if($_POST['titre'] != "")
+        {
             $l->titre = filter_var($_POST['titre'], FILTER_SANITIZE_SPECIAL_CHARS);
         }
-        if($_POST['description'] != "") {
+        if($_POST['description'] != "")
+        {
             $l->description = filter_var($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS);
         }
-        if($_POST['date'] != "") {
+        if($_POST['date'] != "")
+        {
             $l->expiration = filter_var($_POST['date'], FILTER_SANITIZE_SPECIAL_CHARS);
         }
         $l->save();
@@ -188,23 +230,32 @@ class ListController {
         exit();
     }
 
+    /**
+     * Foncrion qui et appelé pour generais un lien de partage
+     * @param $token string token associer a la list
+     * @throws Exception erreur lié au randoms bytes
+     */
     public function share($token)
     {
         $l = Liste::where('token', '=', $token)->first();
 
-        if (!($l->user_id == Authentication::getUserId())) {
+        if (!($l->user_id == Authentication::getUserId()))
+        {
             GlobalView::forbidden();
             return;
         }
-        if(!isset($l->tokenPart) || empty($l->tokenPart)){
+        if(!isset($l->tokenPart) || empty($l->tokenPart))
+        {
             $generated_token = bin2hex(random_bytes(16));
             $loop = true;
-            while($loop) {
+            while($loop)
+            {
                 $checkToken = Liste::where('token', '=', $generated_token)->first();
                 $checkTokenPart = Liste::where('tokenPart', '=', $generated_token)->first();
-                if (!isset($checkToken->no) && !isset($checkTokenPart->no)) {
+                if (!isset($checkToken->no) && !isset($checkTokenPart->no))
+                {
                     $loop = false;
-                }  else {
+                } else {
                     $generated_token = bin2hex(random_bytes(16));
                 }
             }
@@ -219,6 +270,10 @@ class ListController {
         exit();
     }
 
+    /**
+     * Fonction qui affiche tous les liste public
+     * @throws Exception erreur lié au date
+     */
     public function listPublic()
     {
         $lists = Liste::where('statut', '=', 1)->orderBy('expiration', 'desc')->get();

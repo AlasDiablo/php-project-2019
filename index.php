@@ -55,12 +55,12 @@ $app->get('/list/public', function () {
 
 $app->get('/list/create', function () {
     $c = new ListController();
-    $c->listCreateForm();
+    $c->createListForm();
 })->name('listcreate');
 
 $app->get('/list/:token', function ($token) {
     $c = new ListController();
-    $c->oneList($token);
+    $c->showListContent($token);
 })->name('list');
 
 $app->get('/list/:id/delete', function ($id) {
@@ -70,7 +70,7 @@ $app->get('/list/:id/delete', function ($id) {
 
 $app->get('/list/:token/modify', function ($token) {
     $c = new ListController();
-    $c->listModifyForm($token);
+    $c->modifyListForm($token);
 })->name('listMod');
 
 $app->post('/list/:token/modify/submit', function ($token) {
