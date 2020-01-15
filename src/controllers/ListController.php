@@ -153,7 +153,8 @@ class ListController {
         }
         $l->token = $token;
         $l->save();
-        header("Location: /index.php/list/$l->no");
+        $url = $this->app->urlFor('list',array('token' => $token));
+        header("Location: $url");
         exit();
     }
 
