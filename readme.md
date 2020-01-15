@@ -30,9 +30,14 @@ MyWishList.app est un projet universitaire composé de :
 
 + [Webetu](https://bit.ly/2QSRep8), require un compte de l'utiliversité
 + Status du deploiment:
-    + [ ] Site web (Site web en version exerimentale)
-    + [ ] base de donnée (Bdd de test avec des valeurs non validé)
-    + [ ] deploiment: Site experimental qui n'est pas fait pour etre utilisé.
+    + [x] Site web
+    + [x] base de donnée
+    + [x] deploiment
++ Compte utilisateurs pour le professeurs
+    ```
+    username: professeur
+    mots de passe: php
+    ```
 
 ## Droits et utilisation
 
@@ -58,30 +63,30 @@ Code sous licence **AGPL-3.0**, lire la licence [ici](https://github.com/AlasDia
 + [x] **~~10 - Supprimer un item~~ [Aurélien]**
 + [x] **~~15 - Consulter les réservations d'une de ses listes avant échéance~~ [Emilien]**
 + [X] **~~16 - Consulter les réservations et messages d'une de ses listes après échéance~~ [Emilien]**
-+ [ ] **~~20 - Rendre une liste publique~~ [Aurélien]**
-+ [ ] **~~21 - Afficher les listes de souhaits publiques~~ [Aurélien & Pierre]**
++ [x] **~~20 - Rendre une liste publique~~ [Aurélien]**
++ [x] **~~21 - Afficher les listes de souhaits publiques~~ [Aurélien & Pierre]**
 
 ### Niveau 3
 
-+ [ ] **11 - Rajouter une image à un item [Lucas]**
-+ [ ] **12 - Modifier une image d'un item [Lucas]**
-+ [ ] **13 - Supprimer une image d'un item [Lucas]**
++ [x] **~~11 - Rajouter une image à un item~~ [Lucas]**
++ [x] **~~12 - Modifier une image d'un item~~ [Lucas]**
++ [x] **~~13 - Supprimer une image d'un item~~ [Lucas]**
 + [x] **~~17 - Créer un compte~~ [Pierre]**
 + [x] **~~18 - S'authentifier~~ [Pierre]**
 + [x] **~~19 - Modifier son compte~~ [Pierre]**
 + [ ] 22 - Créer une cagnotte sur un item
 + [ ] 23 - Participer à une cagnotte
 + [x] **~~24 - Uploader une image~~ [Lucas]**
-+ [ ] ***25 - Créer un compte participant  [Pierre]***
-+ [ ] **~~26 - Afficher la liste des créateurs~~  [Pierre]**
++ [x] **~~25 - Créer un compte participant~~  [Pierre]**
++ [x] **~~26 - Afficher la liste des créateurs~~  [Pierre]**
 + [x] **~~27 - Supprimer son compte~~ [Pierre]**
-+ [ ] ***28 - Joindre des listes à son compte  [Pierre]***
++ [x] **~~28 - Joindre des listes à son compte~~  [Pierre]**
 
 ### Autres
 
-+ [x] ***Mise en pages [Pierre (Approfondissement du css) & Lucas (Ossatures principal)]***
++ [x] **~~Mise en pages~~ [Pierre (Approfondissement du css) & Lucas (Ossatures principal)]**
 + [ ] Responsive Web Design
 + [x] **~~Ajouter un avatar pour les utilisateurs~~ [Pierre]**
 + [x] **~~Gestion des erreurs HTTP~~ [Pierre & Lucas]**
-+ [ ] ***Mise en corelation du code créer par chaqun [Pierre & Lucas]***
-+ [ ] ***Corrections de bugs majeurs/failles de sécurité [Pierre & Lucas]***
++ [x] **~~Mise en corelation du code créer par chaqun~~ [Pierre & Lucas]**
++ [x] **~~Corrections de bugs majeurs/failles de sécurité~~ [Pierre & Lucas]**
