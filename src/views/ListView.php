@@ -106,10 +106,38 @@ END;
             if(empty($tokPart))
             {
                 $urlShare = $this->app->urlFor('listShare', array('token' => $this->list['token']));
+                $res .= "<button type=\"button\" onclick=\"window.location.href = '$urlShare'\" value=\"goToShareList\">Generé un lien de partage</button>";
             }else {
-                $urlShare = $this->app->urlFor('list', array('token' => $this->list['tokenPart']));
+                $urlShare = $_SERVER['SERVER_NAME'] . $this->app->urlFor('list', array('token' => $this->list['tokenPart']));
+                $res .= <<<SHARE
+<input type="text" value="$urlShare" id="share">
+
+<div class="tooltip">
+<button onclick="copy()" onmouseout="copy_post()">
+  <span id="tooltip_text">Copié dans le pres-papier</span>
+  Copié le lien
+  </button>
+</div>
+
+<script>
+function copy() {
+  const copyText = document.getElementById("share");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  
+  const tooltip = document.getElementById("tooltip_text");
+  tooltip.innerHTML = "Copié: " + copyText.value;
+}
+
+function copy_post() {
+  const tooltip = document.getElementById("tooltip_text");
+  tooltip.innerHTML = "Copié dans le pres-papier";
+}
+</script>
+SHARE;
+
             }
-            $res .= "<button type=\"button\" onclick=\"window.location.href = '$urlShare'\" value=\"goToShareList\">Partager la liste</button>";
         }
 
         $exp = DateTime::createFromFormat('Y-m-d', $exp);

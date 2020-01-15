@@ -16,6 +16,43 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0;
 }
 
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip #tooltip_text {
+    visibility: hidden;
+    width: 140px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -75px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip #tooltip_text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover #tooltip_text {
+    visibility: visible;
+    opacity: 1;
+}
 
 .gravatar {
     border-radius: 100%;
@@ -149,7 +186,7 @@ input[type=text], input[type=email], input[type=password], input[type=date], inp
     box-sizing: border-box;
 }
 
-button[type=submit], button[type=button] {
+button[type=submit], button[type=button], button {
     width: 100%;
     background-color: darkslateblue;
     color: white;
@@ -160,7 +197,7 @@ button[type=submit], button[type=button] {
     cursor: pointer;
 }
 
-button[type=submit], button[type=button]:hover {
+button[type=submit], button[type=button]:hover, button:hover {
     background-color: #393973;
 }
 

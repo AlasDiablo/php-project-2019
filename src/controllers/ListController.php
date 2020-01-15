@@ -208,7 +208,7 @@ class ListController {
             GlobalView::bad_request();
             return;
         }
-        $url = $this->app->urlFor('list', array('token' => $generated_token));
+        $url = $this->app->urlFor('list', array('token' => $token));
         header("Location: $url");
         exit();
     }
