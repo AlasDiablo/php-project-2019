@@ -9,24 +9,24 @@ use mywishlist\utils\Selection;
 use Slim\Slim;
 
 /**
- * Class ItemView, vue faire l'affichage de tous les action en relation avec les item
+ * Classe ItemView, vue pour faire l'affichage de toutes les actions en relation avec les items
  * @package mywishlist\views
  */
 class ItemView
 {
 
     /**
-     * @var $item mixed liste d'item, simple item ou autre, a pour but de trenferais des information
-     * @var $selecteur string la fonction a appelé pour la generation de la page html
-     * @var $content string variable contenant l'html generais
-     * @var $app Slim variable contenent un instance de slim
+     * @var $item mixed liste d'item, simple item ou autre, a pour but de transférer des informations
+     * @var $selecteur string la fonction à appeler pour la génération de la page html
+     * @var $content string variable contenant l'html généré
+     * @var $app Slim variable contenant une instance de slim
      */
     protected $item, $selecteur, $content, $app;
 
     /**
      * ItemView constructor.
-     * @param $i mixed liste d'item, simple item ou autre, a pour but de trenferais des information
-     * @param $s string la fonction a appelé pour la generation de la page html
+     * @param $i mixed liste d'item, simple item ou autre, a pour but de transférer des informations
+     * @param $s string la fonction à appeler pour la génération de la page html
      */
     public function __construct($i, $s)
     {
@@ -36,8 +36,8 @@ class ItemView
     }
 
     /**
-     * Fonction appelé pour affiché les info d'un item
-     * @return string html génerais
+     * Fonction appelée pour afficher les informations d'un item
+     * @return string html généré
      */
     private function displayItem()
     {
@@ -72,8 +72,8 @@ END;
     }
 
     /**
-     * Fonction appelais pour créer le formulaire de creation d'item
-     * @return string html génerais
+     * Fonction appelée pour créer le formulaire de création d'item
+     * @return string html généré
      */
     private function createItemForm()
     {
@@ -98,9 +98,9 @@ END;
     }
 
     /**
-     * Fonction qui affiche le formumaire de modification et de reservation d'un item
-     * @param $manageable bool modification ou reservation
-     * @return string html generais
+     * Fonction qui affiche le formulaire de modification et de reservation d'un item
+     * @param $manageable bool modification ou réservation
+     * @return string html généré
      */
     private function manageItemForm($manageable): string
     {
@@ -147,7 +147,7 @@ END;
     }
 
     /**
-     * Fonction appelé pour faire le rendu de la page web
+     * Fonction appeléé pour faire le rendu de la page web
      */
     public function render()
     {
