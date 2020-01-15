@@ -106,9 +106,9 @@ $app->post('/list/:token/:item/manage/submit', function ($token, $item) {
     $c->modifyItem($token, $item);
 })->name('manageItemFromListP');
 
-$app->get('/list/:no/item/:id/delete', function ($no, $id) {
+$app->get('/list/:token/:item/delete', function ($token, $item) {
     $c = new ItemController();
-    $c->deleteItem($id);
+    $c->deleteItem($token, $item);
 })->name('deleteItemFromList');
 
 $app->get('/item/all', function () {

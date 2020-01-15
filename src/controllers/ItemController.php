@@ -9,9 +9,17 @@ use mywishlist\utils\Authentication;
 use mywishlist\views\GlobalView;
 use mywishlist\views\ItemView;
 use mywishlist\utils\Selection;
+use Slim\Slim;
 
 class ItemController
 {
+
+    private $app;
+
+    public function __construct()
+    {
+        $this->app = Slim::getInstance();
+    }
 
     public function allItems() {
         $items = Item::all();
@@ -131,11 +139,17 @@ class ItemController
         exit();
     }
 
-    public function deleteItem($id){
-        $d = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-        $i = Item::where('id', '=', $d)->first();
+    public function deleteItem($token, $id){
+
+        $l = Liste::where('token', '=', $token)->first();
+        if (!isset($l->no)) {
+            GlobalView::forbidden();
+            return;
+        }
+        $i = Item::where('id', '=', $id)->first();
         $i->delete();
-        header("Location: /index.php/list/$i->liste_id");
+        $url = $this->app->urlFor('list', $token);
+        header("Location: $url");
         exit();
     }
 

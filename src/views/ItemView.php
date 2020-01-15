@@ -138,11 +138,13 @@ END;
     }
 
     private function manageItemForm($managable): string {
-        $modifyItem = $this->app->urlFor('manageItemFromListP', array('no' => $this->item->liste_id, 'id' => $this->item->id));
+        $token = Liste::where('no', '', $this->item->liste_id)->first()['token'];
+        $modifyItem = $this->app->urlFor('manageItemFromListP', array('token' =>  $token,'item' => $this->item->id));
+        $itemDelete = $this->app->urlFor('deleteItemFromList', array('token' => $token, 'item' => $this->item->id));
+
         $itemReserve = $this->app->urlFor('reserveItemP', array('id' => $this->item->id));
         if ($managable) {
-            $str =
-                <<<END
+            $str = <<<END
 <h1>Modification de l'item :</h1>
 <form id="formModifyItem" method="POST" action=$modifyItem enctype="multipart/form-data">
     <label for="nom"><b>Nom de l'item</b></label>
@@ -157,6 +159,7 @@ END;
     <input type="file" name="image">
     <button type="submit" name ="valid_modify_item" value="valid_f1">Valider</button>
 </form>
+<button id="delete-button" onclick="window.location.href = '$itemDelete';" type="button" name="submit">Supprimer l'item</button>
 END;
         } else {
             $p = Item::select('nomReserve', 'msgReserve')->where('id', 'like', $this->item->id)->first();

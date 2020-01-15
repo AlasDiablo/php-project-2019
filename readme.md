@@ -26,6 +26,14 @@ MyWishList.app est un projet universitaire composé de :
     charset=utf-8
     ```
 
+## Lien d'utilisation
+
++ [Webetu](https://bit.ly/2QSRep8), require un compte de l'utiliversité
++ Status du deploiment:
+    + [ ] Site web (Site web en version exerimentale)
+    + [ ] base de donnée (Bdd de test avec des valeurs non validé)
+    + [ ] deploiment: Site experimental qui n'est pas fait pour etre utilisé.
+
 ## Droits et utilisation
 
 Code sous licence **AGPL-3.0**, lire la licence [ici](https://github.com/AlasDiablo/php-project-2019/blob/master/LICENSE).
