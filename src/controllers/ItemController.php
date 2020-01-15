@@ -2,6 +2,7 @@
 
 namespace mywishlist\controllers;
 
+use DateTime;
 use mywishlist\models\Item;
 use mywishlist\models\Liste;
 use mywishlist\utils\Authentication;
@@ -25,12 +26,21 @@ class ItemController
         $v->render();
     }
 
-    public function ItemCreateForm($id)
+    public function ItemCreateForm($token)
     {
-        $id_list = filter_var($id,FILTER_SANITIZE_NUMBER_INT);
-        $i = Liste::where('no', '=', $id_list)->first();
-        if ($i->user_id == Authentication::getUserId()) {
-            $v = new ItemView($i, Selection::FORM_CREATE_ITEM);
+        $list = Liste::where('token', '=', $token)->first();
+        if (empty($list)) {
+            GlobalView::forbidden();
+            return;
+        }
+        $exp = DateTime::createFromFormat('Y-m-d', $list->expiration);
+        $now = new DateTime('now');
+        if ($exp <= $now) {
+            GlobalView::forbidden();
+            return;
+        }
+        if ($list->user_id == Authentication::getUserId()) {
+            $v = new ItemView($list, Selection::FORM_CREATE_ITEM);
             $v->render();
         } else {
             GlobalView::forbidden();
