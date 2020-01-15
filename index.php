@@ -1,9 +1,9 @@
 <?php
 
-// Import de la class qui a pour but de charger tous les imports du projet
+// Import de la classe qui a pour but de charger tous les imports du projet
 require_once './vendor/autoload.php';
 
-// Liste des tous les imports
+// Liste de tous les imports
 use \mywishlist\controllers\UserController;
 use \mywishlist\controllers\ListController;
 use \mywishlist\controllers\ItemController;
@@ -28,14 +28,14 @@ $db->addConnection([
     'prefix'    => ''
 ]);
 
-// demarage de la basse de donnée
+// démarrage de la base de données
 $db->setAsGlobal();
 $db->bootEloquent();
 
-// demerage d'un session
+// démarrage d'une session
 session_start();
 
-// intance de slim qui a pour but de créer le rootage des urls
+// instance de slim qui a pour but de créer le rootage des urls
 $app = new Slim();
 
 
@@ -62,11 +62,6 @@ $app->get('/list/:token', function ($token) {
     $c = new ListController();
     $c->showListContent($token);
 })->name('list');
-
-$app->get('/list/:id/delete', function ($id) {
-    $c = new ListController();
-    $c->deleteList($id);
-})->name('listDel');
 
 $app->get('/list/:token/modify', function ($token) {
     $c = new ListController();
