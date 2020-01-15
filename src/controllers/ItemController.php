@@ -150,7 +150,7 @@ class ItemController
         }
         $i = Item::where('id', '=', $id)->first();
         $i->delete();
-        $url = $this->app->urlFor('list', $token);
+        $url = $this->app->urlFor('list', array('token' => $token));
         header("Location: $url");
         exit();
     }

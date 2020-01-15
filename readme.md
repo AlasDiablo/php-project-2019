@@ -58,8 +58,8 @@ Code sous licence **AGPL-3.0**, lire la licence [ici](https://github.com/AlasDia
 + [x] **~~10 - Supprimer un item~~ [Aurélien]**
 + [x] **~~15 - Consulter les réservations d'une de ses listes avant échéance~~ [Emilien]**
 + [X] **~~16 - Consulter les réservations et messages d'une de ses listes après échéance~~ [Emilien]**
-+ [ ] **20 - Rendre une liste publique [Aurélien]**
-+ [ ] **21 - Afficher les listes de souhaits publiques [Aurélien]**
++ [ ] **~~20 - Rendre une liste publique~~ [Aurélien]**
++ [ ] **~~21 - Afficher les listes de souhaits publiques~~ [Aurélien & Pierre]**
 
 ### Niveau 3
 

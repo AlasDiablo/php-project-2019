@@ -65,22 +65,6 @@ END;
         return $res;
     }
 
-/*    private function htmlReserve()
-    {
-        $id=filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
-        $str = 
-<<<END
-<form action="/index.php/item/reserve/submit?id=$id" method="POST">
-Item:$id<br>
-<input name = 'id_reserve_item' value=$id readonly="readonly"><br>
-Nom:
-<input type="text" name="nom_reserve_item"><br>
-<input type="submit" name="valider">
-</form>
-END;
-        return $str;
-    }*/
-
     private function htmlFail()
     {
         $str = <<<END
