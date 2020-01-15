@@ -8,11 +8,26 @@ use mywishlist\utils\Authentication;
 use mywishlist\utils\Selection;
 use Slim\Slim;
 
+/**
+ * Class ItemView, vue faire l'affichage de tous les action en relation avec les item
+ * @package mywishlist\views
+ */
 class ItemView
 {
 
+    /**
+     * @var $item mixed liste d'item, simple item ou autre, a pour but de trenferais des information
+     * @var $selecteur string la fonction a appelé pour la generation de la page html
+     * @var $content string variable contenant l'html generais
+     * @var $app Slim variable contenent un instance de slim
+     */
     protected $item, $selecteur, $content, $app;
 
+    /**
+     * ItemView constructor.
+     * @param $i mixed liste d'item, simple item ou autre, a pour but de trenferais des information
+     * @param $s string la fonction a appelé pour la generation de la page html
+     */
     public function __construct($i, $s)
     {
         $this->item = $i;
@@ -20,7 +35,12 @@ class ItemView
         $this->app = Slim::getInstance();
     }
 
-    private function htmlIdList() { //TO-DO : Dégager ce nom de fonction peu explicite
+    /**
+     * Fonction appelé pour affiché les info d'un item
+     * @return string html génerais
+     */
+    private function displayItem()
+    {
         $imageUpload = $this->app->urlFor('imageUploadP', array('id' => $this->item->id));
         $itemReserve = $this->app->urlFor('reserveItemP', array('id' => $this->item->id));
         $res = "<table><th>ID</th><th>liste_ID</th><th>nom</th><th>description</th><th>tarif</th><th>Réservé par</th><th>Message de réservation</th>";
@@ -51,43 +71,12 @@ END;
         return $res;
     }
 
-    private function htmlFail()
+    /**
+     * Fonction appelais pour créer le formulaire de creation d'item
+     * @return string html génerais
+     */
+    private function createItemForm()
     {
-        $str = <<<END
-<p> Une erreur est survenu, vérifiez que l'item n'est pas déjà réservé.</p>
-END;
-
-        return $str;
-    }
-
-    private function htmlSuccess()
-    {
-        $str = <<<END
-<p> Item réservé avec succès !</p>
-END;
-
-        return $str;
-    }
-
-    private function htmlUploadImageSuccess()
-    {
-        $str = <<<END
-<p>Image upload avec succès</p>
-END;
-        return $str;
-
-    }
-
-    private function htmlUploadImageError()
-    {
-        $str = <<<END
-<p>Une erreur a eu lieu lors de l'upload de l'image</p>
-END;
-        return $str;
-
-    }
-
-    private function htmlCreate(){
         $list = Liste::where('no', '=', $this->item->no)->first();
         $createItem = $this->app->urlFor('listAddItemP', array('token' => $list->token));
         $str =
@@ -108,13 +97,20 @@ END;
         return $str;
     }
 
-    private function manageItemForm($managable): string {
+    /**
+     * Fonction qui affiche le formumaire de modification et de reservation d'un item
+     * @param $manageable bool modification ou reservation
+     * @return string html generais
+     */
+    private function manageItemForm($manageable): string
+    {
         $token = Liste::where('no', '=', $this->item->liste_id)->first()['token'];
         $modifyItem = $this->app->urlFor('manageItemFromListP', array('token' =>  $token,'item' => $this->item->id));
         $itemDelete = $this->app->urlFor('deleteItemFromList', array('token' => $token, 'item' => $this->item->id));
 
         $itemReserve = $this->app->urlFor('reserveItemP', array('id' => $this->item->id));
-        if ($managable) {
+        if ($manageable)
+        {
             return <<<END
 <h1>Modification de l'item :</h1>
 <form id="formModifyItem" method="POST" action=$modifyItem enctype="multipart/form-data">
@@ -150,11 +146,15 @@ END;
         exit();
     }
 
+    /**
+     * Fonction appelé pour faire le rendu de la page web
+     */
     public function render()
     {
-        switch ($this->selecteur) {
+        switch ($this->selecteur)
+        {
             case Selection::FORM_CREATE_ITEM:
-                $this->content = $this->htmlCreate();
+                $this->content = $this->createItemForm();
                 break;
             case Selection::FORM_MODIFY_ITEM_MANAGE:
                 $this->content = $this->manageItemForm(true);
@@ -163,19 +163,19 @@ END;
                 $this->content = $this->manageItemForm(false);
                 break;
             case Selection::ID_ITEM:
-                $this->content = $this->htmlIdList();
+                $this->content = $this->displayItem();
                 break;
             case Selection::FORM_ITEM_RESERVE_FAIL:
-                $this->content = $this->htmlFail();
+                $this->content = "<p> Une erreur est survenu, vérifiez que l'item n'est pas déjà réservé.</p>";
                 break;
             case Selection::FORM_ITEM_RESERVE_SUCCESS:
-                $this->content = $this->htmlSuccess();
+                $this->content = "<p> Item réservé avec succès !</p>";
                 break;
             case Selection::FORM_IMAGE_UPLOAD_FAIL:
-                $this->content = $this->htmlUploadImageError();
+                $this->content = "<p>Une erreur a eu lieu lors de l'upload de l'image</p>";
                 break;
             case Selection::FORM_IMAGE_UPLOAD_SUCCESS:
-                $this->content = $this->htmlUploadImageSuccess();
+                $this->content = "<p>Image upload avec succès</p>";
                 break;
             default:
                 $this->content = "Switch Constant Error";
