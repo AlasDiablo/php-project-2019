@@ -2,6 +2,7 @@
 
 namespace mywishlist\views;
 
+use DateTime;
 use mywishlist\utils\Authentication;
 use mywishlist\utils\Selection;
 use Slim\Slim;
@@ -109,11 +110,14 @@ END;
         }
         $res .= "<button type=\"button\" onclick=\"window.location.href = '$urlShare'\" value=\"goToShareList\">Partager la liste</button>";
 
+
+        $exp = DateTime::createFromFormat('Y-m-d', $exp);
+        $now = new DateTime('now');
         if ($modifiable) {
-            if (date_create_from_format('Y-m-d', $exp) <= date('Y-m-d', time())) $array = array('p' => false, 'exp' => false, 'token' => $this->list['token']);
+            if ($exp >= $now) $array = array('p' => false, 'exp' => false, 'token' => $this->list['token']);
             else $array = array('p' => false, 'exp' => true, 'token' => $this->list['token']);
         } else {
-            if (date_create_from_format('Y-m-d', $exp) <= date('Y-m-d', time())) $array = array('p' => true, 'exp' => false, 'token' => $this->list['token']);
+            if ($exp >= $now) $array = array('p' => true, 'exp' => false, 'token' => $this->list['token']);
             else $array = array('p' => true, 'exp' => true, 'token' => $this->list['token']);
         }
 
