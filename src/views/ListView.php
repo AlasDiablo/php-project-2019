@@ -3,7 +3,6 @@
 namespace mywishlist\views;
 
 use DateTime;
-use mywishlist\utils\Authentication;
 use mywishlist\utils\Selection;
 use Slim\Slim;
 
@@ -16,7 +15,7 @@ class ListView
     {
         $this->list = $l;
         $this->selecteur = $s;
-        $this->app =  $this->app = Slim::getInstance();
+        $this->app = Slim::getInstance();
     }
 
     private function buildListTable($array, bool $edit)

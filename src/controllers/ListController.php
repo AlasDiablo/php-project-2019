@@ -11,8 +11,16 @@ use mywishlist\utils\Gravatar;
 use mywishlist\utils\Selection;
 use mywishlist\views\GlobalView;
 use mywishlist\views\ListView;
+use Slim\Slim;
 
 class ListController {
+
+    private $app;
+
+    public function __construct()
+    {
+        $this->app = Slim::getInstance();
+    }
 
     public function allList()
     {
@@ -174,31 +182,34 @@ class ListController {
         exit();
     }
 
-    public function share($id)
+    public function share($token)
     {
-        $no = filter_var($id,FILTER_SANITIZE_SPECIAL_CHARS);
-        $l = Liste::where('no', '=', $no)->first();
-        if(!isset($l['tokenPart']) || empty($l['tokenPart'])){
-            $token = bin2hex(random_bytes(16));
-            $bool1 = false;
-            while(!$bool1) {
-                $value = Liste::where('tokenPart', '=', $token)->get();
-                if (count($value) == 0) {
-                    while(!$bool1) {
-                        $value = Liste::where('token', '=', $token)->get();
-                        if (count($value) == 0) {
-                            $bool1 = true;
-                        } else {
-                            $token = bin2hex(random_bytes(16));
-                        }
-                    }
-                } else {
-                    $token = bin2hex(random_bytes(16));
+        $l = Liste::where('token', '=', $token)->first();
+
+        if (!($l->user_id == Authentication::getUserId())) {
+            GlobalView::forbidden();
+            return;
+        }
+        if(!isset($l->tokenPart) || empty($l->tokenPart)){
+            $generated_token = bin2hex(random_bytes(16));
+            $loop = true;
+            while($loop) {
+                $checkToken = Liste::where('token', '=', $generated_token)->first();
+                $checkTokenPart = Liste::where('tokenPart', '=', $generated_token)->first();
+                if (!isset($checkToken->no) && !isset($checkTokenPart->no)) {
+                    $loop = false;
+                }  else {
+                    $generated_token = bin2hex(random_bytes(16));
                 }
             }
-            $l->tokenPart = $token;
+            $l->tokenPart = $generated_token;
             $l->update();
+        } else {
+            GlobalView::bad_request();
+            return;
         }
-        $this->oneList($id);
+        $url = $this->app->urlFor('list', array('token' => $generated_token));
+        header("Location: $url");
+        exit();
     }
 }
