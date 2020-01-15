@@ -55,7 +55,7 @@ class ListController
     }
 
     /**
-     * Fonction utilisée pour optenir tous les participants d'une liste
+     * Fonction utilisée pour obtenir tous les participants d'une liste
      * @param $list_id int id de la liste
      * @return array table contenant les participants
      */

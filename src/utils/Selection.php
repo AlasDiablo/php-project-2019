@@ -4,7 +4,7 @@
 namespace mywishlist\utils;
 
 /**
- * Class Selection, cette class permette de stocké tous les contente associer au rendu et autre
+ * Classe Selection, cette classe permet de stocker toutes les constantes associées au rendu et autres
  * @package mywishlist\utils
  */
 class Selection

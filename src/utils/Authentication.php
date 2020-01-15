@@ -5,13 +5,13 @@ namespace mywishlist\utils;
 use mywishlist\models\User;
 
 /**
- * Class Authentication, Class appelé pour tous se qui conserne l'utilisateurs
+ * Classe Authentication, classe appelée pour tout ce qui concerne l'utilisateur
  * @package mywishlist\utils
  */
 class Authentication
 {
     /**
-     * Tous les constante corespondant au niveau d'action des utilisateurs
+     * Toutes les constantes corespondantes au niveau d'action des utilisateurs
      */
     const ANONYMOUS  = 0; // default user id & user level
     const USER = 1; // user level by default
@@ -19,7 +19,7 @@ class Authentication
     const SUPER_ADMIN = 3;
 
     /**
-     * Fonction qui permette d'optenir le niveau d'action du l'utilisé
+     * Fonction qui permet d'obtenir le niveau d'action de l'utilisateur
      * @return int niveau d'action
      */
     public static function getUserLevel(): int
@@ -40,8 +40,8 @@ class Authentication
     }
 
     /**
-     * Fonction qui permette d'avoir le nom d'utilisateurs associer a l'utilsateurs
-     * @return string nom d'utilisateurs associer a l'utilsateurs
+     * Fonction qui permet d'avoir le nom d'utilisateur associé à l'utilsateur
+     * @return string nom d'utilisateur associé à l'utilsateur
      */
     public static function getUsername()
     {
@@ -54,8 +54,8 @@ class Authentication
     }
 
     /**
-     * Fonction qui permette d'avoir l'id associée a l'utilisateur
-     * @return int|mixed id de l'utisateurs
+     * Fonction qui permet d'avoir l'id associé à l'utilisateur
+     * @return int|mixed id de l'utisateur
      */
     public static function getUserId()
     {
@@ -68,8 +68,8 @@ class Authentication
     }
 
     /**
-     * Fonction utilisé pour optenir l'emil de l'utisateurs
-     * @return string email de l'utilisateurs
+     * Fonction utilisée pour obtenir l'email de l'utisateur
+     * @return string email de l'utilisateur
      */
     public static function getEmail()
     {
