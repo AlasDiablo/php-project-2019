@@ -123,6 +123,11 @@ END;
 
         $res .= $this->buildItemList($this->list['items'], $array);
 
+        if ($modifiable && $exp >= $now) {
+            $url = $this->app->urlFor('listAddItem', array('token' => $this->list['token']));
+            $res .= "<button type=\"button\" onclick=\"window.location.href = '$url'\" value=\"goToShareList\">Ajouté un item</button>";
+        }
+
         return $res . "</div>";
     }
 

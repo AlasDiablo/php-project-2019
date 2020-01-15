@@ -78,9 +78,9 @@ $app->post('/list/create/submit', function () {
     $c->createList();
 })->name('listCreateP');
 
-$app->get('/list/:id/addItem', function ($id) {
+$app->get('/list/:token/addItem', function ($token) {
     $c = new ItemController();
-    $c->ItemCreateForm($id);
+    $c->ItemCreateForm($token);
 })->name('listAddItem');
 
 $app->post('/list/:id/addItem/submit', function ($id) {
