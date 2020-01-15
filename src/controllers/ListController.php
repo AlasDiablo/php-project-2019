@@ -16,20 +16,20 @@ use mywishlist\views\ListView;
 use Slim\Slim;
 
 /**
- * Class ListController, Elle a pour but de gérer toutes les actions faites sur les liste.
+ * Classe ListController, elle a pour but de gérer toutes les actions faites sur les listes.
  * @package mywishlist\controllers
  */
 class ListController
 {
 
     /**
-     * @var Slim|null instance de slim pour pouvoir créer des url
+     * @var Slim|null instance de slim pour pouvoir créer des urls
      */
     private $app;
 
     /**
      * ItemController constructor.
-     * Utilisé pour recuperais l'intance de slim
+     * Utilisée pour recupérer l'instance de slim
      */
     public function __construct()
     {
@@ -37,7 +37,7 @@ class ListController
     }
 
     /**
-     * Fonction applé pour affiché les list de l'utilisé
+     * Fonction appelée pour afficher les listes de l'utilisateur
      */
     public function showMyList()
     {
@@ -55,9 +55,9 @@ class ListController
     }
 
     /**
-     * Fonction utilisé pour optenir tous les participend d'un liste
-     * @param $list_id int id de la list
-     * @return array table contenant les participent
+     * Fonction utilisée pour optenir tous les participants d'une liste
+     * @param $list_id int id de la liste
+     * @return array table contenant les participants
      */
     private function getAutohrList($list_id)
     {
@@ -92,8 +92,8 @@ class ListController
     }
 
     /**
-     * Fonction utilisé pour affiché un list en particulié
-     * @param $token string token associer a la list
+     * Fonction utilisée pour afficher une liste en particulier
+     * @param $token string token associé à la liste
      */
     public function showListContent($token)
     {
@@ -143,7 +143,7 @@ class ListController
     }
 
     /**
-     * Fonction appelé pour affiché le formulaire de creation de liste
+     * Fonction appelée pour afficher le formulaire de creation de liste
      */
     public function createListForm()
     {
@@ -152,8 +152,8 @@ class ListController
     }
 
     /**
-     * Fonction appelé pour créer un liste côté system
-     * @throws Exception erreur lié au random bytes
+     * Fonction appelée pour créer une liste côté serveur
+     * @throws Exception erreur liée au random bytes
      */
     public function createList(){
         $l = new Liste();
@@ -193,8 +193,8 @@ class ListController
     }
 
     /**
-     * Fonction qui affiche le formulaire de modification de list
-     * @param $token string token associer a la list
+     * Fonction qui affiche le formulaire de modification de liste
+     * @param $token string token associée à la liste
      */
     public function modifyListForm($token)
     {
@@ -205,8 +205,8 @@ class ListController
     }
 
     /**
-     * Fonction qui modifi la list côté system
-     * @param $token string token associer a la list
+     * Fonction qui modifie la liste côté serveur
+     * @param $token string token associé à la liste
      */
     public function modifyList($token){
         $no = filter_var($token, FILTER_SANITIZE_NUMBER_INT);
@@ -231,7 +231,7 @@ class ListController
     }
 
     /**
-     * Foncrion qui et appelé pour generais un lien de partage
+     * Fonction qui est appelée pour générer un lien de partage
      * @param $token string token associer a la list
      * @throws Exception erreur lié au randoms bytes
      */
@@ -271,8 +271,8 @@ class ListController
     }
 
     /**
-     * Fonction qui affiche tous les liste public
-     * @throws Exception erreur lié au date
+     * Fonction qui affiche toutes les listes publiques
+     * @throws Exception erreur liée aux dates d'expiration
      */
     public function listPublic()
     {
