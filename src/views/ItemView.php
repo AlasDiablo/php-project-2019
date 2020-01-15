@@ -20,20 +20,6 @@ class ItemView
         $this->app = Slim::getInstance();
     }
 
-    private function htmlAllItem() {
-        $res = "<table><th>ID</th><th>liste_ID</th><th>nom</th><th>description</th><th>tarif</th>";
-        foreach ($this->item as $i)
-        {
-            $res = <<<RES
-$res
-<tr>
-<td>$i->id</td><td>$i->liste_id</td><td>$i->nom</td><td>$i->descr</td><td>$i->tarif</td>
-</tr>
-RES;
-        }
-        return $res . "</table>";
-    }
-
     private function htmlIdList() { //TO-DO : Dégager ce nom de fonction peu explicite
         $imageUpload = $this->app->urlFor('imageUploadP', array('id' => $this->item->id));
         $itemReserve = $this->app->urlFor('reserveItemP', array('id' => $this->item->id));
@@ -64,22 +50,6 @@ END;
         }
         return $res;
     }
-
-/*    private function htmlReserve()
-    {
-        $id=filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
-        $str = 
-<<<END
-<form action="/index.php/item/reserve/submit?id=$id" method="POST">
-Item:$id<br>
-<input name = 'id_reserve_item' value=$id readonly="readonly"><br>
-Nom:
-<input type="text" name="nom_reserve_item"><br>
-<input type="submit" name="valider">
-</form>
-END;
-        return $str;
-    }*/
 
     private function htmlFail()
     {
@@ -118,7 +88,8 @@ END;
     }
 
     private function htmlCreate(){
-        $createItem = $this->app->urlFor('listAddItemP', array('id' => $this->item->no));
+        $list = Liste::where('no', '=', $this->item->no)->first();
+        $createItem = $this->app->urlFor('listAddItemP', array('token' => $list->token));
         $str =
             <<<END
 <div id="edit">
@@ -138,13 +109,13 @@ END;
     }
 
     private function manageItemForm($managable): string {
-        $token = Liste::where('no', '', $this->item->liste_id)->first()['token'];
+        $token = Liste::where('no', '=', $this->item->liste_id)->first()['token'];
         $modifyItem = $this->app->urlFor('manageItemFromListP', array('token' =>  $token,'item' => $this->item->id));
         $itemDelete = $this->app->urlFor('deleteItemFromList', array('token' => $token, 'item' => $this->item->id));
 
         $itemReserve = $this->app->urlFor('reserveItemP', array('id' => $this->item->id));
         if ($managable) {
-            $str = <<<END
+            return <<<END
 <h1>Modification de l'item :</h1>
 <form id="formModifyItem" method="POST" action=$modifyItem enctype="multipart/form-data">
     <label for="nom"><b>Nom de l'item</b></label>
@@ -165,7 +136,7 @@ END;
             $p = Item::select('nomReserve', 'msgReserve')->where('id', 'like', $this->item->id)->first();
             $createurID = Liste::select('user_id')->where('no', '=', $this->item->liste_id)->first();
             if($p->nomReserve == '' and $p->msgReserve == '' and Authentication::getUserId() != 0 and Authentication::getUserId() != $createurID->user_id) {
-                $str = <<<END
+                return <<<END
 <form id="formModifyItem" action=$itemReserve method="POST">
 <h1>Réservation l'item :</h1>
 <label for ="Message de réservation : "><b>Message de réservation : </b></label>
@@ -175,7 +146,8 @@ END;
 END;
             }
         }
-        return $str;
+        GlobalView::forbidden();
+        exit();
     }
 
     public function render()
@@ -190,14 +162,8 @@ END;
             case Selection::FORM_MODIFY_ITEM_PART:
                 $this->content = $this->manageItemForm(false);
                 break;
-            case Selection::ALL_ITEM:
-                $this->content = $this->htmlAllItem();
-                break;
             case Selection::ID_ITEM:
                 $this->content = $this->htmlIdList();
-                break;
-            case Selection::FORM_ITEM_RESERVE:
-                $this->content = $this->htmlReserve();
                 break;
             case Selection::FORM_ITEM_RESERVE_FAIL:
                 $this->content = $this->htmlFail();

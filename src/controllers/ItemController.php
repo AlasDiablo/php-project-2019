@@ -5,6 +5,7 @@ namespace mywishlist\controllers;
 use DateTime;
 use mywishlist\models\Item;
 use mywishlist\models\Liste;
+use mywishlist\models\Participant;
 use mywishlist\utils\Authentication;
 use mywishlist\views\GlobalView;
 use mywishlist\views\ItemView;
@@ -19,12 +20,6 @@ class ItemController
     public function __construct()
     {
         $this->app = Slim::getInstance();
-    }
-
-    public function allItems() {
-        $items = Item::all();
-        $v = new ItemView($items, Selection::ALL_ITEM);
-        $v->render();
     }
 
     public function oneItem($id) {
@@ -76,9 +71,10 @@ class ItemController
             $i->url = filter_var($_POST['url'],FILTER_SANITIZE_URL);
         }
         $i->img = $this->ajoutImage();
-        $i->liste_id = Liste::where('token','=',$t)->first();
+        $i->liste_id = $l->no;
         $i->save();
-        header("Location: /index.php/list/$i->liste_id");
+        $url = $this->app->urlFor('list', array('token' => $token));
+        header("Location: $url");
         exit();
     }
 
@@ -148,24 +144,9 @@ class ItemController
         }
         $i = Item::where('id', '=', $id)->first();
         $i->delete();
-        $url = $this->app->urlFor('list', $token);
+        $url = $this->app->urlFor('list', array('token' => $token));
         header("Location: $url");
         exit();
-    }
-
-    public function reserveItem()
-    {
-        $IDitem=filter_var($_GET['id'], FILTER_SANITIZE_SPECIAL_CHARS);
-        $item = Item::select('id', 'nomReserve')->where('id', 'like', $IDitem)->get();
-        if(empty($item[0]['nomReserve']))
-        {
-            $r = new ItemView(null, Selection::FORM_ITEM_RESERVE);
-            $r->render();
-        }else{
-            $l = Item::where('id', '=', $IDitem)->get();
-            $v = new ItemView($l, Selection::ID_ITEM);
-            $v->render();
-        }
     }
 
     public function reserveItemSubmit($id)
@@ -177,6 +158,10 @@ class ItemController
             $ri->msgReserve = $msg;
             $ri->nomReserve = Authentication::getUsername();
             $ri->save();
+            $part = new Participant();
+            $part->user_id = Authentication::getUserId();
+            $part->no = $ri->liste_id;
+            $part->save();
         } else {
             $v = new ItemView(null, Selection::FORM_ITEM_RESERVE_FAIL);
             $v->render();

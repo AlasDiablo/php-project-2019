@@ -69,14 +69,14 @@ $app->get('/list/:id/delete', function ($id) {
     $c->deleteList($id);
 })->name('listDel');
 
-$app->get('/list/:id/modify', function ($id) {
+$app->get('/list/:token/modify', function ($token) {
     $c = new ListController();
-    $c->listModifyForm($id);
+    $c->listModifyForm($token);
 })->name('listMod');
 
-$app->post('/list/:id/modify/submit', function ($id) {
+$app->post('/list/:token/modify/submit', function ($token) {
     $c = new ListController();
-    $c->modifyList($id);
+    $c->modifyList($token);
 })->name('listModP');
 
 $app->post('/list/create/submit', function () {
@@ -89,9 +89,9 @@ $app->get('/list/:token/addItem', function ($token) {
     $c->ItemCreateForm($token);
 })->name('listAddItem');
 
-$app->post('/list/:id/addItem/submit', function ($id) {
+$app->post('/list/:token/addItem/submit', function ($token) {
     $c = new ItemController();
-    $c->createItem($id);
+    $c->createItem($token);
 })->name('listAddItemP');
 
 $app->get('/list/:token/share', function ($token) {
@@ -117,20 +117,11 @@ $app->get('/list/:token/:item/delete', function ($token, $item) {
     $c->deleteItem($token, $item);
 })->name('deleteItemFromList');
 
-$app->get('/item/all', function () {
-    $c = new ItemController();
-    $c->allItems();
-})->name('items');
-
 $app->get('/item/:id', function ($id) {
     $c = new ItemController();
     $c->oneItem($id);
 })->name('item');
 
-$app->get('/item/reserve/', function () {
-    $c = new ItemController();
-    $c->reserveItem();
-})->name('reserveItem');
 
 $app->post('/item/reserve/submit/:id', function ($id) {
     $c = new ItemController();

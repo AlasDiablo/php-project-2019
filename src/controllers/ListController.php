@@ -226,7 +226,7 @@ class ListController {
         foreach ($lists as $list) {
             $exp = DateTime::createFromFormat('Y-m-d', $list->expiration);
             $now = new DateTime('now');
-            if ($exp <= $now && !empty($list->tokenPart)) {
+            if ($exp >= $now && !empty($list->tokenPart)) {
                 array_push($publicList, $list);
             }
         }
