@@ -28,15 +28,27 @@ MyWishList.app est un projet universitaire composé de :
 
 ## Lien d'utilisation
 
-+ [Webetu](https://bit.ly/2QSRep8), require un compte de l'utiliversité
-+ Status du deploiment:
++ [Webetu](https://bit.ly/2QSRep8), requiert un compte de l'utiliversité
++ Statut du Deploiement:
     + [x] Site web
-    + [x] base de donnée
-    + [x] deploiment
-+ Compte utilisateurs pour le professeurs
+    + [x] Base de données
+    + [x] Deploiement
++ Comptes utilisateurs pour le professeur
     ```
-    username: professeur
-    mots de passe: php
+    username 1      : professeur
+    mots de passe 1 : php
+  
+    username 2      : Behemote
+    mots de passe 2 : godOfTheSea
+  
+    username 3      : BraveHurricane
+    mots de passe 3 : BCRYPTforever
+  
+    username 4      : Didier
+    mots de passe 4 : cMoiDidier
+  
+    username 5      : Doriant
+    mots de passe 5 : horribleFruit
     ```
 
 ## Droits et utilisation
@@ -91,3 +103,5 @@ Code sous licence **AGPL-3.0**, lire la licence [ici](https://github.com/AlasDia
 + [x] **~~Mise en correlation du code créer par chacun~~ [Pierre & Lucas]**
 + [x] **~~Corrections de bugs majeurs/failles de sécurité~~ [Pierre & Lucas]**
 + [X] **~~Création du set de donnée sur webetu~~ [Emilien]**
++ [x] **~~Documentation du code~~ [Aurélien & Pierre]**
++ [x] **~~Deploiement du projet sur webetu~~ [Lucas]**
