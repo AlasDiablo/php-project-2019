@@ -89,9 +89,9 @@ $app->get('/list/:token/addItem', function ($token) {
     $c->ItemCreateForm($token);
 })->name('listAddItem');
 
-$app->post('/list/:id/addItem/submit', function ($id) {
+$app->post('/list/:token/addItem/submit', function ($token) {
     $c = new ItemController();
-    $c->createItem($id);
+    $c->createItem($token);
 })->name('listAddItemP');
 
 $app->get('/list/:token/share', function ($token) {

@@ -64,9 +64,9 @@ END;
 
     private function buildItemList($item, $args): string
     {
-        if (!$args['exp']) $out = "<table><tr><th>Image</th><th>Nom</th><th>Status de la reservation</th>";
+        if (!$args['exp'] && !$args['p']) $out = "<table><tr><th>Image</th><th>Nom</th><th>Status de la reservation</th>";
         else $out = "<table><tr><th>Image</th><th>Nom</th><th>Reservation par</th><th>Message</th>";
-        if ($args['p']) $out .= '<th>Modifier l\'item</th></tr>';
+        if (!$args['p']) $out .= '<th>Modifier l\'item</th></tr>';
         else $out .= '<th>Reservé l\'item</th></tr>';
 
         foreach ($item as $key => $value)

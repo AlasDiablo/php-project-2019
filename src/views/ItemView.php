@@ -118,7 +118,8 @@ END;
     }
 
     private function htmlCreate(){
-        $createItem = $this->app->urlFor('listAddItemP', array('id' => $this->item->no));
+        $list = Liste::where('no', '=', $this->item->no)->first();
+        $createItem = $this->app->urlFor('listAddItemP', array('token' => $list->token));
         $str =
             <<<END
 <div id="edit">
@@ -138,13 +139,13 @@ END;
     }
 
     private function manageItemForm($managable): string {
-        $token = Liste::where('no', '', $this->item->liste_id)->first()['token'];
+        $token = Liste::where('no', '=', $this->item->liste_id)->first()['token'];
         $modifyItem = $this->app->urlFor('manageItemFromListP', array('token' =>  $token,'item' => $this->item->id));
         $itemDelete = $this->app->urlFor('deleteItemFromList', array('token' => $token, 'item' => $this->item->id));
 
         $itemReserve = $this->app->urlFor('reserveItemP', array('id' => $this->item->id));
         if ($managable) {
-            $str = <<<END
+            return <<<END
 <h1>Modification de l'item :</h1>
 <form id="formModifyItem" method="POST" action=$modifyItem enctype="multipart/form-data">
     <label for="nom"><b>Nom de l'item</b></label>
@@ -165,7 +166,7 @@ END;
             $p = Item::select('nomReserve', 'msgReserve')->where('id', 'like', $this->item->id)->first();
             $createurID = Liste::select('user_id')->where('no', '=', $this->item->liste_id)->first();
             if($p->nomReserve == '' and $p->msgReserve == '' and Authentication::getUserId() != 0 and Authentication::getUserId() != $createurID->user_id) {
-                $str = <<<END
+                return <<<END
 <form id="formModifyItem" action=$itemReserve method="POST">
 <h1>Réservation l'item :</h1>
 <label for ="Message de réservation : "><b>Message de réservation : </b></label>
@@ -175,7 +176,8 @@ END;
 END;
             }
         }
-        return $str;
+        GlobalView::forbidden();
+        exit();
     }
 
     public function render()

@@ -5,6 +5,7 @@ namespace mywishlist\controllers;
 use DateTime;
 use mywishlist\models\Item;
 use mywishlist\models\Liste;
+use mywishlist\models\Participant;
 use mywishlist\utils\Authentication;
 use mywishlist\views\GlobalView;
 use mywishlist\views\ItemView;
@@ -76,9 +77,10 @@ class ItemController
             $i->url = filter_var($_POST['url'],FILTER_SANITIZE_URL);
         }
         $i->img = $this->ajoutImage();
-        $i->liste_id = Liste::where('token','=',$t)->first();
+        $i->liste_id = $l->no;
         $i->save();
-        header("Location: /index.php/list/$i->liste_id");
+        $url = $this->app->urlFor('list', array('token' => $token));
+        header("Location: $url");
         exit();
     }
 
@@ -177,6 +179,10 @@ class ItemController
             $ri->msgReserve = $msg;
             $ri->nomReserve = Authentication::getUsername();
             $ri->save();
+            $part = new Participant();
+            $part->user_id = Authentication::getUserId();
+            $part->no = $ri->liste_id;
+            $part->save();
         } else {
             $v = new ItemView(null, Selection::FORM_ITEM_RESERVE_FAIL);
             $v->render();

@@ -42,12 +42,12 @@ Code sous licence **AGPL-3.0**, lire la licence [ici](https://github.com/AlasDia
 
 ### Niveau 1
 
-+ [ ] ***1 - Afficher une liste de souhaits [Emilien]***
++ [x] **~~1 - Afficher une liste de souhaits~~ [Emilien]**
 + [x] **~~2 - Afficher un item d'une liste~~ [Aurélien]**
-+ [ ] ***3 - Réserver un item [Emilien]***
++ [x] **~~3 - Réserver un item~~ [Emilien]**
 + [x] **~~6 - Créer une liste~~ [Aurélien]**
 + [x] **~~8 - Ajouter des items~~ [Aurélien]**
-+ [ ] ***14 - Partager une liste [Emilien]***
++ [x] **~~14 - Partager une liste~~ [Emilien]**
 
 ### Niveau 2
 
