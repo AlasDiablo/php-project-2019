@@ -7,24 +7,24 @@ use mywishlist\utils\Selection;
 use Slim\Slim;
 
 /**
- * Class UserView, elle a pour but de gère l'affichage en rapport à l'utilisateur et c'est action liée à son compte.
+ * Class UserView, elle a pour but de gérer l'affichage en rapport à l'utilisateur et les actions liées à son compte.
  * @package mywishlist\views
  */
 class UserView
 {
 
     /**
-     * @var $list array Elle peut être nulle ou pas, elle sert juste à passer des paramètres à sertir rendu.
-     * @var $content string Il sagit de tous le code html qui contient le contenues.
-     * @var $selecteur string Il sagit de la variable contenant le type html a generé.
+     * @var $list array Elle peut être nulle ou pas, elle sert juste à passer des paramètres à sortir au rendu.
+     * @var $content string Il s'agit de tout le code html qui contient le contenu.
+     * @var $selecteur string Il s'agit de la variable contenant le type html à génèrer.
      * @var $app Slim Instance de Slim.
      */
     private $list, $selecteur, $content, $app;
 
     /**
      * UserView constructor.
-     * @param $l array Elle peut être nulle ou pas, elle sert juste à passer des paramètres à sertir rendu.
-     * @param $s string Il sagit de la variable contenant le type html a generé.
+     * @param $l array Elle peut être nulle ou pas, elle sert juste à passer des paramètres à sortir au rendu.
+     * @param $s string Il s'agit de la variable contenant le type html à génèrer.
      */
     public function __construct($l, $s)
     {
@@ -34,8 +34,8 @@ class UserView
     }
 
     /**
-     * Fonction que a pour but de creér le formulaire de connection et d'incription.
-     * @return string Html generés.
+     * Fonction qui a pour but de creér le formulaire de connexion et d'incription.
+     * @return string Html génèré.
      */
     private function accountRegisterAndLogin()
     {
@@ -82,11 +82,11 @@ BODY;
     }
 
     /**
-     * Fonction que a pour but de creér le formulaire de modification de compte.
-     * @param $username string Nom de l'utilisateurs.
-     * @param $email string Email de l'utilisateurs.
-     * @param $gravatar string Url du gravatar de l'utilisateurs.
-     * @return string Html generés.
+     * Fonction qui a pour but de creér le formulaire de modification de compte.
+     * @param $username string Nom de l'utilisateur.
+     * @param $email string Email de l'utilisateur.
+     * @param $gravatar string Url du gravatar de l'utilisateur.
+     * @return string Html generé.
      */
     private function accountChange($username, $email, $gravatar)
     {
@@ -129,7 +129,7 @@ END;
     }
 
     /**
-     * Fonction applé pour faires le rendu et affiché l'html generais.
+     * Fonction appelée pour faire le rendu et afficher l'html generé.
      */
     public function render()
     {

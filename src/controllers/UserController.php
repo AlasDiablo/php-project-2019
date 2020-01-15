@@ -11,14 +11,14 @@ use mywishlist\views\UserView;
 use mywishlist\models\User;
 
 /**
- * Class UserController, Elle a pour but de géré tous les action fait par les utilisateurs.
+ * Class UserController, Elle a pour but de gérer toutes les actions faites par les utilisateurs.
  * @package mywishlist\controllers
  */
 class UserController
 {
 
     /**
-     * Fonction appelle lord de la deconection de l'utlisateurs
+     * Fonction appellée lors de la déconnexion de l'utlisateur
      */
     public function logout()
     {
@@ -28,7 +28,7 @@ class UserController
     }
 
     /**
-     * Fonction appelle apres que l'utilisateurs et click sur le boutton 'Créer mon compte', elle a donc pour but de créer le compte de l'utilisateurs.
+     * Fonction appellée après que l'utilisateur ait cliqué sur le bouton 'Créer mon compte', elle a donc pour but de créer le compte de l'utilisateur.
      */
     public function registerPost()
     {
@@ -158,7 +158,7 @@ class UserController
     }
 
     /**
-     * Fonction appelle apres que l'utilisateurs et click sur le boutton 'Se connecter', elle a donc pour but de connecté l'utilisateurs.
+     * Fonction appellée après que l'utilisateur ait cliqué sur le bouton 'Se connecter', elle a donc pour but de connecter l'utilisateur.
      */
     public function loginPost()
     {
@@ -216,7 +216,7 @@ class UserController
     }
 
     /**
-     * Fonction appelle apres que l'utilisateurs et click sur le boutton qui et lié a change sont mots de passe, elle a donc pour but de changé le mot de passe de l'utilisateurs.
+     * Fonction appellée après que l'utilisateur ait cliqué sur le bouton qui est lié au changement de son mot de passe, elle a donc pour but de changer le mot de passe de l'utilisateur.
      */
     public function changePassword()
     {
@@ -297,7 +297,7 @@ class UserController
     }
 
     /**
-     * Fonction appelle apres que l'utilisateurs et click sur le boutton qui et lié a change sont email, elle a donc pour but de changé l'email de l'utilisateurs.
+     * Fonction appellée après que l'utilisateur ait cliqué sur le bouton qui est lié au changement de son email, elle a donc pour but de changer l'email de l'utilisateur.
      */
     public function accountEmail()
     {
@@ -360,7 +360,7 @@ class UserController
     }
 
     /**
-     * Fonction qui ajoute l'utilisateurs dans la session.
+     * Fonction qui ajoute l'utilisateur dans la session.
      * @param $user_id string Id de l'utilisateurs.
      */
     private static function createSession($user_id) {
@@ -368,8 +368,8 @@ class UserController
     }
 
     /**
-     * Fonction qui generais un nouvelle id d'utilisateurs.
-     * @return int id d'utilisateurs generais.
+     * Fonction qui génère un nouvel id d'utilisateur.
+     * @return int id d'utilisateur généré.
      */
     private static function getNewUserId()
     {
@@ -377,9 +377,9 @@ class UserController
     }
 
     /**
-     * Fonction que regarde si un email et deja present dans la base de donnée.
-     * @param $email string email a verifiers.
-     * @return bool vrai si l'email et deja presente, faux si elle ne l'ais pas.
+     * Fonction qui regarde si un email est déjà présent dans la base de données.
+     * @param $email string email à vérifier.
+     * @return bool vrai si l'email est déjà présente, faux si elle ne l'est pas.
      */
     private static function checkIfEmailExsite($email)
     {
@@ -392,9 +392,9 @@ class UserController
     }
 
     /**
-     * Fonction que regarde si un nom d'utilisateurs et deja present dans la base de donnée.
-     * @param $username string nom d'utilisateurs  a verifiers.
-     * @return bool vrai si le nom d'utilisateurs et deja presente, faux si elle ne l'ais pas.
+     * Fonction qui regarde si un nom d'utilisateur est déjà present dans la base de données.
+     * @param $username string nom d'utilisateur à verifier.
+     * @return bool vrai si le nom d'utilisateur est déjà present, faux si elle ne l'est pas.
      */
     private static function checkIfUsernameExsite($username)
     {
@@ -437,7 +437,7 @@ class UserController
     }
 
     /**
-     * Fonction appelle quand l'utilisateurs veux supprimé sont compte.
+     * Fonction appellée quand l'utilisateur veut supprimer son compte.
      */
     // TODO: Ajouts la supprestion de tous les donnée lié a cette utilasteurs ou passé le comptes dans un status de deleted.
     public function accountDelete()
@@ -452,7 +452,7 @@ class UserController
     }
 
     /**
-     * Fonction appelle quand l'utilisateurs veux regardé et/ou modifier sont compte.
+     * Fonction appellée quand l'utilisateur veut regarder et/ou modifier son compte.
      */
     public function accountEdit()
     {
