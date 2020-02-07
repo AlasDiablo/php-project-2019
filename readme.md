@@ -36,19 +36,19 @@ MyWishList.app est un projet universitaire composé de :
 + Comptes utilisateurs pour le professeur
     ```
     username 1      : professeur
-    mots de passe 1 : php
+    mots de passe 1 : Mots de passe supprimé suite a la fin du S3 et au fait que le projet a été noté
   
     username 2      : Behemote
-    mots de passe 2 : godOfTheSea
+    mots de passe 2 : Mots de passe supprimé suite a la fin du S3 et au fait que le projet a été noté
   
     username 3      : BraveHurricane
-    mots de passe 3 : BCRYPTforever
+    mots de passe 3 : Mots de passe supprimé suite a la fin du S3 et au fait que le projet a été noté
   
     username 4      : Didier
-    mots de passe 4 : cMoiDidier
+    mots de passe 4 : Mots de passe supprimé suite a la fin du S3 et au fait que le projet a été noté
   
     username 5      : Doriant
-    mots de passe 5 : horribleFruit
+    mots de passe 5 : Mots de passe supprimé suite a la fin du S3 et au fait que le projet a été noté
     ```
 
 ## Droits et utilisation
